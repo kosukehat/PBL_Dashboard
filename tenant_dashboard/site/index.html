@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>康生通東1丁目16 テナント出店ポテンシャル</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- サイドバー -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">QURUWA</div>
+        <div class="brand-sub">テナント出店ポテンシャル</div>
+      </div>
+      <nav class="nav">
+        <a class="nav-item active" data-target="summary">🏢 物件サマリー</a>
+        <a class="nav-item" data-target="people">🚶 人流分析</a>
+        <a class="nav-item" data-target="stores">🍽 周辺店舗・競合</a>
+        <a class="nav-item" data-target="demographics">👥 商圏人口</a>
+        <a class="nav-item" data-target="scores">⭐ 業種チャンス</a>
+      </nav>
+      <div class="sidebar-foot">
+        <div id="metaBuilding"></div>
+        <div id="metaGenerated" class="muted"></div>
+        <div class="muted">出典: 岡崎市オープンデータ(BODIK) / 国土地理院</div>
+      </div>
+    </aside>
+
+    <!-- メイン -->
+    <main class="main">
+      <!-- 画面1: 物件サマリー -->
+      <section id="summary" class="screen active">
+        <header class="screen-head">
+          <h1>康生通東1丁目16 <span>テナント出店ポテンシャル</span></h1>
+          <p class="lead">康生通東一丁目16は、QURUWAの回遊動線上にあり、人流・周辺店舗・商圏データから「どんな業種が入りやすいか」を具体的に提案できる物件です。</p>
+        </header>
+
+        <div class="kpi-grid" id="kpiGrid"></div>
+
+        <div class="card-row">
+          <div class="card grow2">
+            <div class="card-title">立地とQURUWA内の位置</div>
+            <div id="summaryMap" class="map"></div>
+            <div class="map-legend" id="summaryLegend"></div>
+          </div>
+          <div class="card">
+            <div class="card-title">主要施設との距離（回遊動線）</div>
+            <div id="landmarkList" class="landmark-list"></div>
+            <div class="card-title" style="margin-top:18px;">おすすめ業種 TOP3</div>
+            <div id="topPicks"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 画面2: 人流分析（時系列・イベント統合） -->
+      <section id="people" class="screen">
+        <header class="screen-head">
+          <h1>人流分析 <span>いつ・誰が・どちら向きに通るのか</span></h1>
+          <p class="lead" id="peopleLead"></p>
+        </header>
+
+        <!-- 期間指定 -->
+        <div class="card period-card">
+          <div class="period-row">
+            <span class="period-label">表示期間</span>
+            <span class="seg" id="periodPreset">
+              <button data-preset="all" class="on">全期間</button>
+              <button data-preset="12">直近12か月</button>
+              <button data-preset="6">直近6か月</button>
+              <button data-preset="3">直近3か月</button>
+            </span>
+            <span class="period-range">
+              <select id="fromMonth"></select>
+              <span>〜</span>
+              <select id="toMonth"></select>
+            </span>
+            <span class="period-info" id="periodInfo"></span>
+          </div>
+        </div>
+
+        <div class="kpi-grid" id="peopleKpi"></div>
+
+        <!-- 通行量の推移 -->
+        <div class="card">
+          <div class="card-title">
+            康生通り 通行量の推移
+            <span class="seg" id="tsToggle">
+              <button data-mode="daily">日</button>
+              <button data-mode="weekly">週</button>
+              <button data-mode="monthly" class="on">月</button>
+            </span>
+          </div>
+          <canvas id="tsChart" height="80"></canvas>
+          <div class="note" id="tsNote"></div>
+          <div id="tsDayEvents" class="ts-day-events hidden">
+            <div class="ts-day-head">
+              <div class="card-title" id="tsDayEventsTitle"></div>
+              <button type="button" class="ts-day-close" id="tsDayEventsClose" title="閉じる">×</button>
+            </div>
+            <p class="note" id="tsDayEventsLead"></p>
+            <div class="table-wrap"><table id="tsDayEventTable"></table></div>
+          </div>
+        </div>
+
+        <div class="card-row">
+          <div class="card grow2">
+            <div class="card-title">時間帯別 通行量（1日平均）</div>
+            <canvas id="hourChart" height="110"></canvas>
+          </div>
+          <div class="card">
+            <div class="card-title">平日 / 休日</div>
+            <canvas id="whChart" height="180"></canvas>
+          </div>
+        </div>
+
+        <div class="card-row">
+          <div class="card">
+            <div class="card-title">曜日別 通行量</div>
+            <canvas id="dowChart" height="180"></canvas>
+          </div>
+          <div class="card">
+            <div class="card-title">年代別 構成</div>
+            <canvas id="ageChart" height="180"></canvas>
+          </div>
+          <div class="card">
+            <div class="card-title">性別 構成</div>
+            <canvas id="genderChart" height="180"></canvas>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">進行方向別の流れ（康生通りカメラ別・1日平均）</div>
+          <div id="directionTable"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">周辺イベントと人流（押し上げ効果順）</div>
+          <p class="note" id="eventLead"></p>
+          <div class="table-wrap"><table id="eventTable"></table></div>
+        </div>
+      </section>
+
+      <!-- 画面3: 周辺店舗 -->
+      <section id="stores" class="screen">
+        <header class="screen-head">
+          <h1>周辺店舗・競合分析 <span>半径<span id="radiusLabel"></span>m以内</span></h1>
+          <p class="lead" id="storesLead"></p>
+        </header>
+
+        <div class="card-row">
+          <div class="card grow2">
+            <div class="card-title">周辺店舗マップ（業種で色分け）</div>
+            <div id="storeMap" class="map"></div>
+            <div class="map-legend" id="storeLegend"></div>
+          </div>
+          <div class="card">
+            <div class="card-title">業種別 店舗数</div>
+            <canvas id="catChart" height="220"></canvas>
+            <div class="note" id="storeNote"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">店舗一覧</div>
+          <div class="table-wrap"><table id="storeTable"></table></div>
+        </div>
+      </section>
+
+      <!-- 画面4: 商圏人口 -->
+      <section id="demographics" class="screen">
+        <header class="screen-head">
+          <h1>商圏人口分析 <span id="demoDummyBadge"></span></h1>
+          <p class="lead">徒歩5分／10分圏の住民像。単身が多ければ惣菜・カフェ需要、高齢者が多ければ薬局・軽飲食、ファミリーが多ければ学習塾・子ども向け需要が見込めます。</p>
+        </header>
+
+        <div class="kpi-grid" id="demoKpi"></div>
+
+        <div class="card-row">
+          <div class="card">
+            <div class="card-title">年齢構成</div>
+            <canvas id="demoAgeChart" height="180"></canvas>
+          </div>
+          <div class="card">
+            <div class="card-title">世帯構成</div>
+            <canvas id="demoHouseChart" height="180"></canvas>
+          </div>
+          <div class="card">
+            <div class="card-title">賃料相場・地価</div>
+            <div id="rentBox"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">将来性・都市計画</div>
+          <div id="futureBox" class="future-box"></div>
+        </div>
+      </section>
+
+      <!-- 画面5: 業種チャンス -->
+      <section id="scores" class="screen">
+        <header class="screen-head">
+          <h1>業種チャンスランキング <span>この場所に合う業種</span></h1>
+          <p class="lead">単に「店が少ない業種」ではなく、<b>人流属性に対して需要がありそうなのに競合が少ない業種</b>を上位に。</p>
+        </header>
+
+        <div class="card-row">
+          <div class="card grow2">
+            <div class="card-title">総合ランキング</div>
+            <div id="scoreList"></div>
+          </div>
+          <div class="card">
+            <div class="card-title">上位業種の内訳</div>
+            <canvas id="radarChart" height="260"></canvas>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="note" id="scoreMethod"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

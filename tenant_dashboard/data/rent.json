@@ -1,0 +1,14 @@
+{
+  "is_dummy": true,
+  "source_hint": "本番では不動産情報ライブラリ（地価公示・取引価格）や周辺募集賃料から算出",
+  "floor1_tsubo_yen": [
+    10000,
+    15000
+  ],
+  "floor2_tsubo_yen": [
+    5000,
+    9000
+  ],
+  "this_building_tsubo_yen": 12000,
+  "land_price_yen_sqm": 155000
+}

@@ -1,0 +1,41 @@
+{
+  "is_dummy": true,
+  "source_hint": "本番では国勢調査 小地域集計（e-Stat）から徒歩圏の町丁別人口を集計",
+  "walk5_population": 4200,
+  "walk10_population": 15800,
+  "age_structure": [
+    {
+      "label": "0-14歳",
+      "pct": 10.5
+    },
+    {
+      "label": "15-64歳",
+      "pct": 58.2
+    },
+    {
+      "label": "65歳以上",
+      "pct": 31.3
+    }
+  ],
+  "household": [
+    {
+      "label": "単身世帯",
+      "pct": 46.0
+    },
+    {
+      "label": "夫婦のみ",
+      "pct": 22.0
+    },
+    {
+      "label": "ファミリー",
+      "pct": 24.0
+    },
+    {
+      "label": "その他",
+      "pct": 8.0
+    }
+  ],
+  "single_ratio": 46.0,
+  "elderly_ratio": 31.3,
+  "daytime_night_ratio": 1.35
+}
