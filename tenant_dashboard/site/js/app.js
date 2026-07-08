@@ -129,7 +129,10 @@ function renderSummary() {
    画面2: 人流分析（時系列・イベント統合・期間指定対応）
    ========================================================= */
 const PF_DOW = ["月", "火", "水", "木", "金", "土", "日"];
-const AGE_PALETTE = ["#c7d2fe", "#a5b4fc", "#818cf8", "#6366f1", "#4f46e5", "#4338ca", "#3730a3", "#312e81"];
+const AGE_PALETTE = [
+  "#38bdf8", "#4ade80", "#facc15", "#fb923c",
+  "#f87171", "#c084fc", "#f472b6", "#94a3b8",
+];
 let peopleCharts = {};   // canvasId -> Chart インスタンス
 let tsChart = null;
 let tsMode = "monthly";
