@@ -227,6 +227,9 @@ function aggregatePeriod() {
 
 function chartAt(id, config) {
   if (peopleCharts[id]) peopleCharts[id].destroy();
+  config.options = config.options || {};
+  config.options.responsive = true;
+  config.options.maintainAspectRatio = false;
   peopleCharts[id] = new Chart(document.getElementById(id), config);
 }
 
@@ -306,13 +309,13 @@ function updatePeople() {
   chartAt("ageChart", {
     type: "doughnut",
     data: { labels: ageLabels, datasets: [{ data: agePct, backgroundColor: AGE_PALETTE }] },
-    options: { plugins: { legend: { position: "right", labels: { boxWidth: 10, font: { size: 10 } } } } },
+    options: { plugins: { legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 10 }, padding: 6 } } } },
   });
   // 性別
   chartAt("genderChart", {
     type: "doughnut",
     data: { labels: D.peopleflow.gender_labels, datasets: [{ data: genderPct, backgroundColor: ["#3b82f6", "#ec4899", "#cbd5e1"] }] },
-    options: { plugins: { legend: { position: "right", labels: { boxWidth: 10, font: { size: 11 } } } } },
+    options: { plugins: { legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 11 }, padding: 6 } } } },
   });
 
   // 進行方向テーブル
@@ -391,7 +394,8 @@ function drawTimeline(mode, daily, selMonths) {
     type: "line",
     data: { labels, datasets },
     options: {
-      maintainAspectRatio: true,
+      maintainAspectRatio: false,
+      responsive: true,
       interaction: { mode: "nearest", intersect: false },
       onClick: (_evt, elements, chart) => {
         if (mode !== "daily" || !elements.length) return;

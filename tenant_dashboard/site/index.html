@@ -94,7 +94,7 @@
               <button data-mode="monthly" class="on">月</button>
             </span>
           </div>
-          <canvas id="tsChart" height="80"></canvas>
+          <div class="chart-wrap chart-wrap--lg"><canvas id="tsChart"></canvas></div>
           <div class="note" id="tsNote"></div>
           <div id="tsDayEvents" class="ts-day-events hidden">
             <div class="ts-day-head">
@@ -106,29 +106,29 @@
           </div>
         </div>
 
-        <div class="card-row">
-          <div class="card grow2">
+        <div class="card-row card-row--2-1">
+          <div class="card">
             <div class="card-title">時間帯別 通行量（1日平均）</div>
-            <canvas id="hourChart" height="110"></canvas>
+            <div class="chart-wrap"><canvas id="hourChart"></canvas></div>
           </div>
           <div class="card">
             <div class="card-title">平日 / 休日</div>
-            <canvas id="whChart" height="180"></canvas>
+            <div class="chart-wrap chart-wrap--sm"><canvas id="whChart"></canvas></div>
           </div>
         </div>
 
-        <div class="card-row">
+        <div class="card-row card-row--3">
           <div class="card">
             <div class="card-title">曜日別 通行量</div>
-            <canvas id="dowChart" height="180"></canvas>
+            <div class="chart-wrap chart-wrap--sm"><canvas id="dowChart"></canvas></div>
           </div>
           <div class="card">
             <div class="card-title">年代別 構成</div>
-            <canvas id="ageChart" height="180"></canvas>
+            <div class="chart-wrap chart-wrap--sm"><canvas id="ageChart"></canvas></div>
           </div>
           <div class="card">
             <div class="card-title">性別 構成</div>
-            <canvas id="genderChart" height="180"></canvas>
+            <div class="chart-wrap chart-wrap--sm"><canvas id="genderChart"></canvas></div>
           </div>
         </div>
 
