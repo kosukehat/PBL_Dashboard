@@ -5,8 +5,8 @@ window.DASHBOARD_DATA = {
       "lat": 34.958324,
       "lon": 137.164444
     },
-    "generated_at": "2026-07-08 18:10",
-    "source": "岡崎市オープンデータ（BODIK） / 国土地理院ジオコーダ",
+    "generated_at": "2026-07-08 19:11",
+    "source": "岡崎市オープンデータ（BODIK） / 国土地理院ジオコーダ / 岡崎市統計",
     "target_street": "康生通り",
     "cameras": [
       {
@@ -38,226 +38,227 @@ window.DASHBOARD_DATA = {
       "peopleflow": "康生通りカメラ（AIカメラ人流実証実験）。1日あたり平均に換算。時系列(日/週/月)を含む。欠損は中央値補間。",
       "events": "岡崎市イベント一覧から物件周辺のイベントを抽出。開催日の通行量と押し上げ効果を算出。",
       "stores": "食品等営業許可・届出一覧を国土地理院ジオコーダで座標化。飲食系中心のため全業種は網羅しない。",
+      "consumer": "令和6年度市民意識調査・地域人口・食品営業許可・岡崎市統計（所得）から集計。",
       "dummy": "商圏人口・賃料相場・都市計画/将来性はダミー値（画面に明記）。"
     }
   },
   "peopleflow": {
-    "total_per_day": 4927.0,
+    "total_per_day": 4400.0,
     "by_hour": [
       {
         "hour": 0,
-        "count": 19.4
+        "count": 13.6
       },
       {
         "hour": 1,
-        "count": 11.3
+        "count": 7.9
       },
       {
         "hour": 2,
-        "count": 8.7
+        "count": 5.6
       },
       {
         "hour": 3,
-        "count": 7.6
+        "count": 6.0
       },
       {
         "hour": 4,
-        "count": 11.8
+        "count": 8.5
       },
       {
         "hour": 5,
-        "count": 29.9
+        "count": 18.0
       },
       {
         "hour": 6,
-        "count": 48.7
+        "count": 38.0
       },
       {
         "hour": 7,
-        "count": 118.4
+        "count": 88.0
       },
       {
         "hour": 8,
-        "count": 186.2
+        "count": 141.6
       },
       {
         "hour": 9,
-        "count": 180.1
+        "count": 152.6
       },
       {
         "hour": 10,
-        "count": 301.3
+        "count": 275.2
       },
       {
         "hour": 11,
-        "count": 454.3
+        "count": 418.6
       },
       {
         "hour": 12,
-        "count": 517.9
+        "count": 467.4
       },
       {
         "hour": 13,
-        "count": 498.2
+        "count": 457.7
       },
       {
         "hour": 14,
-        "count": 493.8
+        "count": 451.3
       },
       {
         "hour": 15,
-        "count": 470.4
+        "count": 439.0
       },
       {
         "hour": 16,
-        "count": 431.3
+        "count": 401.8
       },
       {
         "hour": 17,
-        "count": 387.5
+        "count": 356.2
       },
       {
         "hour": 18,
-        "count": 285.2
+        "count": 259.8
       },
       {
         "hour": 19,
-        "count": 197.2
+        "count": 177.7
       },
       {
         "hour": 20,
-        "count": 116.3
+        "count": 94.0
       },
       {
         "hour": 21,
-        "count": 80.5
+        "count": 63.3
       },
       {
         "hour": 22,
-        "count": 44.8
+        "count": 36.9
       },
       {
         "hour": 23,
-        "count": 26.2
+        "count": 21.3
       }
     ],
     "by_dow": [
       {
         "dow": 0,
         "label": "月",
-        "count": 670.9
+        "count": 559.1
       },
       {
         "dow": 1,
         "label": "火",
-        "count": 607.1
+        "count": 536.5
       },
       {
         "dow": 2,
         "label": "水",
-        "count": 568.7
+        "count": 487.3
       },
       {
         "dow": 3,
         "label": "木",
-        "count": 598.2
+        "count": 528.7
       },
       {
         "dow": 4,
         "label": "金",
-        "count": 619.5
+        "count": 551.1
       },
       {
         "dow": 5,
         "label": "土",
-        "count": 942.8
+        "count": 940.1
       },
       {
         "dow": 6,
         "label": "日",
-        "count": 919.7
+        "count": 797.1
       }
     ],
     "weekday_holiday": [
       {
         "type": "平日",
-        "avg_per_day": 4183.4,
-        "days": 492
+        "avg_per_day": 3593.5,
+        "days": 120
       },
       {
         "type": "休日",
-        "avg_per_day": 6464.2,
-        "days": 238
+        "avg_per_day": 5986.3,
+        "days": 61
       }
     ],
     "by_age": [
       {
         "age": "Age00",
         "label": "10代未満",
-        "count": 7.0,
-        "pct": 0.5
+        "count": 2.5,
+        "pct": 0.2
       },
       {
         "age": "Age10",
         "label": "10代",
-        "count": 36.5,
-        "pct": 2.6
+        "count": 19.2,
+        "pct": 1.8
       },
       {
         "age": "Age20",
         "label": "20代",
-        "count": 140.1,
-        "pct": 10.2
+        "count": 89.5,
+        "pct": 8.4
       },
       {
         "age": "Age30",
         "label": "30代",
-        "count": 387.3,
-        "pct": 28.1
+        "count": 291.7,
+        "pct": 27.4
       },
       {
         "age": "Age40",
         "label": "40代",
-        "count": 416.9,
-        "pct": 30.2
+        "count": 337.2,
+        "pct": 31.6
       },
       {
         "age": "Age50",
         "label": "50代",
-        "count": 260.9,
-        "pct": 18.9
+        "count": 221.0,
+        "pct": 20.7
       },
       {
         "age": "Age60",
         "label": "60代",
-        "count": 115.4,
-        "pct": 8.4
+        "count": 95.7,
+        "pct": 9.0
       },
       {
         "age": "Age70",
         "label": "70代以上",
-        "count": 15.5,
-        "pct": 1.1
+        "count": 9.6,
+        "pct": 0.9
       }
     ],
     "by_gender": [
       {
         "gender": 0,
         "label": "男性",
-        "count": 708.4,
-        "pct": 14.4
+        "count": 578.4,
+        "pct": 13.1
       },
       {
         "gender": 1,
         "label": "女性",
-        "count": 691.2,
-        "pct": 14.0
+        "count": 549.9,
+        "pct": 12.5
       },
       {
         "gender": 2,
         "label": "不明",
-        "count": 3527.3,
-        "pct": 71.6
+        "count": 3271.7,
+        "pct": 74.4
       }
     ],
     "by_direction": [
@@ -266,58 +267,40 @@ window.DASHBOARD_DATA = {
         "name": "東康生通り１",
         "in_dir": "公園方面",
         "out_dir": "図書館方面",
-        "in": 496.5,
-        "out": 488.6,
-        "total": 986.3
+        "in": 249.6,
+        "out": 221.6,
+        "total": 474.5
       },
       {
         "camera_id": 1,
         "name": "東康生通り２",
         "in_dir": "図書館方面",
         "out_dir": "公園方面",
-        "in": 603.2,
-        "out": 577.2,
-        "total": 1180.4
+        "in": 557.8,
+        "out": 525.1,
+        "total": 1083.0
       },
       {
         "camera_id": 2,
         "name": "東康生通り３",
         "in_dir": "図書館方面",
         "out_dir": "公園方面",
-        "in": 722.2,
-        "out": 599.8,
-        "total": 1324.2
+        "in": 777.1,
+        "out": 669.2,
+        "total": 1453.4
       },
       {
         "camera_id": 3,
         "name": "東康生通り４",
         "in_dir": "公園方面",
         "out_dir": "図書館方面",
-        "in": 702.6,
-        "out": 733.5,
-        "total": 1436.1
+        "in": 672.9,
+        "out": 716.2,
+        "total": 1389.0
       }
     ],
-    "n_days": 730,
+    "n_days": 181,
     "months": [
-      "202407",
-      "202408",
-      "202409",
-      "202410",
-      "202411",
-      "202412",
-      "202501",
-      "202502",
-      "202503",
-      "202504",
-      "202505",
-      "202506",
-      "202507",
-      "202508",
-      "202509",
-      "202510",
-      "202511",
-      "202512",
       "202601",
       "202602",
       "202603",
@@ -327,3300 +310,6 @@ window.DASHBOARD_DATA = {
     ],
     "timeseries": {
       "daily": [
-        {
-          "date": "2024-07-01",
-          "count": 2622,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-07-02",
-          "count": 3707,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-07-03",
-          "count": 3864,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-07-04",
-          "count": 4235,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-07-05",
-          "count": 4031,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-07-06",
-          "count": 4823,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-07-07",
-          "count": 4665,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-07-08",
-          "count": 3558,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-07-09",
-          "count": 2952,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-07-10",
-          "count": 2617,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-07-11",
-          "count": 2909,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-07-12",
-          "count": 2751,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-07-13",
-          "count": 5429,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-07-14",
-          "count": 5456,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-07-15",
-          "count": 3207,
-          "dow": 0,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-07-16",
-          "count": 3165,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-07-17",
-          "count": 2685,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-07-18",
-          "count": 3782,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-07-19",
-          "count": 3803,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-07-20",
-          "count": 4055,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-07-21",
-          "count": 3778,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-07-22",
-          "count": 3171,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-07-23",
-          "count": 3596,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-07-24",
-          "count": 3252,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-07-25",
-          "count": 2989,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-07-26",
-          "count": 3783,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-07-27",
-          "count": 4059,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-07-28",
-          "count": 3595,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-07-29",
-          "count": 3715,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-07-30",
-          "count": 3656,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-07-31",
-          "count": 3543,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-08-01",
-          "count": 3460,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-08-02",
-          "count": 4089,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-08-03",
-          "count": 16502,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-08-04",
-          "count": 4232,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-08-05",
-          "count": 3819,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-08-06",
-          "count": 3781,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-08-07",
-          "count": 3461,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-08-08",
-          "count": 3599,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-08-09",
-          "count": 3969,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-08-10",
-          "count": 4193,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-08-11",
-          "count": 4986,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-08-12",
-          "count": 7480,
-          "dow": 0,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-08-13",
-          "count": 5149,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-08-14",
-          "count": 4690,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-08-15",
-          "count": 5343,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-08-16",
-          "count": 4693,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-08-17",
-          "count": 4267,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-08-18",
-          "count": 4019,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-08-19",
-          "count": 3854,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-08-20",
-          "count": 4353,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-08-21",
-          "count": 3918,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-08-22",
-          "count": 4819,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-08-23",
-          "count": 4181,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-08-24",
-          "count": 4473,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-08-25",
-          "count": 4708,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-08-26",
-          "count": 5080,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-08-27",
-          "count": 3839,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-08-28",
-          "count": 3245,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-08-29",
-          "count": 1895,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-08-30",
-          "count": 4138,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-08-31",
-          "count": 2760,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-09-01",
-          "count": 3392,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-09-02",
-          "count": 5326,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-09-03",
-          "count": 5184,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-09-04",
-          "count": 5073,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-09-05",
-          "count": 5839,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-09-06",
-          "count": 5949,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-09-07",
-          "count": 6316,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-09-08",
-          "count": 8174,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-09-09",
-          "count": 5986,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-09-10",
-          "count": 5953,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-09-11",
-          "count": 5265,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-09-12",
-          "count": 4887,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-09-13",
-          "count": 5276,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-09-14",
-          "count": 7935,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-09-15",
-          "count": 7735,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-09-16",
-          "count": 6032,
-          "dow": 0,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-09-17",
-          "count": 5728,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-09-18",
-          "count": 5458,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-09-19",
-          "count": 5005,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-09-20",
-          "count": 5328,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-09-21",
-          "count": 8724,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-09-22",
-          "count": 8464,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-09-23",
-          "count": 8072,
-          "dow": 0,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-09-24",
-          "count": 6066,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-09-25",
-          "count": 5423,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-09-26",
-          "count": 5355,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-09-27",
-          "count": 4817,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-09-28",
-          "count": 5066,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-09-29",
-          "count": 6527,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-09-30",
-          "count": 4422,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-10-01",
-          "count": 4549,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-10-02",
-          "count": 4244,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-10-03",
-          "count": 2740,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-10-04",
-          "count": 3664,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-10-05",
-          "count": 6765,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-10-06",
-          "count": 6196,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-10-07",
-          "count": 4352,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-10-08",
-          "count": 4489,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-10-09",
-          "count": 3967,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-10-10",
-          "count": 5173,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-10-11",
-          "count": 5881,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-10-12",
-          "count": 8245,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-10-13",
-          "count": 12640,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-10-14",
-          "count": 11126,
-          "dow": 0,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-10-15",
-          "count": 5734,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-10-16",
-          "count": 4727,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-10-17",
-          "count": 5130,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-10-18",
-          "count": 4840,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-10-19",
-          "count": 6428,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-10-20",
-          "count": 8104,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-10-21",
-          "count": 6476,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-10-22",
-          "count": 5040,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-10-23",
-          "count": 2634,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-10-24",
-          "count": 4972,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-10-25",
-          "count": 5706,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-10-26",
-          "count": 8699,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-10-27",
-          "count": 10009,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-10-28",
-          "count": 5677,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-10-29",
-          "count": 3122,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-10-30",
-          "count": 4946,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-10-31",
-          "count": 5156,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-11-01",
-          "count": 4795,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-11-02",
-          "count": 6059,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-11-03",
-          "count": 19367,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-11-04",
-          "count": 7407,
-          "dow": 0,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-11-05",
-          "count": 5158,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-11-06",
-          "count": 5355,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-11-07",
-          "count": 4865,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-11-08",
-          "count": 5396,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-11-09",
-          "count": 9564,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-11-10",
-          "count": 8815,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-11-11",
-          "count": 5130,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-11-12",
-          "count": 5776,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-11-13",
-          "count": 5129,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-11-14",
-          "count": 4705,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-11-15",
-          "count": 5530,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-11-16",
-          "count": 7068,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-11-17",
-          "count": 8614,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-11-18",
-          "count": 5498,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-11-19",
-          "count": 5182,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-11-20",
-          "count": 4308,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-11-21",
-          "count": 5861,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-11-22",
-          "count": 6197,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-11-23",
-          "count": 9081,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-11-24",
-          "count": 7972,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-11-25",
-          "count": 5120,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-11-26",
-          "count": 3632,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-11-27",
-          "count": 4523,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-11-28",
-          "count": 5086,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-11-29",
-          "count": 5220,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-11-30",
-          "count": 9448,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-12-01",
-          "count": 6761,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-12-02",
-          "count": 4929,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-12-03",
-          "count": 4508,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-12-04",
-          "count": 4104,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-12-05",
-          "count": 4197,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-12-06",
-          "count": 4607,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-12-07",
-          "count": 5836,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-12-08",
-          "count": 5195,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-12-09",
-          "count": 4132,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-12-10",
-          "count": 4439,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-12-11",
-          "count": 3945,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-12-12",
-          "count": 4080,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-12-13",
-          "count": 4786,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-12-14",
-          "count": 5801,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-12-15",
-          "count": 10091,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-12-16",
-          "count": 4378,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-12-17",
-          "count": 4135,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-12-18",
-          "count": 4029,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-12-19",
-          "count": 4256,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-12-20",
-          "count": 4726,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-12-21",
-          "count": 5228,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-12-22",
-          "count": 5077,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-12-23",
-          "count": 4256,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-12-24",
-          "count": 4360,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-12-25",
-          "count": 5022,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-12-26",
-          "count": 4816,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-12-27",
-          "count": 5632,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-12-28",
-          "count": 6079,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-12-29",
-          "count": 5235,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2024-12-30",
-          "count": 5601,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2024-12-31",
-          "count": 2764,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-01-01",
-          "count": 2440,
-          "dow": 2,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-01-02",
-          "count": 2250,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-01-03",
-          "count": 3451,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-01-04",
-          "count": 5146,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-01-05",
-          "count": 5010,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-01-06",
-          "count": 3066,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-01-07",
-          "count": 4336,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-01-08",
-          "count": 3955,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-01-09",
-          "count": 3628,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-01-10",
-          "count": 3709,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-01-11",
-          "count": 5636,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-01-12",
-          "count": 6058,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-01-13",
-          "count": 4743,
-          "dow": 0,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-01-14",
-          "count": 4324,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-01-15",
-          "count": 3911,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-01-16",
-          "count": 4406,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-01-17",
-          "count": 4079,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-01-18",
-          "count": 5319,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-01-19",
-          "count": 6045,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-01-20",
-          "count": 4404,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-01-21",
-          "count": 4435,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-01-22",
-          "count": 3943,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-01-23",
-          "count": 4551,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-01-24",
-          "count": 4493,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-01-25",
-          "count": 5897,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-01-26",
-          "count": 6178,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-01-27",
-          "count": 4389,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-01-28",
-          "count": 4842,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-01-29",
-          "count": 4363,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-01-30",
-          "count": 4202,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-01-31",
-          "count": 4398,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-02-01",
-          "count": 6220,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-02-02",
-          "count": 4363,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-02-03",
-          "count": 4903,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-02-04",
-          "count": 4981,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-02-05",
-          "count": 4333,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-02-06",
-          "count": 4589,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-02-07",
-          "count": 4490,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-02-08",
-          "count": 6839,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-02-09",
-          "count": 6442,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-02-10",
-          "count": 5416,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-02-11",
-          "count": 5042,
-          "dow": 1,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-02-12",
-          "count": 4268,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-02-13",
-          "count": 4653,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-02-14",
-          "count": 5068,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-02-15",
-          "count": 7559,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-02-16",
-          "count": 7001,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-02-17",
-          "count": 5008,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-02-18",
-          "count": 5180,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-02-19",
-          "count": 4776,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-02-20",
-          "count": 4984,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-02-21",
-          "count": 5251,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-02-22",
-          "count": 7727,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-02-23",
-          "count": 12421,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-02-24",
-          "count": 7086,
-          "dow": 0,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-02-25",
-          "count": 6095,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-02-26",
-          "count": 5583,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-02-27",
-          "count": 6182,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-02-28",
-          "count": 4843,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-03-01",
-          "count": 7985,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-03-02",
-          "count": 7167,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-03-03",
-          "count": 4103,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-03-04",
-          "count": 4283,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-03-05",
-          "count": 4789,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-03-06",
-          "count": 5448,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-03-07",
-          "count": 5548,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-03-08",
-          "count": 5382,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-03-09",
-          "count": 8923,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-03-10",
-          "count": 5932,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-03-11",
-          "count": 4650,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-03-12",
-          "count": 5839,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-03-13",
-          "count": 6240,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-03-14",
-          "count": 6238,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-03-15",
-          "count": 5947,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-03-16",
-          "count": 5051,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-03-17",
-          "count": 5773,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-03-18",
-          "count": 6815,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-03-19",
-          "count": 5195,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-03-20",
-          "count": 6855,
-          "dow": 3,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-03-21",
-          "count": 7270,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-03-22",
-          "count": 10558,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-03-23",
-          "count": 11249,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-03-24",
-          "count": 6210,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-03-25",
-          "count": 6705,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-03-26",
-          "count": 6659,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-03-27",
-          "count": 5881,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-03-28",
-          "count": 5819,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-03-29",
-          "count": 10443,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-03-30",
-          "count": 11013,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-03-31",
-          "count": 5556,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-04-01",
-          "count": 4696,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-04-02",
-          "count": 5630,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-04-03",
-          "count": 6541,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-04-04",
-          "count": 6404,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-04-05",
-          "count": 15486,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-04-06",
-          "count": 10084,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-04-07",
-          "count": 5169,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-04-08",
-          "count": 5248,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-04-09",
-          "count": 4933,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-04-10",
-          "count": 3699,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-04-11",
-          "count": 4778,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-04-12",
-          "count": 7544,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-04-13",
-          "count": 2421,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-04-14",
-          "count": 5132,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-04-15",
-          "count": 4536,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-04-16",
-          "count": 4565,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-04-17",
-          "count": 5027,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-04-18",
-          "count": 4734,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-04-19",
-          "count": 8095,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-04-20",
-          "count": 6641,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-04-21",
-          "count": 4888,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-04-22",
-          "count": 4421,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-04-23",
-          "count": 3394,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-04-24",
-          "count": 5074,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-04-25",
-          "count": 4911,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-04-26",
-          "count": 6676,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-04-27",
-          "count": 6632,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-04-28",
-          "count": 4619,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-04-29",
-          "count": 6002,
-          "dow": 1,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-04-30",
-          "count": 5861,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-05-01",
-          "count": 6341,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-05-02",
-          "count": 4194,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-05-03",
-          "count": 9101,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-05-04",
-          "count": 14392,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-05-05",
-          "count": 11951,
-          "dow": 0,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-05-06",
-          "count": 3036,
-          "dow": 1,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-05-07",
-          "count": 4698,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-05-08",
-          "count": 4940,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-05-09",
-          "count": 3982,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-05-10",
-          "count": 6864,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-05-11",
-          "count": 8904,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-05-12",
-          "count": 4740,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-05-13",
-          "count": 4855,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-05-14",
-          "count": 4361,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-05-15",
-          "count": 4410,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-05-16",
-          "count": 4915,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-05-17",
-          "count": 4732,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-05-18",
-          "count": 6456,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-05-19",
-          "count": 5202,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-05-20",
-          "count": 4072,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-05-21",
-          "count": 3853,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-05-22",
-          "count": 4200,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-05-23",
-          "count": 4431,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-05-24",
-          "count": 4837,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-05-25",
-          "count": 7245,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-05-26",
-          "count": 4451,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-05-27",
-          "count": 3779,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-05-28",
-          "count": 4752,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-05-29",
-          "count": 4232,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-05-30",
-          "count": 3622,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-05-31",
-          "count": 5373,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-06-01",
-          "count": 6925,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-06-02",
-          "count": 4471,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-06-03",
-          "count": 2748,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-06-04",
-          "count": 4363,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-06-05",
-          "count": 4681,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-06-06",
-          "count": 4715,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-06-07",
-          "count": 5641,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-06-08",
-          "count": 4733,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-06-09",
-          "count": 3190,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-06-10",
-          "count": 2182,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-06-11",
-          "count": 2952,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-06-12",
-          "count": 4169,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-06-13",
-          "count": 4470,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-06-14",
-          "count": 4377,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-06-15",
-          "count": 4589,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-06-16",
-          "count": 3884,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-06-17",
-          "count": 3683,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-06-18",
-          "count": 3269,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-06-19",
-          "count": 3691,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-06-20",
-          "count": 4365,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-06-21",
-          "count": 5069,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-06-22",
-          "count": 4428,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-06-23",
-          "count": 2898,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-06-24",
-          "count": 2806,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-06-25",
-          "count": 3238,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-06-26",
-          "count": 2588,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-06-27",
-          "count": 3933,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-06-28",
-          "count": 5113,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-06-29",
-          "count": 3915,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-06-30",
-          "count": 3437,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-07-01",
-          "count": 3349,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-07-02",
-          "count": 3024,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-07-03",
-          "count": 3145,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-07-04",
-          "count": 3401,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-07-05",
-          "count": 4341,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-07-06",
-          "count": 4433,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-07-07",
-          "count": 3307,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-07-08",
-          "count": 3599,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-07-09",
-          "count": 3584,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-07-10",
-          "count": 3080,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-07-11",
-          "count": 3276,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-07-12",
-          "count": 4474,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-07-13",
-          "count": 4021,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-07-14",
-          "count": 3214,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-07-15",
-          "count": 3954,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-07-16",
-          "count": 4271,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-07-17",
-          "count": 3653,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-07-18",
-          "count": 4172,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-07-19",
-          "count": 5361,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-07-20",
-          "count": 6268,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-07-21",
-          "count": 3177,
-          "dow": 0,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-07-22",
-          "count": 3550,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-07-23",
-          "count": 3094,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-07-24",
-          "count": 3287,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-07-25",
-          "count": 3273,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-07-26",
-          "count": 4272,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-07-27",
-          "count": 3686,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-07-28",
-          "count": 3696,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-07-29",
-          "count": 3574,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-07-30",
-          "count": 3207,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-07-31",
-          "count": 3518,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-08-01",
-          "count": 3429,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-08-02",
-          "count": 12326,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-08-03",
-          "count": 3584,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-08-04",
-          "count": 4061,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-08-05",
-          "count": 3394,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-08-06",
-          "count": 3248,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-08-07",
-          "count": 3289,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-08-08",
-          "count": 3694,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-08-09",
-          "count": 5243,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-08-10",
-          "count": 5169,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-08-11",
-          "count": 5926,
-          "dow": 0,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-08-12",
-          "count": 5742,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-08-13",
-          "count": 4791,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-08-14",
-          "count": 5291,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-08-15",
-          "count": 6287,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-08-16",
-          "count": 5207,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-08-17",
-          "count": 4941,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-08-18",
-          "count": 4417,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-08-19",
-          "count": 4542,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-08-20",
-          "count": 4248,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-08-21",
-          "count": 4359,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-08-22",
-          "count": 4631,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-08-23",
-          "count": 5059,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-08-24",
-          "count": 4937,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-08-25",
-          "count": 4554,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-08-26",
-          "count": 4613,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-08-27",
-          "count": 3588,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-08-28",
-          "count": 4254,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-08-29",
-          "count": 4125,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-08-30",
-          "count": 4051,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-08-31",
-          "count": 3939,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-09-01",
-          "count": 3856,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-09-02",
-          "count": 4339,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-09-03",
-          "count": 4186,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-09-04",
-          "count": 4060,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-09-05",
-          "count": 2646,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-09-06",
-          "count": 5739,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-09-07",
-          "count": 4772,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-09-08",
-          "count": 4023,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-09-09",
-          "count": 4375,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-09-10",
-          "count": 4303,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-09-11",
-          "count": 4154,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-09-12",
-          "count": 3706,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-09-13",
-          "count": 5433,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-09-14",
-          "count": 7214,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-09-15",
-          "count": 5657,
-          "dow": 0,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-09-16",
-          "count": 3777,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-09-17",
-          "count": 3550,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-09-18",
-          "count": 3676,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-09-19",
-          "count": 4675,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-09-20",
-          "count": 5612,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-09-21",
-          "count": 8647,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-09-22",
-          "count": 5789,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-09-23",
-          "count": 5387,
-          "dow": 1,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-09-24",
-          "count": 4590,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-09-25",
-          "count": 4707,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-09-26",
-          "count": 4786,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-09-27",
-          "count": 5693,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-09-28",
-          "count": 6312,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-09-29",
-          "count": 4112,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-09-30",
-          "count": 4358,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-10-01",
-          "count": 3845,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-10-02",
-          "count": 3928,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-10-03",
-          "count": 4032,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-10-04",
-          "count": 3597,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-10-05",
-          "count": 4528,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-10-06",
-          "count": 4345,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-10-07",
-          "count": 4719,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-10-08",
-          "count": 4059,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-10-09",
-          "count": 4079,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-10-10",
-          "count": 3497,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-10-11",
-          "count": 6363,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-10-12",
-          "count": 8094,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-10-13",
-          "count": 4386,
-          "dow": 0,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-10-14",
-          "count": 4669,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-10-15",
-          "count": 4144,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-10-16",
-          "count": 3627,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-10-17",
-          "count": 4392,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-10-18",
-          "count": 6882,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-10-19",
-          "count": 9346,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-10-20",
-          "count": 4300,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-10-21",
-          "count": 4403,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-10-22",
-          "count": 2607,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-10-23",
-          "count": 4751,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-10-24",
-          "count": 3927,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-10-25",
-          "count": 5713,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-10-26",
-          "count": 5888,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-10-27",
-          "count": 4450,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-10-28",
-          "count": 4507,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-10-29",
-          "count": 4208,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-10-30",
-          "count": 4095,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-10-31",
-          "count": 2967,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-11-01",
-          "count": 9371,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-11-02",
-          "count": 14777,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-11-03",
-          "count": 6312,
-          "dow": 0,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-11-04",
-          "count": 4398,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-11-05",
-          "count": 3544,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-11-06",
-          "count": 4458,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-11-07",
-          "count": 4309,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-11-08",
-          "count": 7942,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-11-09",
-          "count": 3307,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-11-10",
-          "count": 4265,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-11-11",
-          "count": 4258,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-11-12",
-          "count": 3997,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-11-13",
-          "count": 4136,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-11-14",
-          "count": 4901,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-11-15",
-          "count": 9520,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-11-16",
-          "count": 6661,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-11-17",
-          "count": 4648,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-11-18",
-          "count": 4310,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-11-19",
-          "count": 4593,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-11-20",
-          "count": 5049,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-11-21",
-          "count": 4473,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-11-22",
-          "count": 9087,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-11-23",
-          "count": 11455,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-11-24",
-          "count": 6730,
-          "dow": 0,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-11-25",
-          "count": 3574,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-11-26",
-          "count": 4016,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-11-27",
-          "count": 4011,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-11-28",
-          "count": 4210,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-11-29",
-          "count": 7664,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-11-30",
-          "count": 7421,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-12-01",
-          "count": 3862,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-12-02",
-          "count": 3589,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-12-03",
-          "count": 3495,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-12-04",
-          "count": 3470,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-12-05",
-          "count": 3522,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-12-06",
-          "count": 6368,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-12-07",
-          "count": 5565,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-12-08",
-          "count": 3531,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-12-09",
-          "count": 3559,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-12-10",
-          "count": 3481,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-12-11",
-          "count": 3461,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-12-12",
-          "count": 4102,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-12-13",
-          "count": 8217,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-12-14",
-          "count": 4920,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-12-15",
-          "count": 4230,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-12-16",
-          "count": 3806,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-12-17",
-          "count": 3602,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-12-18",
-          "count": 3701,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-12-19",
-          "count": 4044,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-12-20",
-          "count": 6207,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-12-21",
-          "count": 3442,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-12-22",
-          "count": 3976,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-12-23",
-          "count": 3639,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-12-24",
-          "count": 2887,
-          "dow": 2,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-12-25",
-          "count": 3109,
-          "dow": 3,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-12-26",
-          "count": 4126,
-          "dow": 4,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-12-27",
-          "count": 5909,
-          "dow": 5,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-12-28",
-          "count": 5713,
-          "dow": 6,
-          "is_holiday": 1
-        },
-        {
-          "date": "2025-12-29",
-          "count": 6647,
-          "dow": 0,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-12-30",
-          "count": 4352,
-          "dow": 1,
-          "is_holiday": 0
-        },
-        {
-          "date": "2025-12-31",
-          "count": 3438,
-          "dow": 2,
-          "is_holiday": 0
-        },
         {
           "date": "2026-01-01",
           "count": 3910,
@@ -4710,478 +1399,10 @@ window.DASHBOARD_DATA = {
       ],
       "weekly": [
         {
-          "week_start": "2024-07-01",
-          "count": 27947,
-          "days": 7,
-          "avg": 3992
-        },
-        {
-          "week_start": "2024-07-08",
-          "count": 25672,
-          "days": 7,
-          "avg": 3667
-        },
-        {
-          "week_start": "2024-07-15",
-          "count": 24475,
-          "days": 7,
-          "avg": 3496
-        },
-        {
-          "week_start": "2024-07-22",
-          "count": 24445,
-          "days": 7,
-          "avg": 3492
-        },
-        {
-          "week_start": "2024-07-29",
-          "count": 39197,
-          "days": 7,
-          "avg": 5600
-        },
-        {
-          "week_start": "2024-08-05",
-          "count": 27808,
-          "days": 7,
-          "avg": 3973
-        },
-        {
-          "week_start": "2024-08-12",
-          "count": 35641,
-          "days": 7,
-          "avg": 5092
-        },
-        {
-          "week_start": "2024-08-19",
-          "count": 30306,
-          "days": 7,
-          "avg": 4329
-        },
-        {
-          "week_start": "2024-08-26",
-          "count": 24349,
-          "days": 7,
-          "avg": 3478
-        },
-        {
-          "week_start": "2024-09-02",
-          "count": 41861,
-          "days": 7,
-          "avg": 5980
-        },
-        {
-          "week_start": "2024-09-09",
-          "count": 43037,
-          "days": 7,
-          "avg": 6148
-        },
-        {
-          "week_start": "2024-09-16",
-          "count": 44739,
-          "days": 7,
-          "avg": 6391
-        },
-        {
-          "week_start": "2024-09-23",
-          "count": 41326,
-          "days": 7,
-          "avg": 5904
-        },
-        {
-          "week_start": "2024-09-30",
-          "count": 32580,
-          "days": 7,
-          "avg": 4654
-        },
-        {
-          "week_start": "2024-10-07",
-          "count": 44747,
-          "days": 7,
-          "avg": 6392
-        },
-        {
-          "week_start": "2024-10-14",
-          "count": 46089,
-          "days": 7,
-          "avg": 6584
-        },
-        {
-          "week_start": "2024-10-21",
-          "count": 43536,
-          "days": 7,
-          "avg": 6219
-        },
-        {
-          "week_start": "2024-10-28",
-          "count": 49122,
-          "days": 7,
-          "avg": 7017
-        },
-        {
-          "week_start": "2024-11-04",
-          "count": 46560,
-          "days": 7,
-          "avg": 6651
-        },
-        {
-          "week_start": "2024-11-11",
-          "count": 41952,
-          "days": 7,
-          "avg": 5993
-        },
-        {
-          "week_start": "2024-11-18",
-          "count": 44099,
-          "days": 7,
-          "avg": 6300
-        },
-        {
-          "week_start": "2024-11-25",
-          "count": 39790,
-          "days": 7,
-          "avg": 5684
-        },
-        {
-          "week_start": "2024-12-02",
-          "count": 33376,
-          "days": 7,
-          "avg": 4768
-        },
-        {
-          "week_start": "2024-12-09",
-          "count": 37274,
-          "days": 7,
-          "avg": 5325
-        },
-        {
-          "week_start": "2024-12-16",
-          "count": 31829,
-          "days": 7,
-          "avg": 4547
-        },
-        {
-          "week_start": "2024-12-23",
-          "count": 35400,
-          "days": 7,
-          "avg": 5057
-        },
-        {
-          "week_start": "2024-12-30",
-          "count": 26662,
-          "days": 7,
-          "avg": 3809
-        },
-        {
-          "week_start": "2025-01-06",
-          "count": 30388,
-          "days": 7,
-          "avg": 4341
-        },
-        {
-          "week_start": "2025-01-13",
-          "count": 32827,
-          "days": 7,
-          "avg": 4690
-        },
-        {
-          "week_start": "2025-01-20",
-          "count": 33901,
-          "days": 7,
-          "avg": 4843
-        },
-        {
-          "week_start": "2025-01-27",
-          "count": 32777,
-          "days": 7,
-          "avg": 4682
-        },
-        {
-          "week_start": "2025-02-03",
-          "count": 36577,
-          "days": 7,
-          "avg": 5225
-        },
-        {
-          "week_start": "2025-02-10",
-          "count": 39007,
-          "days": 7,
-          "avg": 5572
-        },
-        {
-          "week_start": "2025-02-17",
-          "count": 45347,
-          "days": 7,
-          "avg": 6478
-        },
-        {
-          "week_start": "2025-02-24",
-          "count": 44941,
-          "days": 7,
-          "avg": 6420
-        },
-        {
-          "week_start": "2025-03-03",
-          "count": 38476,
-          "days": 7,
-          "avg": 5497
-        },
-        {
-          "week_start": "2025-03-10",
-          "count": 39897,
-          "days": 7,
-          "avg": 5700
-        },
-        {
-          "week_start": "2025-03-17",
-          "count": 53715,
-          "days": 7,
-          "avg": 7674
-        },
-        {
-          "week_start": "2025-03-24",
-          "count": 52730,
-          "days": 7,
-          "avg": 7533
-        },
-        {
-          "week_start": "2025-03-31",
-          "count": 54397,
-          "days": 7,
-          "avg": 7771
-        },
-        {
-          "week_start": "2025-04-07",
-          "count": 33792,
-          "days": 7,
-          "avg": 4827
-        },
-        {
-          "week_start": "2025-04-14",
-          "count": 38730,
-          "days": 7,
-          "avg": 5533
-        },
-        {
-          "week_start": "2025-04-21",
-          "count": 35996,
-          "days": 7,
-          "avg": 5142
-        },
-        {
-          "week_start": "2025-04-28",
-          "count": 50510,
-          "days": 7,
-          "avg": 7216
-        },
-        {
-          "week_start": "2025-05-05",
-          "count": 44375,
-          "days": 7,
-          "avg": 6339
-        },
-        {
-          "week_start": "2025-05-12",
-          "count": 34469,
-          "days": 7,
-          "avg": 4924
-        },
-        {
-          "week_start": "2025-05-19",
-          "count": 33840,
-          "days": 7,
-          "avg": 4834
-        },
-        {
-          "week_start": "2025-05-26",
-          "count": 33134,
-          "days": 7,
-          "avg": 4733
-        },
-        {
-          "week_start": "2025-06-02",
-          "count": 31352,
-          "days": 7,
-          "avg": 4479
-        },
-        {
-          "week_start": "2025-06-09",
-          "count": 25929,
-          "days": 7,
-          "avg": 3704
-        },
-        {
-          "week_start": "2025-06-16",
-          "count": 28389,
-          "days": 7,
-          "avg": 4056
-        },
-        {
-          "week_start": "2025-06-23",
-          "count": 24491,
-          "days": 7,
-          "avg": 3499
-        },
-        {
-          "week_start": "2025-06-30",
-          "count": 25130,
-          "days": 7,
-          "avg": 3590
-        },
-        {
-          "week_start": "2025-07-07",
-          "count": 25341,
-          "days": 7,
-          "avg": 3620
-        },
-        {
-          "week_start": "2025-07-14",
-          "count": 30893,
-          "days": 7,
-          "avg": 4413
-        },
-        {
-          "week_start": "2025-07-21",
-          "count": 24339,
-          "days": 7,
-          "avg": 3477
-        },
-        {
-          "week_start": "2025-07-28",
-          "count": 33334,
-          "days": 7,
-          "avg": 4762
-        },
-        {
-          "week_start": "2025-08-04",
-          "count": 28098,
-          "days": 7,
-          "avg": 4014
-        },
-        {
-          "week_start": "2025-08-11",
-          "count": 38185,
-          "days": 7,
-          "avg": 5455
-        },
-        {
-          "week_start": "2025-08-18",
-          "count": 32193,
-          "days": 7,
-          "avg": 4599
-        },
-        {
-          "week_start": "2025-08-25",
-          "count": 29124,
-          "days": 7,
-          "avg": 4161
-        },
-        {
-          "week_start": "2025-09-01",
-          "count": 29598,
-          "days": 7,
-          "avg": 4228
-        },
-        {
-          "week_start": "2025-09-08",
-          "count": 33208,
-          "days": 7,
-          "avg": 4744
-        },
-        {
-          "week_start": "2025-09-15",
-          "count": 35594,
-          "days": 7,
-          "avg": 5085
-        },
-        {
-          "week_start": "2025-09-22",
-          "count": 37264,
-          "days": 7,
-          "avg": 5323
-        },
-        {
-          "week_start": "2025-09-29",
-          "count": 28400,
-          "days": 7,
-          "avg": 4057
-        },
-        {
-          "week_start": "2025-10-06",
-          "count": 35156,
-          "days": 7,
-          "avg": 5022
-        },
-        {
-          "week_start": "2025-10-13",
-          "count": 37446,
-          "days": 7,
-          "avg": 5349
-        },
-        {
-          "week_start": "2025-10-20",
-          "count": 31589,
-          "days": 7,
-          "avg": 4513
-        },
-        {
-          "week_start": "2025-10-27",
-          "count": 44375,
-          "days": 7,
-          "avg": 6339
-        },
-        {
-          "week_start": "2025-11-03",
-          "count": 34270,
-          "days": 7,
-          "avg": 4896
-        },
-        {
-          "week_start": "2025-11-10",
-          "count": 37738,
-          "days": 7,
-          "avg": 5391
-        },
-        {
-          "week_start": "2025-11-17",
-          "count": 43615,
-          "days": 7,
-          "avg": 6231
-        },
-        {
-          "week_start": "2025-11-24",
-          "count": 37626,
-          "days": 7,
-          "avg": 5375
-        },
-        {
-          "week_start": "2025-12-01",
-          "count": 29871,
-          "days": 7,
-          "avg": 4267
-        },
-        {
-          "week_start": "2025-12-08",
-          "count": 31271,
-          "days": 7,
-          "avg": 4467
-        },
-        {
-          "week_start": "2025-12-15",
-          "count": 29032,
-          "days": 7,
-          "avg": 4147
-        },
-        {
-          "week_start": "2025-12-22",
-          "count": 29359,
-          "days": 7,
-          "avg": 4194
-        },
-        {
           "week_start": "2025-12-29",
-          "count": 31548,
-          "days": 7,
-          "avg": 4507
+          "count": 17111,
+          "days": 4,
+          "avg": 4278
         },
         {
           "week_start": "2026-01-05",
@@ -5342,114 +1563,6 @@ window.DASHBOARD_DATA = {
       ],
       "monthly": [
         {
-          "ym": "2024-07",
-          "count": 113453,
-          "days": 31,
-          "avg": 3660
-        },
-        {
-          "ym": "2024-08",
-          "count": 142995,
-          "days": 31,
-          "avg": 4613
-        },
-        {
-          "ym": "2024-09",
-          "count": 178777,
-          "days": 30,
-          "avg": 5959
-        },
-        {
-          "ym": "2024-10",
-          "count": 181431,
-          "days": 31,
-          "avg": 5853
-        },
-        {
-          "ym": "2024-11",
-          "count": 195861,
-          "days": 30,
-          "avg": 6529
-        },
-        {
-          "ym": "2024-12",
-          "count": 153005,
-          "days": 31,
-          "avg": 4936
-        },
-        {
-          "ym": "2025-01",
-          "count": 137607,
-          "days": 31,
-          "avg": 4439
-        },
-        {
-          "ym": "2025-02",
-          "count": 161303,
-          "days": 28,
-          "avg": 5761
-        },
-        {
-          "ym": "2025-03",
-          "count": 205526,
-          "days": 31,
-          "avg": 6630
-        },
-        {
-          "ym": "2025-04",
-          "count": 173841,
-          "days": 30,
-          "avg": 5795
-        },
-        {
-          "ym": "2025-05",
-          "count": 172921,
-          "days": 31,
-          "avg": 5578
-        },
-        {
-          "ym": "2025-06",
-          "count": 120523,
-          "days": 30,
-          "avg": 4017
-        },
-        {
-          "ym": "2025-07",
-          "count": 116261,
-          "days": 31,
-          "avg": 3750
-        },
-        {
-          "ym": "2025-08",
-          "count": 146939,
-          "days": 31,
-          "avg": 4740
-        },
-        {
-          "ym": "2025-09",
-          "count": 144134,
-          "days": 30,
-          "avg": 4804
-        },
-        {
-          "ym": "2025-10",
-          "count": 144348,
-          "days": 31,
-          "avg": 4656
-        },
-        {
-          "ym": "2025-11",
-          "count": 177397,
-          "days": 30,
-          "avg": 5913
-        },
-        {
-          "ym": "2025-12",
-          "count": 133970,
-          "days": 31,
-          "avg": 4322
-        },
-        {
           "ym": "2026-01",
           "count": 128571,
           "days": 31,
@@ -5488,1221 +1601,15 @@ window.DASHBOARD_DATA = {
       ]
     },
     "dow_median": {
-      "0": 4352,
-      "1": 4258,
-      "2": 3944,
-      "3": 4162,
-      "4": 4164,
-      "5": 6214,
-      "6": 5800
+      "0": 3556,
+      "1": 3558,
+      "2": 3319,
+      "3": 3676,
+      "4": 3718,
+      "5": 6506,
+      "6": 5206
     },
     "monthly_breakdown": {
-      "2024-07": {
-        "hour": [
-          699.0,
-          474.0,
-          344.0,
-          250.0,
-          479.0,
-          1405.0,
-          1816.0,
-          3984.0,
-          5737.0,
-          4725.0,
-          6764.0,
-          8697.0,
-          10417.0,
-          10188.0,
-          9292.0,
-          8790.0,
-          9106.0,
-          8788.0,
-          6933.0,
-          5533.0,
-          3775.0,
-          2719.0,
-          1698.0,
-          840.0
-        ],
-        "age": [
-          157.0,
-          755.0,
-          2545.0,
-          5976.0,
-          7892.0,
-          6466.0,
-          3398.0,
-          554.0
-        ],
-        "gender": [
-          15770.0,
-          11973.0,
-          85710.0
-        ],
-        "dir": {
-          "0": {
-            "in": 15609.0,
-            "out": 15023.0,
-            "total": 30632.0
-          },
-          "1": {
-            "in": 16036.0,
-            "out": 15727.0,
-            "total": 31763.0
-          },
-          "2": {
-            "in": 17557.0,
-            "out": 13965.0,
-            "total": 31522.0
-          },
-          "3": {
-            "in": 9711.0,
-            "out": 9825.0,
-            "total": 19536.0
-          }
-        },
-        "total": 113453.0,
-        "days": 31
-      },
-      "2024-08": {
-        "hour": [
-          1216.0,
-          783.0,
-          674.0,
-          554.0,
-          751.0,
-          1668.0,
-          1881.0,
-          2985.0,
-          4796.0,
-          4967.0,
-          7239.0,
-          10312.0,
-          11828.0,
-          11370.0,
-          10690.0,
-          10390.0,
-          11301.0,
-          12443.0,
-          12170.0,
-          9832.0,
-          7016.0,
-          4125.0,
-          2376.0,
-          1628.0
-        ],
-        "age": [
-          159.0,
-          805.0,
-          2906.0,
-          7895.0,
-          10548.0,
-          7765.0,
-          3543.0,
-          555.0
-        ],
-        "gender": [
-          19425.0,
-          14803.0,
-          108767.0
-        ],
-        "dir": {
-          "0": {
-            "in": 15823.0,
-            "out": 15243.0,
-            "total": 31066.0
-          },
-          "1": {
-            "in": 17257.0,
-            "out": 17896.0,
-            "total": 35153.0
-          },
-          "2": {
-            "in": 22908.0,
-            "out": 17996.0,
-            "total": 40928.0
-          },
-          "3": {
-            "in": 17608.0,
-            "out": 18240.0,
-            "total": 35848.0
-          }
-        },
-        "total": 142995.0,
-        "days": 31
-      },
-      "2024-09": {
-        "hour": [
-          725.0,
-          417.0,
-          331.0,
-          272.0,
-          517.0,
-          1332.0,
-          1991.0,
-          4884.0,
-          6674.0,
-          6899.0,
-          10422.0,
-          16356.0,
-          17886.0,
-          17713.0,
-          18046.0,
-          17567.0,
-          16067.0,
-          13122.0,
-          10404.0,
-          7389.0,
-          4094.0,
-          2884.0,
-          1704.0,
-          1081.0
-        ],
-        "age": [
-          284.0,
-          1663.0,
-          6468.0,
-          15679.0,
-          14710.0,
-          8229.0,
-          3564.0,
-          540.0
-        ],
-        "gender": [
-          27363.0,
-          23774.0,
-          127640.0
-        ],
-        "dir": {
-          "0": {
-            "in": 22785.0,
-            "out": 22315.0,
-            "total": 45100.0
-          },
-          "1": {
-            "in": 20080.0,
-            "out": 20389.0,
-            "total": 40469.0
-          },
-          "2": {
-            "in": 24450.0,
-            "out": 20752.0,
-            "total": 45202.0
-          },
-          "3": {
-            "in": 23182.0,
-            "out": 24824.0,
-            "total": 48006.0
-          }
-        },
-        "total": 178777.0,
-        "days": 30
-      },
-      "2024-10": {
-        "hour": [
-          702.0,
-          403.0,
-          293.0,
-          260.0,
-          520.0,
-          1058.0,
-          2118.0,
-          5199.0,
-          6910.0,
-          7373.0,
-          11569.0,
-          16587.0,
-          19718.0,
-          18546.0,
-          20097.0,
-          19098.0,
-          14539.0,
-          12378.0,
-          9086.0,
-          6156.0,
-          3762.0,
-          2843.0,
-          1407.0,
-          809.0
-        ],
-        "age": [
-          331.0,
-          1673.0,
-          6003.0,
-          15538.0,
-          15670.0,
-          9430.0,
-          4099.0,
-          574.0
-        ],
-        "gender": [
-          26954.0,
-          26442.0,
-          128035.0
-        ],
-        "dir": {
-          "0": {
-            "in": 22629.0,
-            "out": 22892.0,
-            "total": 45568.0
-          },
-          "1": {
-            "in": 22038.0,
-            "out": 20543.0,
-            "total": 42581.0
-          },
-          "2": {
-            "in": 24203.0,
-            "out": 20619.0,
-            "total": 44822.0
-          },
-          "3": {
-            "in": 23222.0,
-            "out": 25238.0,
-            "total": 48460.0
-          }
-        },
-        "total": 181431.0,
-        "days": 31
-      },
-      "2024-11": {
-        "hour": [
-          607.0,
-          348.0,
-          309.0,
-          325.0,
-          522.0,
-          1037.0,
-          2128.0,
-          5159.0,
-          6659.0,
-          7506.0,
-          13193.0,
-          20873.0,
-          23671.0,
-          22679.0,
-          22282.0,
-          19059.0,
-          15101.0,
-          12612.0,
-          8680.0,
-          5518.0,
-          2997.0,
-          2441.0,
-          1347.0,
-          808.0
-        ],
-        "age": [
-          329.0,
-          1617.0,
-          5860.0,
-          17151.0,
-          18191.0,
-          10564.0,
-          4799.0,
-          636.0
-        ],
-        "gender": [
-          28057.0,
-          31090.0,
-          136714.0
-        ],
-        "dir": {
-          "0": {
-            "in": 20787.0,
-            "out": 20822.0,
-            "total": 41609.0
-          },
-          "1": {
-            "in": 24218.0,
-            "out": 23185.0,
-            "total": 47403.0
-          },
-          "2": {
-            "in": 28186.0,
-            "out": 23809.0,
-            "total": 51995.0
-          },
-          "3": {
-            "in": 26864.0,
-            "out": 27990.0,
-            "total": 54854.0
-          }
-        },
-        "total": 195861.0,
-        "days": 30
-      },
-      "2024-12": {
-        "hour": [
-          609.0,
-          358.0,
-          230.0,
-          200.0,
-          284.0,
-          928.0,
-          1605.0,
-          3866.0,
-          7213.0,
-          5909.0,
-          9780.0,
-          13950.0,
-          15133.0,
-          15037.0,
-          15614.0,
-          14380.0,
-          12854.0,
-          11517.0,
-          8371.0,
-          5883.0,
-          4040.0,
-          2819.0,
-          1540.0,
-          885.0
-        ],
-        "age": [
-          335.0,
-          1403.0,
-          5312.0,
-          13070.0,
-          14138.0,
-          9808.0,
-          4365.0,
-          541.0
-        ],
-        "gender": [
-          22997.0,
-          25975.0,
-          104033.0
-        ],
-        "dir": {
-          "0": {
-            "in": 21219.0,
-            "out": 22457.0,
-            "total": 43676.0
-          },
-          "1": {
-            "in": 19617.0,
-            "out": 17784.0,
-            "total": 37401.0
-          },
-          "2": {
-            "in": 18107.0,
-            "out": 14735.0,
-            "total": 32842.0
-          },
-          "3": {
-            "in": 18657.0,
-            "out": 20429.0,
-            "total": 39086.0
-          }
-        },
-        "total": 153005.0,
-        "days": 31
-      },
-      "2025-01": {
-        "hour": [
-          653.0,
-          360.0,
-          259.0,
-          155.0,
-          301.0,
-          1030.0,
-          1251.0,
-          3708.0,
-          6620.0,
-          5065.0,
-          8346.0,
-          12031.0,
-          13502.0,
-          12761.0,
-          14140.0,
-          13830.0,
-          12831.0,
-          10844.0,
-          7467.0,
-          5046.0,
-          3074.0,
-          2457.0,
-          1171.0,
-          705.0
-        ],
-        "age": [
-          291.0,
-          1183.0,
-          4912.0,
-          11918.0,
-          13063.0,
-          8851.0,
-          3995.0,
-          483.0
-        ],
-        "gender": [
-          20414.0,
-          24282.0,
-          92911.0
-        ],
-        "dir": {
-          "0": {
-            "in": 20061.0,
-            "out": 20562.0,
-            "total": 40623.0
-          },
-          "1": {
-            "in": 17588.0,
-            "out": 16261.0,
-            "total": 33849.0
-          },
-          "2": {
-            "in": 16427.0,
-            "out": 12855.0,
-            "total": 29282.0
-          },
-          "3": {
-            "in": 16114.0,
-            "out": 17739.0,
-            "total": 33853.0
-          }
-        },
-        "total": 137607.0,
-        "days": 31
-      },
-      "2025-02": {
-        "hour": [
-          645.0,
-          392.0,
-          325.0,
-          166.0,
-          315.0,
-          1112.0,
-          1004.0,
-          3565.0,
-          5898.0,
-          5541.0,
-          10842.0,
-          15477.0,
-          17260.0,
-          17028.0,
-          17684.0,
-          16298.0,
-          15297.0,
-          12687.0,
-          7831.0,
-          4996.0,
-          3010.0,
-          2085.0,
-          1019.0,
-          826.0
-        ],
-        "age": [
-          294.0,
-          1389.0,
-          6230.0,
-          16824.0,
-          16115.0,
-          9572.0,
-          3882.0,
-          495.0
-        ],
-        "gender": [
-          24654.0,
-          30147.0,
-          106502.0
-        ],
-        "dir": {
-          "0": {
-            "in": 20485.0,
-            "out": 21117.0,
-            "total": 41602.0
-          },
-          "1": {
-            "in": 18312.0,
-            "out": 17412.0,
-            "total": 35724.0
-          },
-          "2": {
-            "in": 20383.0,
-            "out": 17239.0,
-            "total": 37622.0
-          },
-          "3": {
-            "in": 23151.0,
-            "out": 23204.0,
-            "total": 46355.0
-          }
-        },
-        "total": 161303.0,
-        "days": 28
-      },
-      "2025-03": {
-        "hour": [
-          909.0,
-          578.0,
-          451.0,
-          428.0,
-          423.0,
-          896.0,
-          1170.0,
-          3431.0,
-          5953.0,
-          6069.0,
-          11668.0,
-          19431.0,
-          23523.0,
-          22915.0,
-          23277.0,
-          21873.0,
-          20103.0,
-          16599.0,
-          10417.0,
-          6695.0,
-          3741.0,
-          2382.0,
-          1572.0,
-          1022.0
-        ],
-        "age": [
-          468.0,
-          1809.0,
-          7824.0,
-          21560.0,
-          20066.0,
-          11062.0,
-          4477.0,
-          628.0
-        ],
-        "gender": [
-          32995.0,
-          34899.0,
-          137632.0
-        ],
-        "dir": {
-          "0": {
-            "in": 26455.0,
-            "out": 26573.0,
-            "total": 53028.0
-          },
-          "1": {
-            "in": 23259.0,
-            "out": 22221.0,
-            "total": 45480.0
-          },
-          "2": {
-            "in": 27426.0,
-            "out": 22472.0,
-            "total": 49898.0
-          },
-          "3": {
-            "in": 27459.0,
-            "out": 29661.0,
-            "total": 57120.0
-          }
-        },
-        "total": 205526.0,
-        "days": 31
-      },
-      "2025-04": {
-        "hour": [
-          801.0,
-          475.0,
-          438.0,
-          341.0,
-          382.0,
-          809.0,
-          1445.0,
-          4472.0,
-          6834.0,
-          6844.0,
-          11150.0,
-          14764.0,
-          16927.0,
-          16445.0,
-          16852.0,
-          17242.0,
-          15596.0,
-          13876.0,
-          10250.0,
-          7728.0,
-          4399.0,
-          3267.0,
-          1572.0,
-          932.0
-        ],
-        "age": [
-          378.0,
-          1723.0,
-          6076.0,
-          14662.0,
-          15698.0,
-          10100.0,
-          4474.0,
-          584.0
-        ],
-        "gender": [
-          26995.0,
-          26700.0,
-          120146.0
-        ],
-        "dir": {
-          "0": {
-            "in": 24361.0,
-            "out": 23281.0,
-            "total": 47642.0
-          },
-          "1": {
-            "in": 20985.0,
-            "out": 21219.0,
-            "total": 42204.0
-          },
-          "2": {
-            "in": 20892.0,
-            "out": 17753.0,
-            "total": 38645.0
-          },
-          "3": {
-            "in": 21983.0,
-            "out": 23367.0,
-            "total": 45350.0
-          }
-        },
-        "total": 173841.0,
-        "days": 30
-      },
-      "2025-05": {
-        "hour": [
-          551.0,
-          289.0,
-          191.0,
-          157.0,
-          357.0,
-          1015.0,
-          1488.0,
-          4864.0,
-          6877.0,
-          6066.0,
-          11153.0,
-          17168.0,
-          17662.0,
-          17016.0,
-          16756.0,
-          16014.0,
-          15268.0,
-          14655.0,
-          9719.0,
-          6801.0,
-          3710.0,
-          2900.0,
-          1404.0,
-          840.0
-        ],
-        "age": [
-          362.0,
-          1983.0,
-          6439.0,
-          14833.0,
-          15246.0,
-          8243.0,
-          3399.0,
-          506.0
-        ],
-        "gender": [
-          26358.0,
-          24764.0,
-          121799.0
-        ],
-        "dir": {
-          "0": {
-            "in": 20291.0,
-            "out": 20573.0,
-            "total": 40864.0
-          },
-          "1": {
-            "in": 19383.0,
-            "out": 18426.0,
-            "total": 37809.0
-          },
-          "2": {
-            "in": 21702.0,
-            "out": 17618.0,
-            "total": 39331.0
-          },
-          "3": {
-            "in": 27453.0,
-            "out": 27454.0,
-            "total": 54917.0
-          }
-        },
-        "total": 172921.0,
-        "days": 31
-      },
-      "2025-06": {
-        "hour": [
-          476.0,
-          347.0,
-          215.0,
-          120.0,
-          261.0,
-          1060.0,
-          1488.0,
-          4038.0,
-          6270.0,
-          5183.0,
-          7452.0,
-          9981.0,
-          10921.0,
-          10748.0,
-          10587.0,
-          10507.0,
-          10178.0,
-          10400.0,
-          7855.0,
-          5428.0,
-          2895.0,
-          2359.0,
-          1152.0,
-          602.0
-        ],
-        "age": [
-          241.0,
-          1277.0,
-          3574.0,
-          7453.0,
-          8585.0,
-          5954.0,
-          2975.0,
-          489.0
-        ],
-        "gender": [
-          16393.0,
-          14219.0,
-          89911.0
-        ],
-        "dir": {
-          "0": {
-            "in": 14133.0,
-            "out": 13968.0,
-            "total": 28101.0
-          },
-          "1": {
-            "in": 16323.0,
-            "out": 15683.0,
-            "total": 32006.0
-          },
-          "2": {
-            "in": 15339.0,
-            "out": 12224.0,
-            "total": 27563.0
-          },
-          "3": {
-            "in": 15956.0,
-            "out": 16887.0,
-            "total": 32853.0
-          }
-        },
-        "total": 120523.0,
-        "days": 30
-      },
-      "2025-07": {
-        "hour": [
-          724.0,
-          491.0,
-          460.0,
-          384.0,
-          483.0,
-          1432.0,
-          1923.0,
-          3640.0,
-          6297.0,
-          5283.0,
-          6427.0,
-          8462.0,
-          10703.0,
-          9949.0,
-          8992.0,
-          9322.0,
-          9752.0,
-          10107.0,
-          8461.0,
-          5080.0,
-          3234.0,
-          2332.0,
-          1462.0,
-          861.0
-        ],
-        "age": [
-          172.0,
-          948.0,
-          2804.0,
-          6147.0,
-          7386.0,
-          5442.0,
-          2514.0,
-          390.0
-        ],
-        "gender": [
-          14233.0,
-          11569.0,
-          90459.0
-        ],
-        "dir": {
-          "0": {
-            "in": 13848.0,
-            "out": 13490.0,
-            "total": 27338.0
-          },
-          "1": {
-            "in": 15577.0,
-            "out": 15274.0,
-            "total": 30851.0
-          },
-          "2": {
-            "in": 13891.0,
-            "out": 10532.0,
-            "total": 24423.0
-          },
-          "3": {
-            "in": 16240.0,
-            "out": 17409.0,
-            "total": 33649.0
-          }
-        },
-        "total": 116261.0,
-        "days": 31
-      },
-      "2025-08": {
-        "hour": [
-          630.0,
-          245.0,
-          212.0,
-          228.0,
-          335.0,
-          1137.0,
-          1954.0,
-          2946.0,
-          5237.0,
-          5110.0,
-          7665.0,
-          13800.0,
-          14793.0,
-          13572.0,
-          12146.0,
-          12126.0,
-          12007.0,
-          13170.0,
-          10783.0,
-          7782.0,
-          5657.0,
-          3109.0,
-          1503.0,
-          792.0
-        ],
-        "age": [
-          181.0,
-          1117.0,
-          4115.0,
-          10883.0,
-          12109.0,
-          7055.0,
-          2870.0,
-          434.0
-        ],
-        "gender": [
-          20922.0,
-          17956.0,
-          108061.0
-        ],
-        "dir": {
-          "0": {
-            "in": 13580.0,
-            "out": 13546.0,
-            "total": 27141.0
-          },
-          "1": {
-            "in": 17215.0,
-            "out": 17675.0,
-            "total": 34890.0
-          },
-          "2": {
-            "in": 21205.0,
-            "out": 16994.0,
-            "total": 38210.0
-          },
-          "3": {
-            "in": 23210.0,
-            "out": 23488.0,
-            "total": 46698.0
-          }
-        },
-        "total": 146939.0,
-        "days": 31
-      },
-      "2025-09": {
-        "hour": [
-          504.0,
-          274.0,
-          189.0,
-          210.0,
-          361.0,
-          840.0,
-          1696.0,
-          3914.0,
-          5691.0,
-          5033.0,
-          7970.0,
-          12868.0,
-          15440.0,
-          14310.0,
-          13357.0,
-          12947.0,
-          13523.0,
-          11774.0,
-          8786.0,
-          6198.0,
-          3510.0,
-          2376.0,
-          1557.0,
-          806.0
-        ],
-        "age": [
-          216.0,
-          1253.0,
-          5125.0,
-          13809.0,
-          12612.0,
-          6797.0,
-          2981.0,
-          460.0
-        ],
-        "gender": [
-          23528.0,
-          19861.0,
-          100745.0
-        ],
-        "dir": {
-          "0": {
-            "in": 12026.0,
-            "out": 12300.0,
-            "total": 24356.0
-          },
-          "1": {
-            "in": 16660.0,
-            "out": 16039.0,
-            "total": 32699.0
-          },
-          "2": {
-            "in": 21851.0,
-            "out": 17898.0,
-            "total": 39749.0
-          },
-          "3": {
-            "in": 23593.0,
-            "out": 23737.0,
-            "total": 47330.0
-          }
-        },
-        "total": 144134.0,
-        "days": 30
-      },
-      "2025-10": {
-        "hour": [
-          485.0,
-          256.0,
-          162.0,
-          150.0,
-          345.0,
-          769.0,
-          1356.0,
-          3952.0,
-          6216.0,
-          5759.0,
-          9268.0,
-          13966.0,
-          16400.0,
-          14608.0,
-          13694.0,
-          14084.0,
-          11867.0,
-          10333.0,
-          7973.0,
-          5335.0,
-          3192.0,
-          2253.0,
-          1349.0,
-          576.0
-        ],
-        "age": [
-          224.0,
-          1023.0,
-          3710.0,
-          12577.0,
-          13113.0,
-          7694.0,
-          3871.0,
-          675.0
-        ],
-        "gender": [
-          21888.0,
-          21067.0,
-          101393.0
-        ],
-        "dir": {
-          "0": {
-            "in": 11344.0,
-            "out": 11570.0,
-            "total": 22929.0
-          },
-          "1": {
-            "in": 16243.0,
-            "out": 15461.0,
-            "total": 31704.0
-          },
-          "2": {
-            "in": 23343.0,
-            "out": 18064.0,
-            "total": 41407.0
-          },
-          "3": {
-            "in": 23767.0,
-            "out": 24541.0,
-            "total": 48308.0
-          }
-        },
-        "total": 144348.0,
-        "days": 31
-      },
-      "2025-11": {
-        "hour": [
-          353.0,
-          187.0,
-          108.0,
-          100.0,
-          275.0,
-          657.0,
-          1283.0,
-          3380.0,
-          5617.0,
-          5664.0,
-          10299.0,
-          17581.0,
-          21725.0,
-          20986.0,
-          20412.0,
-          18037.0,
-          15727.0,
-          13469.0,
-          8891.0,
-          5571.0,
-          3121.0,
-          2112.0,
-          1215.0,
-          627.0
-        ],
-        "age": [
-          171.0,
-          960.0,
-          4111.0,
-          16309.0,
-          18556.0,
-          11160.0,
-          4850.0,
-          738.0
-        ],
-        "gender": [
-          28124.0,
-          29760.0,
-          119513.0
-        ],
-        "dir": {
-          "0": {
-            "in": 13080.0,
-            "out": 12661.0,
-            "total": 25818.0
-          },
-          "1": {
-            "in": 22421.0,
-            "out": 21844.0,
-            "total": 44265.0
-          },
-          "2": {
-            "in": 25536.0,
-            "out": 21231.0,
-            "total": 46878.0
-          },
-          "3": {
-            "in": 31063.0,
-            "out": 29373.0,
-            "total": 60436.0
-          }
-        },
-        "total": 177397.0,
-        "days": 30
-      },
-      "2025-12": {
-        "hour": [
-          383.0,
-          165.0,
-          112.0,
-          172.0,
-          149.0,
-          395.0,
-          1081.0,
-          2478.0,
-          4753.0,
-          4849.0,
-          8929.0,
-          13565.0,
-          15967.0,
-          14990.0,
-          14899.0,
-          12372.0,
-          11024.0,
-          9594.0,
-          7124.0,
-          4782.0,
-          2686.0,
-          1862.0,
-          1013.0,
-          626.0
-        ],
-        "age": [
-          93.0,
-          549.0,
-          2076.0,
-          7648.0,
-          9622.0,
-          6288.0,
-          2867.0,
-          275.0
-        ],
-        "gender": [
-          15367.0,
-          15803.0,
-          102800.0
-        ],
-        "dir": {
-          "0": {
-            "in": 8766.0,
-            "out": 8176.0,
-            "total": 17002.0
-          },
-          "1": {
-            "in": 16187.0,
-            "out": 13240.0,
-            "total": 29427.0
-          },
-          "2": {
-            "in": 23110.0,
-            "out": 19938.0,
-            "total": 43251.0
-          },
-          "3": {
-            "in": 21898.0,
-            "out": 22392.0,
-            "total": 44290.0
-          }
-        },
-        "total": 133970.0,
-        "days": 31
-      },
       "2026-01": {
         "hour": [
           315.0,
@@ -7160,9 +2067,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://okazaki-kanko.jp/event/3437",
         "dist_m": 693,
-        "rep_date": "2024-08-10",
-        "rep_flow": 4193,
-        "uplift_pct": -32.5
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "家康行列",
@@ -7174,9 +2081,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://okazaki-kanko.jp/event/671",
         "dist_m": 302,
-        "rep_date": "2025-04-06",
-        "rep_flow": 10084,
-        "uplift_pct": 73.9
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "2022商工フェア",
@@ -7300,9 +2207,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://quruwa.jp/news/221107-06/",
         "dist_m": 302,
-        "rep_date": "2024-09-21",
-        "rep_flow": 8724,
-        "uplift_pct": 40.4
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "岡崎市消防団連合観閲式",
@@ -7370,9 +2277,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://okazaki-kanko.jp/event/4401",
         "dist_m": 493,
-        "rep_date": "2024-12-07",
-        "rep_flow": 5836,
-        "uplift_pct": -6.1
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "フィールドディスカバリーゲーム in 岡崎",
@@ -7426,9 +2333,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://www.soulfoodjam.org/",
         "dist_m": 693,
-        "rep_date": "2024-10-19",
-        "rep_flow": 6428,
-        "uplift_pct": 3.4
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "乙川TRY",
@@ -7496,9 +2403,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://okazaki-kanko.jp/event/690",
         "dist_m": 493,
-        "rep_date": "2024-12-22",
-        "rep_flow": 5077,
-        "uplift_pct": -12.5
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "大河ドラマ「どうする家康」東海プレミアリレーin岡崎",
@@ -7594,9 +2501,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://www.fdbank.jp/archives/8109",
         "dist_m": 493,
-        "rep_date": "2025-03-26",
-        "rep_flow": 6659,
-        "uplift_pct": 68.8
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "桜まつり",
@@ -7832,9 +2739,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://www.kagoda-summerfes.wasshoi-sakura.com/",
         "dist_m": 302,
-        "rep_date": "2025-08-09",
-        "rep_flow": 5243,
-        "uplift_pct": -15.6
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "QURUWA夏祭り　ティーンズフェス2023",
@@ -7916,9 +2823,9 @@ window.DASHBOARD_DATA = {
         "tag": "スポーツ",
         "url": "https://okazaki-rm.net/",
         "dist_m": 693,
-        "rep_date": "2024-09-29",
-        "rep_flow": 6527,
-        "uplift_pct": 12.5
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "FIELD DISCOVERY GAME in OKAZAKI",
@@ -7986,9 +2893,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://www.outback-garage-market.com/",
         "dist_m": 693,
-        "rep_date": "2024-10-12",
-        "rep_flow": 8245,
-        "uplift_pct": 32.7
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "第11回マンホールサミットin岡崎",
@@ -8504,9 +3411,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://www.city.okazaki.lg.jp/houdou/p040870.html",
         "dist_m": 493,
-        "rep_date": "2024-07-20",
-        "rep_flow": 4055,
-        "uplift_pct": -34.7
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "岡崎城下家康公夏まつり第76回花火大会",
@@ -8518,9 +3425,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://okazaki-kanko.jp/feature/hanabitaikai/hanabitokusyu",
         "dist_m": 693,
-        "rep_date": "2024-08-03",
-        "rep_flow": 16502,
-        "uplift_pct": 165.6
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "陸上自衛隊第10音楽隊コンサートin岡崎2024",
@@ -8532,9 +3439,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://www.city.okazaki.lg.jp/houdou/p040908.html",
         "dist_m": 574,
-        "rep_date": "2024-08-10",
-        "rep_flow": 4193,
-        "uplift_pct": -32.5
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "QURUWA夏祭り",
@@ -8546,9 +3453,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://quruwamatsuri.com/",
         "dist_m": 302,
-        "rep_date": "2024-08-10",
-        "rep_flow": 4193,
-        "uplift_pct": -32.5
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "犬市場夜市",
@@ -8560,9 +3467,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://otogawariverlife.com/event/928/",
         "dist_m": 693,
-        "rep_date": "2024-08-17",
-        "rep_flow": 4267,
-        "uplift_pct": -31.3
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "第26回岡崎公園文化祭",
@@ -8574,9 +3481,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://okazaki-kanko.jp/event/3148",
         "dist_m": 493,
-        "rep_date": "2024-09-14",
-        "rep_flow": 7935,
-        "uplift_pct": 27.7
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "岡崎歌舞伎公演記念「岡崎城お練り」",
@@ -8588,9 +3495,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://www.city.okazaki.lg.jp/houdou/p041330.html",
         "dist_m": 493,
-        "rep_date": "2024-09-14",
-        "rep_flow": 7935,
-        "uplift_pct": 27.7
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "岡崎歌舞伎公演",
@@ -8602,9 +3509,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://okazaki-kanko.jp/event/4809",
         "dist_m": 574,
-        "rep_date": "2024-09-14",
-        "rep_flow": 7935,
-        "uplift_pct": 27.7
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "岡崎盆おどりフェス",
@@ -8616,9 +3523,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://okazaki-kanko.jp/okazaki-park/program/4847",
         "dist_m": 493,
-        "rep_date": "2024-09-14",
-        "rep_flow": 7935,
-        "uplift_pct": 27.7
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "夜の岡崎公園クイズラリー",
@@ -8630,9 +3537,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://okazaki-kanko.jp/okazaki-park/program/4876",
         "dist_m": 493,
-        "rep_date": "2024-09-14",
-        "rep_flow": 7935,
-        "uplift_pct": 27.7
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "浴衣で岡崎城",
@@ -8644,9 +3551,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://okazaki-kanko.jp/okazaki-park/program/4891",
         "dist_m": 493,
-        "rep_date": "2024-09-15",
-        "rep_flow": 7735,
-        "uplift_pct": 33.4
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "フィールドディスカバリーゲーム in OKAZAKI",
@@ -8658,9 +3565,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://fielddiscovery.or.jp/2024/06/08/20240929_fdginokazaki/",
         "dist_m": 302,
-        "rep_date": "2024-09-29",
-        "rep_flow": 6527,
-        "uplift_pct": 12.5
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "犬市場 in Okazaki 2024 Autumn",
@@ -8672,9 +3579,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://inuichiba.com/",
         "dist_m": 693,
-        "rep_date": "2024-10-05",
-        "rep_flow": 6765,
-        "uplift_pct": 8.9
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "岡崎城下家康公秋まつり",
@@ -8686,9 +3593,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://okazaki-kanko.jp/feature/akimatsuri/top",
         "dist_m": 693,
-        "rep_date": "2024-11-02",
-        "rep_flow": 6059,
-        "uplift_pct": -2.5
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "第二回岡崎家康杯 体験会",
@@ -8700,9 +3607,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://www.city.okazaki.lg.jp/houdou/p041862.html",
         "dist_m": 693,
-        "rep_date": "2024-11-02",
-        "rep_flow": 6059,
-        "uplift_pct": -2.5
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "岡崎開市500年記念岡崎デジタリアンプロジェクト－GOMANGOKU of Light 2024－",
@@ -8714,9 +3621,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://www.city.okazaki.lg.jp/houdou/p042024.html",
         "dist_m": 493,
-        "rep_date": "2024-12-06",
-        "rep_flow": 4607,
-        "uplift_pct": 10.6
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "Roots of Kawaii内藤ルネ デビュー70周年POP UP展",
@@ -8728,9 +3635,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://www.city.okazaki.lg.jp/houdou/p042060.html",
         "dist_m": 493,
-        "rep_date": "2024-12-06",
-        "rep_flow": 4607,
-        "uplift_pct": 10.6
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "歴史ミーティング～おかざきの陣～",
@@ -8742,9 +3649,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://www.city.okazaki.lg.jp/houdou/p041953.html",
         "dist_m": 493,
-        "rep_date": "2024-12-07",
-        "rep_flow": 5836,
-        "uplift_pct": -6.1
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "第三回 旨辛祭",
@@ -8756,9 +3663,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://www.soulfoodjam.org/",
         "dist_m": 693,
-        "rep_date": "2024-12-14",
-        "rep_flow": 5801,
-        "uplift_pct": -6.6
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "ソウルフードジャム旨辛祭",
@@ -8770,9 +3677,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://otogawariverlife.com/event/1134/",
         "dist_m": 693,
-        "rep_date": "2024-12-14",
-        "rep_flow": 5801,
-        "uplift_pct": -6.6
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "VEHICLE STYLE in OTOGAWA RIVER",
@@ -8784,9 +3691,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://otogawariverlife.com/event/1137/",
         "dist_m": 693,
-        "rep_date": "2024-12-14",
-        "rep_flow": 5801,
-        "uplift_pct": -6.6
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "全国武将サミット2024～家康に、ついて行ってイイですか？～",
@@ -8798,9 +3705,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://okazaki-kanko.jp/okazaki-park/news/12027",
         "dist_m": 493,
-        "rep_date": "2024-12-15",
-        "rep_flow": 10091,
-        "uplift_pct": 74.0
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "岡崎クリスマスマーケット2024",
@@ -8812,9 +3719,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://www.kagodapark.com/posts/55997481?categoryIds=5866835",
         "dist_m": 302,
-        "rep_date": "2024-12-15",
-        "rep_flow": 10091,
-        "uplift_pct": 74.0
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "家康公生誕花火",
@@ -8826,9 +3733,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://okazaki-kanko.jp/feature/iyeyasuko-seitangekkan/top",
         "dist_m": 693,
-        "rep_date": "2024-12-26",
-        "rep_flow": 4816,
-        "uplift_pct": 15.7
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "家康公生誕記念特別無料デー",
@@ -8840,9 +3747,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://okazaki-kanko.jp/feature/iyeyasuko-seitangekkan/top",
         "dist_m": 493,
-        "rep_date": "2024-12-26",
-        "rep_flow": 4816,
-        "uplift_pct": 15.7
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "「岡崎城公園」新園名板除幕式",
@@ -8854,9 +3761,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://okazaki-kanko.jp/feature/iyeyasuko-seitangekkan/top",
         "dist_m": 493,
-        "rep_date": "2024-12-26",
-        "rep_flow": 4816,
-        "uplift_pct": 15.7
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "新春五万石マラソン大会",
@@ -8868,9 +3775,9 @@ window.DASHBOARD_DATA = {
         "tag": "スポーツ",
         "url": "https://otogawariverlife.com/event/1197/",
         "dist_m": 693,
-        "rep_date": "2025-01-04",
-        "rep_flow": 5146,
-        "uplift_pct": -17.2
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "岡崎の偉人と辿る LINEスタンプラリー 第2弾",
@@ -8882,9 +3789,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://okazaki-kanko.jp/event/4981",
         "dist_m": 302,
-        "rep_date": "2025-01-14",
-        "rep_flow": 4324,
-        "uplift_pct": 1.6
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "第45回岡崎市民芸術文化祭『はじまりのフェスティバルⅡ～NEO TRADITION』",
@@ -8896,9 +3803,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://shiminkaikan.com/event/2025/02/45-1.html",
         "dist_m": 574,
-        "rep_date": "2025-02-02",
-        "rep_flow": 4363,
-        "uplift_pct": -24.8
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "久住昌之ふらっとグルメin岡崎",
@@ -8910,9 +3817,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://www.city.okazaki.lg.jp/houdou/p042395.html",
         "dist_m": 574,
-        "rep_date": "2025-03-07",
-        "rep_flow": 5548,
-        "uplift_pct": 33.2
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "QURUWAと暮らす2025",
@@ -8924,9 +3831,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://okazaki-kanko.jp/okazaki-park/program/5001",
         "dist_m": 493,
-        "rep_date": "2025-03-15",
-        "rep_flow": 5947,
-        "uplift_pct": -4.3
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "令和7年「岡崎の桜まつり」",
@@ -8938,9 +3845,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://www.city.okazaki.lg.jp/houdou/p042528.html",
         "dist_m": 493,
-        "rep_date": "2025-03-26",
-        "rep_flow": 6659,
-        "uplift_pct": 68.8
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "五万石藤まつり2025",
@@ -8952,9 +3859,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://www.city.okazaki.lg.jp/houdou/p042935.html",
         "dist_m": 493,
-        "rep_date": "2025-04-18",
-        "rep_flow": 4734,
-        "uplift_pct": 13.7
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "SOUL FOOD JAM　The Eat beat OF AMERICA vol.1",
@@ -8966,9 +3873,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://www.soulfoodjam.org/",
         "dist_m": 693,
-        "rep_date": "2025-04-19",
-        "rep_flow": 8095,
-        "uplift_pct": 30.3
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "OUTBACK GARAGE MARKET in OKAZAKI vol.6",
@@ -8980,9 +3887,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://www.outback-garage-market.com/",
         "dist_m": 693,
-        "rep_date": "2025-04-19",
-        "rep_flow": 8095,
-        "uplift_pct": 30.3
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "ソウルフードジャムGWスペシャル",
@@ -8994,9 +3901,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://www.soulfoodjam.org/",
         "dist_m": 693,
-        "rep_date": "2025-05-03",
-        "rep_flow": 9101,
-        "uplift_pct": 46.5
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "GREEN LIFE JAM vol.3",
@@ -9008,9 +3915,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://greenlifejam.com/",
         "dist_m": 302,
-        "rep_date": "2025-05-03",
-        "rep_flow": 9101,
-        "uplift_pct": 46.5
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "犬市場 Spring",
@@ -9022,9 +3929,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://www.city.okazaki.lg.jp/houdou/p043223.html",
         "dist_m": 693,
-        "rep_date": "2025-05-18",
-        "rep_flow": 6456,
-        "uplift_pct": 11.3
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "保存修理記念特別公開「本多忠勝の肖像と甲冑」",
@@ -9036,9 +3943,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://okazaki-kanko.jp/okazaki-park/program/5042",
         "dist_m": 493,
-        "rep_date": "2025-05-24",
-        "rep_flow": 4837,
-        "uplift_pct": -22.2
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "ハッピーマルシェ",
@@ -9050,9 +3957,9 @@ window.DASHBOARD_DATA = {
         "tag": "その他",
         "url": "https://quruwa.jp/news/250501-16/",
         "dist_m": 574,
-        "rep_date": "2025-05-31",
-        "rep_flow": 5373,
-        "uplift_pct": -13.5
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "RIVER NATION",
@@ -9064,9 +3971,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://otogawariverlife.com/event/1373/",
         "dist_m": 693,
-        "rep_date": "2025-06-21",
-        "rep_flow": 5069,
-        "uplift_pct": -18.4
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "65.3％フェスティバル",
@@ -9078,9 +3985,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://www.dot-jp.or.jp/news/20162.html",
         "dist_m": 302,
-        "rep_date": "2025-06-28",
-        "rep_flow": 5113,
-        "uplift_pct": -17.7
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "BIO marché オトマルシェ",
@@ -9092,9 +3999,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://quruwa.jp/news/250701-2/",
         "dist_m": 693,
-        "rep_date": "2025-07-01",
-        "rep_flow": 3349,
-        "uplift_pct": -21.3
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "岡崎城公園開設150周年記念企画展「岡崎城公園150年のあゆみ」",
@@ -9106,9 +4013,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://www.city.okazaki.lg.jp/houdou/p043405.html",
         "dist_m": 493,
-        "rep_date": "2025-07-12",
-        "rep_flow": 4474,
-        "uplift_pct": -28.0
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "岡崎の偉人と辿るLINEスタンプラリー 第3弾",
@@ -9120,9 +4027,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://okazaki-kanko.jp/feature/linestamprally/top",
         "dist_m": 493,
-        "rep_date": "2025-07-18",
-        "rep_flow": 4172,
-        "uplift_pct": 0.2
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "岡崎城下家康公夏まつり第77回花火大会",
@@ -9134,9 +4041,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://okazaki-kanko.jp/event/675",
         "dist_m": 493,
-        "rep_date": "2025-08-02",
-        "rep_flow": 12326,
-        "uplift_pct": 98.4
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "吉田ジョージのお天気ワールド！ クイズと実験で学ぼう",
@@ -9148,9 +4055,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://www.city.okazaki.lg.jp/houdou/p043246.html",
         "dist_m": 574,
-        "rep_date": "2025-08-05",
-        "rep_flow": 3394,
-        "uplift_pct": -20.3
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "岡崎城下家康公夏まつり　籠田公園前伝馬通会場",
@@ -9162,9 +4069,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "http://www.okazakimatsuri.jp/Summer/entry-309.html",
         "dist_m": 302,
-        "rep_date": "2025-08-11",
-        "rep_flow": 5926,
-        "uplift_pct": 36.2
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "QURUWA夏祭り　桜城橋・乙川河川敷会場",
@@ -9176,9 +4083,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://quruwamatsuri.com/",
         "dist_m": 302,
-        "rep_date": "2025-08-22",
-        "rep_flow": 4631,
-        "uplift_pct": 11.2
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "Lien乙川夏祭り",
@@ -9190,9 +4097,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://otogawariverlife.com/event/1522/",
         "dist_m": 693,
-        "rep_date": "2025-09-06",
-        "rep_flow": 5739,
-        "uplift_pct": -7.6
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "桜城橋月待会",
@@ -9204,9 +4111,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://quruwa.jp/news/250901-05/",
         "dist_m": 302,
-        "rep_date": "2025-09-08",
-        "rep_flow": 4023,
-        "uplift_pct": -7.6
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "岡崎戦国謎解きゲーム　～タイムカプセルと予言の書～",
@@ -9218,9 +4125,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://www.city.okazaki.lg.jp/houdou/p043721.html",
         "dist_m": 493,
-        "rep_date": "2025-09-09",
-        "rep_flow": 4375,
-        "uplift_pct": 2.7
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "「秋JAZZ 2025」を開催します。",
@@ -9232,9 +4139,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://www.city.okazaki.lg.jp/kanko/event/1009558/1011067.html",
         "dist_m": 470,
-        "rep_date": "2025-09-20",
-        "rep_flow": 5612,
-        "uplift_pct": -9.7
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "岡崎城下家康公夏まつり　岡崎城公園会場",
@@ -9246,9 +4153,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "http://www.okazakimatsuri.jp/Summer/entry-307.html",
         "dist_m": 493,
-        "rep_date": "2025-09-20",
-        "rep_flow": 5612,
-        "uplift_pct": -9.7
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "盆踊りフェス2025",
@@ -9260,9 +4167,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://quruwa.jp/news/250901-16/",
         "dist_m": 493,
-        "rep_date": "2025-09-20",
-        "rep_flow": 5612,
-        "uplift_pct": -9.7
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "フィールドディスカバリーゲームin岡崎",
@@ -9274,9 +4181,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://www.city.okazaki.lg.jp/houdou/p043857.html",
         "dist_m": 302,
-        "rep_date": "2025-09-21",
-        "rep_flow": 8647,
-        "uplift_pct": 49.1
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "岡崎城星空ライブ",
@@ -9288,9 +4195,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://okazaki-kanko.jp/event/5078",
         "dist_m": 493,
-        "rep_date": "2025-09-27",
-        "rep_flow": 5693,
-        "uplift_pct": -8.4
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "第7回オカザキリバーサイドマラソン",
@@ -9302,9 +4209,9 @@ window.DASHBOARD_DATA = {
         "tag": "スポーツ",
         "url": "https://otogawariverlife.com/event/1485/",
         "dist_m": 693,
-        "rep_date": "2025-09-28",
-        "rep_flow": 6312,
-        "uplift_pct": 8.8
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "岡崎市周遊謎解き「岡崎全域虫眼鏡化 ～M－43ウイルスの蔓延を阻止しろ～」",
@@ -9316,9 +4223,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://www.city.okazaki.lg.jp/houdou/p044157.html",
         "dist_m": 493,
-        "rep_date": "2025-10-03",
-        "rep_flow": 4032,
-        "uplift_pct": -3.2
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "犬市場 in OKAZAKI 2025 Autumn",
@@ -9330,9 +4237,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://www.city.okazaki.lg.jp/houdou/p044172.html",
         "dist_m": 693,
-        "rep_date": "2025-10-11",
-        "rep_flow": 6363,
-        "uplift_pct": 2.4
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "ミニ企画展「蔦屋重三郎と岡崎 ～狂歌師・三笑家資料を中心に～」",
@@ -9344,9 +4251,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://www.city.okazaki.lg.jp/houdou/p044131.html",
         "dist_m": 493,
-        "rep_date": "2025-10-17",
-        "rep_flow": 4392,
-        "uplift_pct": 5.5
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "アウトバックガレージマーケット",
@@ -9358,9 +4265,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://otogawariverlife.com/event/1513/",
         "dist_m": 693,
-        "rep_date": "2025-10-18",
-        "rep_flow": 6882,
-        "uplift_pct": 10.7
+        "rep_date": "2026-04-18",
+        "rep_flow": 6977,
+        "uplift_pct": 7.2
       },
       {
         "name": "ソウルフードジャム『The Eat beat OF AMERICA vol.２』",
@@ -9372,9 +4279,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://otogawariverlife.com/event/1517/",
         "dist_m": 693,
-        "rep_date": "2025-10-18",
-        "rep_flow": 6882,
-        "uplift_pct": 10.7
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "GREEN LIFE JAM in OKAZAKI",
@@ -9386,9 +4293,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://www.city.okazaki.lg.jp/houdou/p044272.html",
         "dist_m": 302,
-        "rep_date": "2025-10-18",
-        "rep_flow": 6882,
-        "uplift_pct": 10.7
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "海上自衛隊舞鶴音楽隊コンサートｉｎ岡崎2025",
@@ -9400,9 +4307,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://www.city.okazaki.lg.jp/houdou/p043800.html",
         "dist_m": 574,
-        "rep_date": "2025-10-19",
-        "rep_flow": 9346,
-        "uplift_pct": 61.1
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "Let’s エコアクション in AICHI～遊んで学んでエコ体験♪始めよう地球にいいこと～",
@@ -9414,9 +4321,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://otogawariverlife.com/event/1562/",
         "dist_m": 693,
-        "rep_date": "2025-10-19",
-        "rep_flow": 9346,
-        "uplift_pct": 61.1
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "URBAN SAFE LINK",
@@ -9428,9 +4335,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://okazaki-kanko.jp/event/5101",
         "dist_m": 693,
-        "rep_date": "2025-10-19",
-        "rep_flow": 9346,
-        "uplift_pct": 61.1
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "岡崎市民公開講座「認知症講演会」を開催します。",
@@ -9442,9 +4349,9 @@ window.DASHBOARD_DATA = {
         "tag": "シニア",
         "url": "https://www.city.okazaki.lg.jp/kanko/event/1009530/1011258.html",
         "dist_m": 1240,
-        "rep_date": "2025-10-23",
-        "rep_flow": 4751,
-        "uplift_pct": 14.2
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "ある日の乙川～川の味覚と流域をめぐるこのまちの暮らし～",
@@ -9456,9 +4363,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://otogawariverlife.com/event/1598/",
         "dist_m": 693,
-        "rep_date": "2025-10-25",
-        "rep_flow": 5713,
-        "uplift_pct": -8.1
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "令和7年度第52回岡崎市農林業祭",
@@ -9470,9 +4377,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://www.city.okazaki.lg.jp/business/sangyo/1005302/1012686/1005308/1011257.html",
         "dist_m": 693,
-        "rep_date": "2025-11-01",
-        "rep_flow": 9371,
-        "uplift_pct": 50.8
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "岡崎ジャズストリート",
@@ -9484,9 +4391,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://okazakijazzstreet.com/",
         "dist_m": 302,
-        "rep_date": "2025-11-01",
-        "rep_flow": 9371,
-        "uplift_pct": 50.8
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "水切り石ゲーム",
@@ -9498,9 +4405,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://okazaki-kanko.jp/event/2707",
         "dist_m": 693,
-        "rep_date": "2025-11-01",
-        "rep_flow": 9371,
-        "uplift_pct": 50.8
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "ストーンフェスタ",
@@ -9512,9 +4419,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://okazaki-kanko.jp/event/2715",
         "dist_m": 493,
-        "rep_date": "2025-11-01",
-        "rep_flow": 9371,
-        "uplift_pct": 50.8
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "石-１グランプリ 岡崎水切り石選手権大会",
@@ -9526,9 +4433,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://okazaki-kanko.jp/event/2707",
         "dist_m": 693,
-        "rep_date": "2025-11-02",
-        "rep_flow": 14777,
-        "uplift_pct": 154.8
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "第78回 岡崎市芸術祭参加市民茶会",
@@ -9540,9 +4447,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://okazaki-kanko.jp/event/3555",
         "dist_m": 493,
-        "rep_date": "2025-11-03",
-        "rep_flow": 6312,
-        "uplift_pct": 45.0
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "P.T.A Bazaar vol.12",
@@ -9554,9 +4461,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://www.instagram.com/park.trade.association/",
         "dist_m": 302,
-        "rep_date": "2025-11-08",
-        "rep_flow": 7942,
-        "uplift_pct": 27.8
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "Kiraz Dance School ～秋のダンスまつり～",
@@ -9568,9 +4475,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://okazaki-kanko.jp/event/4134",
         "dist_m": 493,
-        "rep_date": "2025-11-09",
-        "rep_flow": 3307,
-        "uplift_pct": -43.0
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "第54回はつらつクラブ岡崎作品展を開催します！",
@@ -9582,9 +4489,9 @@ window.DASHBOARD_DATA = {
         "tag": "シニア",
         "url": "https://www.city.okazaki.lg.jp/kanko/event/1009530/1013218.html",
         "dist_m": 470,
-        "rep_date": "2025-11-13",
-        "rep_flow": 4136,
-        "uplift_pct": -0.6
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "Japanカップ： 岡崎レースノルディックウォーキング 2025",
@@ -9596,9 +4503,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://otogawariverlife.com/event/1636/",
         "dist_m": 693,
-        "rep_date": "2025-11-15",
-        "rep_flow": 9520,
-        "uplift_pct": 53.2
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "ナントカナーレ！2025「なんとなく寝たくない夜に」",
@@ -9610,9 +4517,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://quruwa.jp/news/251101-19/",
         "dist_m": 302,
-        "rep_date": "2025-11-15",
-        "rep_flow": 9520,
-        "uplift_pct": 53.2
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "令和7年度人権啓発講演会",
@@ -9624,9 +4531,9 @@ window.DASHBOARD_DATA = {
         "tag": "その他",
         "url": "https://www.city.okazaki.lg.jp/kurashi/shohi/1001881/1001882/1011282.html",
         "dist_m": 470,
-        "rep_date": "2025-11-16",
-        "rep_flow": 6661,
-        "uplift_pct": 14.8
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "第33回岡崎市民クラシックコンサート　Ｏｓａｋａ Ｓｈｉｏｎ Ｗｉｎｄ Ｏｒｃｈｅｓｔｒａ ドラゴンクエストin岡崎",
@@ -9638,9 +4545,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://www.city.okazaki.lg.jp/houdou/p043560.html",
         "dist_m": 574,
-        "rep_date": "2025-11-16",
-        "rep_flow": 6661,
-        "uplift_pct": 14.8
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "丘の途中の夜市",
@@ -9652,9 +4559,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://quruwa.jp/news/251101-16/",
         "dist_m": 302,
-        "rep_date": "2025-11-22",
-        "rep_flow": 9087,
-        "uplift_pct": 46.2
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "生誕500年記念　松平広忠",
@@ -9666,9 +4573,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://www.city.okazaki.lg.jp/houdou/p044494.html",
         "dist_m": 493,
-        "rep_date": "2025-11-29",
-        "rep_flow": 7664,
-        "uplift_pct": 23.3
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "絵本の世界に入って遊ぼう!! 360°仕掛け絵本「不思議の国のアリス」",
@@ -9680,9 +4587,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://www.city.okazaki.lg.jp/libra/event/1013031.html",
         "dist_m": 470,
-        "rep_date": "2025-12-04",
-        "rep_flow": 3470,
-        "uplift_pct": -16.6
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "家康公生誕月間「おかざき宵まいり」",
@@ -9694,9 +4601,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://www.city.okazaki.lg.jp/houdou/p044570.html",
         "dist_m": 493,
-        "rep_date": "2025-12-06",
-        "rep_flow": 6368,
-        "uplift_pct": 2.5
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "全国武将隊サミット2025～それ武将隊にやらせて下さい～",
@@ -9708,9 +4615,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://www.city.okazaki.lg.jp/houdou/p044470.html",
         "dist_m": 493,
-        "rep_date": "2025-12-07",
-        "rep_flow": 5565,
-        "uplift_pct": -4.1
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "恋結びin宵まいり",
@@ -9722,9 +4629,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://www.city.okazaki.lg.jp/houdou/p044396.html",
         "dist_m": 493,
-        "rep_date": "2025-12-13",
-        "rep_flow": 8217,
-        "uplift_pct": 32.2
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "岡崎クリスマスマーケット2025",
@@ -9736,9 +4643,9 @@ window.DASHBOARD_DATA = {
         "tag": "パーク＆ネイチャー",
         "url": "https://odeinc.jp/13380/",
         "dist_m": 302,
-        "rep_date": "2025-12-13",
-        "rep_flow": 8217,
-        "uplift_pct": 32.2
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "家康公生誕月間「家康公生誕祭」",
@@ -9750,9 +4657,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://www.city.okazaki.lg.jp/houdou/p044554.html",
         "dist_m": 493,
-        "rep_date": "2025-12-21",
-        "rep_flow": 3442,
-        "uplift_pct": -40.7
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "家康公生誕月間「家康公生誕花火」",
@@ -9764,9 +4671,9 @@ window.DASHBOARD_DATA = {
         "tag": "芸術＆文化",
         "url": "https://www.city.okazaki.lg.jp/houdou/p044498.html",
         "dist_m": 693,
-        "rep_date": "2025-12-26",
-        "rep_flow": 4126,
-        "uplift_pct": -0.9
+        "rep_date": null,
+        "rep_flow": null,
+        "uplift_pct": null
       },
       {
         "name": "新春五万石マラソン",
@@ -9780,7 +4687,7 @@ window.DASHBOARD_DATA = {
         "dist_m": 693,
         "rep_date": "2026-01-04",
         "rep_flow": 4711,
-        "uplift_pct": -18.8
+        "uplift_pct": -9.5
       },
       {
         "name": "おとがわ寒中水泳",
@@ -9794,7 +4701,7 @@ window.DASHBOARD_DATA = {
         "dist_m": 693,
         "rep_date": "2026-01-11",
         "rep_flow": 4995,
-        "uplift_pct": -13.9
+        "uplift_pct": -4.1
       },
       {
         "name": "岡崎市消防出初・観閲式",
@@ -9808,7 +4715,7 @@ window.DASHBOARD_DATA = {
         "dist_m": 693,
         "rep_date": "2026-01-11",
         "rep_flow": 4995,
-        "uplift_pct": -13.9
+        "uplift_pct": -4.1
       },
       {
         "name": "出初式フードイベント",
@@ -9822,7 +4729,7 @@ window.DASHBOARD_DATA = {
         "dist_m": 693,
         "rep_date": "2026-01-11",
         "rep_flow": 4995,
-        "uplift_pct": -13.9
+        "uplift_pct": -4.1
       },
       {
         "name": "「CO2測定体験と見える化報告会」を開催しました（岡崎市地球温暖化防止隊）",
@@ -9836,7 +4743,7 @@ window.DASHBOARD_DATA = {
         "dist_m": 470,
         "rep_date": "2026-02-15",
         "rep_flow": 5708,
-        "uplift_pct": -1.6
+        "uplift_pct": 9.6
       },
       {
         "name": "グレート家康公「葵」武将隊　「わし物語」",
@@ -9850,7 +4757,7 @@ window.DASHBOARD_DATA = {
         "dist_m": 493,
         "rep_date": "2026-03-14",
         "rep_flow": 7579,
-        "uplift_pct": 22.0
+        "uplift_pct": 16.5
       },
       {
         "name": "#QURUWAと暮らす2026",
@@ -9864,7 +4771,7 @@ window.DASHBOARD_DATA = {
         "dist_m": 493,
         "rep_date": "2026-03-21",
         "rep_flow": 8438,
-        "uplift_pct": 35.8
+        "uplift_pct": 29.7
       },
       {
         "name": "第46回岡崎市民芸術文化祭withオカザえもんの芸術祭　クール和ジャポン　まちなかアート発見ツアー",
@@ -9878,7 +4785,7 @@ window.DASHBOARD_DATA = {
         "dist_m": 574,
         "rep_date": "2026-03-28",
         "rep_flow": 8925,
-        "uplift_pct": 43.6
+        "uplift_pct": 37.2
       },
       {
         "name": "第46回岡崎市民芸術文化祭withオカザえもんの芸術祭　クール和ジャポン　りゅうのぼりを金色に塗ろう・岡崎市民歌舞伎プロジェクト初お目見え",
@@ -9892,7 +4799,7 @@ window.DASHBOARD_DATA = {
         "dist_m": 493,
         "rep_date": "2026-03-29",
         "rep_flow": 8710,
-        "uplift_pct": 50.2
+        "uplift_pct": 67.3
       },
       {
         "name": "ソウルフードジャム『The Eat beat OF AMERICA vol.3』",
@@ -9906,7 +4813,7 @@ window.DASHBOARD_DATA = {
         "dist_m": 693,
         "rep_date": "2026-04-18",
         "rep_flow": 6977,
-        "uplift_pct": 12.3
+        "uplift_pct": 7.2
       },
       {
         "name": "おかざきリバーサイドリレーマラソン",
@@ -9920,7 +4827,7 @@ window.DASHBOARD_DATA = {
         "dist_m": 693,
         "rep_date": "2026-04-25",
         "rep_flow": 6708,
-        "uplift_pct": 7.9
+        "uplift_pct": 3.1
       },
       {
         "name": "ソウルフードジャム『SOUL FOOD JAM vol.50 GWスペシャル』",
@@ -9934,7 +4841,7 @@ window.DASHBOARD_DATA = {
         "dist_m": 693,
         "rep_date": "2026-05-02",
         "rep_flow": 7677,
-        "uplift_pct": 23.5
+        "uplift_pct": 18.0
       },
       {
         "name": "Let it Camp GWスペシャル",
@@ -9948,7 +4855,7 @@ window.DASHBOARD_DATA = {
         "dist_m": 693,
         "rep_date": "2026-05-02",
         "rep_flow": 7677,
-        "uplift_pct": 23.5
+        "uplift_pct": 18.0
       },
       {
         "name": "水のアクティビティー大集合",
@@ -9962,7 +4869,7 @@ window.DASHBOARD_DATA = {
         "dist_m": 693,
         "rep_date": "2026-05-02",
         "rep_flow": 7677,
-        "uplift_pct": 23.5
+        "uplift_pct": 18.0
       },
       {
         "name": "甲冑試着体験",
@@ -9976,7 +4883,7 @@ window.DASHBOARD_DATA = {
         "dist_m": 493,
         "rep_date": "2026-05-03",
         "rep_flow": 7162,
-        "uplift_pct": 23.5
+        "uplift_pct": 37.6
       },
       {
         "name": "グレート感謝祭（フェスティバル）～葵武将隊のみなさんのおかげです～",
@@ -9990,7 +4897,7 @@ window.DASHBOARD_DATA = {
         "dist_m": 493,
         "rep_date": "2026-05-04",
         "rep_flow": 7971,
-        "uplift_pct": 83.2
+        "uplift_pct": 124.2
       },
       {
         "name": "おとがわリバークリーン",
@@ -10004,7 +4911,7 @@ window.DASHBOARD_DATA = {
         "dist_m": 693,
         "rep_date": "2026-05-09",
         "rep_flow": 6518,
-        "uplift_pct": 4.9
+        "uplift_pct": 0.2
       },
       {
         "name": "犬市場 in OKAZAKI 2026 Spring",
@@ -10018,7 +4925,7 @@ window.DASHBOARD_DATA = {
         "dist_m": 693,
         "rep_date": "2026-05-16",
         "rep_flow": 6495,
-        "uplift_pct": 4.5
+        "uplift_pct": -0.2
       },
       {
         "name": "岡崎市民会館あおいホール　サロンコンサート",
@@ -10032,7 +4939,7 @@ window.DASHBOARD_DATA = {
         "dist_m": 574,
         "rep_date": "2026-06-19",
         "rep_flow": 4288,
-        "uplift_pct": 3.0
+        "uplift_pct": 15.3
       },
       {
         "name": "第119回シネマ・ド・りぶらを開催します。",
@@ -10046,7 +4953,7 @@ window.DASHBOARD_DATA = {
         "dist_m": 470,
         "rep_date": "2026-06-22",
         "rep_flow": 2808,
-        "uplift_pct": -35.5
+        "uplift_pct": -21.0
       },
       {
         "name": "市制施行110周年記念式",
@@ -12007,7 +6914,7 @@ window.DASHBOARD_DATA = {
       },
       {
         "industry": "テイクアウト惣菜・弁当",
-        "people_fit": 85,
+        "people_fit": 86,
         "competition": 76,
         "facility_fit": 70,
         "profitability": 74,
@@ -12017,12 +6924,12 @@ window.DASHBOARD_DATA = {
       },
       {
         "industry": "居酒屋・カフェバー",
-        "people_fit": 76,
+        "people_fit": 75,
         "competition": 68,
         "facility_fit": 65,
         "profitability": 70,
         "reason": "夜間の回遊・食事需要。ただし周辺に競合が多い点に注意。",
-        "total": 71,
+        "total": 70,
         "rank": 3
       },
       {
@@ -12048,5 +6955,635 @@ window.DASHBOARD_DATA = {
     ],
     "method": "総合 = 人流相性×0.35 + 競合の少なさ×0.25 + 近隣施設相性×0.20 + 収益性×0.20。人流相性は実データ（年代・性別・時間帯構成）から算出、競合は半径内店舗数から算出。近隣施設相性・収益性は暫定値（ダミー）。",
     "is_partial_dummy": true
+  },
+  "consumer": {
+    "survey": {
+      "year": "令和6年度",
+      "respondents": 2755,
+      "source": "岡崎市オープンデータ（令和6年度市民意識調査）",
+      "age_groups": [
+        {
+          "code": 1,
+          "label": "10歳未満",
+          "count": 115,
+          "pct": 4.2
+        },
+        {
+          "code": 2,
+          "label": "10代",
+          "count": 299,
+          "pct": 10.9
+        },
+        {
+          "code": 3,
+          "label": "20代",
+          "count": 366,
+          "pct": 13.4
+        },
+        {
+          "code": 4,
+          "label": "30代",
+          "count": 437,
+          "pct": 15.9
+        },
+        {
+          "code": 5,
+          "label": "40代",
+          "count": 490,
+          "pct": 17.9
+        },
+        {
+          "code": 6,
+          "label": "50代",
+          "count": 422,
+          "pct": 15.4
+        },
+        {
+          "code": 7,
+          "label": "60代",
+          "count": 422,
+          "pct": 15.4
+        },
+        {
+          "code": 8,
+          "label": "70歳以上",
+          "count": 190,
+          "pct": 6.9
+        }
+      ],
+      "occupations": [
+        {
+          "code": 1,
+          "label": "会社員・公務員等",
+          "count": 1102,
+          "pct": 40.3
+        },
+        {
+          "code": 2,
+          "label": "自営業",
+          "count": 164,
+          "pct": 6.0
+        },
+        {
+          "code": 3,
+          "label": "自由業",
+          "count": 155,
+          "pct": 5.7
+        },
+        {
+          "code": 4,
+          "label": "パート・アルバイト",
+          "count": 483,
+          "pct": 17.6
+        },
+        {
+          "code": 5,
+          "label": "専業主婦（夫）",
+          "count": 307,
+          "pct": 11.2
+        },
+        {
+          "code": 6,
+          "label": "学生",
+          "count": 491,
+          "pct": 17.9
+        },
+        {
+          "code": 7,
+          "label": "無職・その他",
+          "count": 35,
+          "pct": 1.3
+        }
+      ],
+      "commerce_satisfaction": [
+        {
+          "label": "満足（7〜10）",
+          "count": 803,
+          "pct": 30.2
+        },
+        {
+          "label": "どちらかと言えば満足（5〜6）",
+          "count": 1121,
+          "pct": 42.1
+        },
+        {
+          "label": "不満（1〜4）",
+          "count": 695,
+          "pct": 26.1
+        }
+      ],
+      "commerce_importance": [
+        {
+          "label": "満足（7〜10）",
+          "count": 1336,
+          "pct": 50.2
+        },
+        {
+          "label": "どちらかと言えば満足（5〜6）",
+          "count": 952,
+          "pct": 35.8
+        },
+        {
+          "label": "不満（1〜4）",
+          "count": 354,
+          "pct": 13.3
+        }
+      ],
+      "commerce_sat_avg": 5.48,
+      "shopping_convenience": {
+        "count": 1510,
+        "pct": 54.8,
+        "label": "買い物・飲食の便利さを「住みよさ」と回答"
+      },
+      "online_shopping": {
+        "count": 1241,
+        "pct": 45.0,
+        "label": "スマホでオンラインショッピングを利用"
+      },
+      "holiday_in_city": [
+        {
+          "code": 1,
+          "label": "非常に多い",
+          "count": 1450,
+          "pct": 53.5
+        },
+        {
+          "code": 2,
+          "label": "やや多い",
+          "count": 776,
+          "pct": 28.6
+        },
+        {
+          "code": 3,
+          "label": "どちらともいえない",
+          "count": 298,
+          "pct": 11.0
+        },
+        {
+          "code": 4,
+          "label": "あまり多くない",
+          "count": 138,
+          "pct": 5.1
+        },
+        {
+          "code": 5,
+          "label": "全く多くない",
+          "count": 50,
+          "pct": 1.8
+        }
+      ],
+      "holiday_in_city_often_pct": 80.8,
+      "center_city_visit": [
+        {
+          "code": 1,
+          "label": "非常に多い",
+          "count": 177,
+          "pct": 6.5
+        },
+        {
+          "code": 2,
+          "label": "やや多い",
+          "count": 279,
+          "pct": 10.3
+        },
+        {
+          "code": 3,
+          "label": "どちらともいえない",
+          "count": 419,
+          "pct": 15.4
+        },
+        {
+          "code": 4,
+          "label": "あまり多くない",
+          "count": 733,
+          "pct": 27.0
+        },
+        {
+          "code": 5,
+          "label": "全く多くない",
+          "count": 1104,
+          "pct": 40.7
+        }
+      ],
+      "center_city_visit_often_pct": 16.6,
+      "transport_modes": [
+        {
+          "label": "自家用車",
+          "count": 2380,
+          "pct": 86.4
+        },
+        {
+          "label": "徒歩",
+          "count": 1032,
+          "pct": 37.5
+        },
+        {
+          "label": "鉄道",
+          "count": 980,
+          "pct": 35.6
+        },
+        {
+          "label": "自転車",
+          "count": 571,
+          "pct": 20.7
+        },
+        {
+          "label": "バス",
+          "count": 522,
+          "pct": 18.9
+        },
+        {
+          "label": "タクシー",
+          "count": 122,
+          "pct": 4.4
+        },
+        {
+          "label": "オートバイ",
+          "count": 89,
+          "pct": 3.2
+        }
+      ]
+    },
+    "nearby_population": {
+      "date": "2025-04-01",
+      "areas": [
+        {
+          "name": "康生通",
+          "population": 2000,
+          "households": 1041
+        },
+        {
+          "name": "六供町",
+          "population": 1855,
+          "households": 831
+        },
+        {
+          "name": "梅園町",
+          "population": 1476,
+          "households": 646
+        },
+        {
+          "name": "元能見町",
+          "population": 1203,
+          "households": 549
+        },
+        {
+          "name": "板屋町",
+          "population": 1104,
+          "households": 582
+        },
+        {
+          "name": "康生町",
+          "population": 893,
+          "households": 458
+        },
+        {
+          "name": "材木町",
+          "population": 782,
+          "households": 470
+        },
+        {
+          "name": "伝馬通",
+          "population": 613,
+          "households": 309
+        },
+        {
+          "name": "松本町",
+          "population": 304,
+          "households": 145
+        },
+        {
+          "name": "十王町",
+          "population": 182,
+          "households": 84
+        },
+        {
+          "name": "花崗町",
+          "population": 146,
+          "households": 80
+        },
+        {
+          "name": "六供本町",
+          "population": 137,
+          "households": 67
+        },
+        {
+          "name": "連尺通",
+          "population": 132,
+          "households": 64
+        },
+        {
+          "name": "祐金町",
+          "population": 129,
+          "households": 66
+        },
+        {
+          "name": "本町通",
+          "population": 115,
+          "households": 64
+        },
+        {
+          "name": "籠田町",
+          "population": 78,
+          "households": 45
+        }
+      ],
+      "area_count": 16,
+      "population": 11149,
+      "households": 5501,
+      "age_structure": [
+        {
+          "label": "0-14歳",
+          "count": 1321,
+          "pct": 11.8
+        },
+        {
+          "label": "15-64歳",
+          "count": 6435,
+          "pct": 57.7
+        },
+        {
+          "label": "65歳以上",
+          "count": 3393,
+          "pct": 30.4
+        }
+      ],
+      "source": "岡崎市オープンデータ（地域・年齢別人口）",
+      "note": "康生通東周辺の町字（完全一致）を合算。商圏の厳密な徒歩圏とは異なります。"
+    },
+    "city_population_trend": {
+      "items": [
+        {
+          "year_label": "20",
+          "population": 376220,
+          "households": 146402
+        },
+        {
+          "year_label": "21",
+          "population": 376120,
+          "households": 146941
+        },
+        {
+          "year_label": "22",
+          "population": 376469,
+          "households": 148074
+        },
+        {
+          "year_label": "23",
+          "population": 378217,
+          "households": 149932
+        },
+        {
+          "year_label": "24",
+          "population": 378249,
+          "households": 149060
+        },
+        {
+          "year_label": "25",
+          "population": 379264,
+          "households": 150968
+        },
+        {
+          "year_label": "26",
+          "population": 380764,
+          "households": 152849
+        },
+        {
+          "year_label": "27",
+          "population": 383493,
+          "households": 155905
+        },
+        {
+          "year_label": "28",
+          "population": 384950,
+          "households": 157966
+        },
+        {
+          "year_label": "29",
+          "population": 386943,
+          "households": 160783
+        },
+        {
+          "year_label": "30",
+          "population": 387887,
+          "households": 163104
+        },
+        {
+          "year_label": "令和元年度",
+          "population": 387106,
+          "households": 164390
+        },
+        {
+          "year_label": "2",
+          "population": 385823,
+          "households": 165775
+        },
+        {
+          "year_label": "3",
+          "population": 384996,
+          "households": 166994
+        },
+        {
+          "year_label": "4",
+          "population": 383789,
+          "households": 168543
+        }
+      ],
+      "latest": {
+        "year_label": "4",
+        "population": 383789,
+        "households": 168543
+      },
+      "source": "岡崎市オープンデータ（人口・世帯数等）"
+    },
+    "city_food_kinds": [
+      {
+        "kind": "飲食店営業",
+        "count": 3045,
+        "pct": 74.9
+      },
+      {
+        "kind": "菓子製造業",
+        "count": 501,
+        "pct": 12.3
+      },
+      {
+        "kind": "そうざい製造業",
+        "count": 136,
+        "pct": 3.3
+      },
+      {
+        "kind": "食肉販売業",
+        "count": 94,
+        "pct": 2.3
+      },
+      {
+        "kind": "魚介類販売業",
+        "count": 89,
+        "pct": 2.2
+      },
+      {
+        "kind": "調理の機能を有する自動販売機により食品を調理し、調理された食品を販売する営業",
+        "count": 46,
+        "pct": 1.1
+      },
+      {
+        "kind": "アイスクリーム類製造業",
+        "count": 23,
+        "pct": 0.6
+      },
+      {
+        "kind": "漬物製造業",
+        "count": 21,
+        "pct": 0.5
+      },
+      {
+        "kind": "食肉処理業",
+        "count": 19,
+        "pct": 0.5
+      },
+      {
+        "kind": "食品の小分け業",
+        "count": 13,
+        "pct": 0.3
+      },
+      {
+        "kind": "麺類製造業",
+        "count": 12,
+        "pct": 0.3
+      },
+      {
+        "kind": "乳類販売業",
+        "count": 10,
+        "pct": 0.2
+      }
+    ],
+    "income_trend": {
+      "trend": [
+        {
+          "year_label": "平成24年度",
+          "citizen_income_k": 3714,
+          "household_income_k": 3717
+        },
+        {
+          "year_label": "25",
+          "citizen_income_k": 3921,
+          "household_income_k": 3797
+        },
+        {
+          "year_label": "26",
+          "citizen_income_k": 3593,
+          "household_income_k": 3794
+        },
+        {
+          "year_label": "27",
+          "citizen_income_k": 3790,
+          "household_income_k": 3866
+        },
+        {
+          "year_label": "28",
+          "citizen_income_k": 3622,
+          "household_income_k": 3853
+        },
+        {
+          "year_label": "29",
+          "citizen_income_k": 3859,
+          "household_income_k": 3838
+        },
+        {
+          "year_label": "30",
+          "citizen_income_k": 3724,
+          "household_income_k": 3890
+        },
+        {
+          "year_label": "令和元年度",
+          "citizen_income_k": 3484,
+          "household_income_k": 3850
+        },
+        {
+          "year_label": "2",
+          "citizen_income_k": 3296,
+          "household_income_k": 3876
+        },
+        {
+          "year_label": "3",
+          "citizen_income_k": 3541,
+          "household_income_k": 3892
+        },
+        {
+          "year_label": "4",
+          "citizen_income_k": 3519,
+          "household_income_k": 3907
+        }
+      ],
+      "latest": {
+        "year_label": "4",
+        "citizen_income_k": 3519,
+        "household_income_k": 3907
+      },
+      "source": "岡崎市統計（syotoku20.xls）/ 愛知県市町村民所得推計",
+      "unit": "千円"
+    },
+    "income_breakdown": {
+      "year_label": "令和4年度",
+      "total_m": 1496812,
+      "breakdown": [
+        {
+          "label": "雇用者報酬",
+          "amount_m": 1036040,
+          "pct": 69.2
+        },
+        {
+          "label": "営業余剰・混合所得",
+          "amount_m": 101172,
+          "pct": 6.8
+        },
+        {
+          "label": "財産所得",
+          "amount_m": 89224,
+          "pct": 6.0
+        },
+        {
+          "label": "社会給付",
+          "amount_m": 242646,
+          "pct": 16.2
+        },
+        {
+          "label": "その他の経常移転",
+          "amount_m": 27851,
+          "pct": 1.9
+        }
+      ],
+      "source": "岡崎市統計（syotoku18.xls）",
+      "unit": "百万円"
+    },
+    "industry_share": {
+      "items": [
+        {
+          "industry": "製造業",
+          "value_m": 337909,
+          "share_pct": 32.8
+        },
+        {
+          "industry": "卸売・小売業",
+          "value_m": 138790,
+          "share_pct": 13.5
+        },
+        {
+          "industry": "不動産業",
+          "value_m": 74974,
+          "share_pct": 7.3
+        },
+        {
+          "industry": "宿泊・飲食サービス",
+          "value_m": 15712,
+          "share_pct": 1.5
+        }
+      ],
+      "year_label": "令和4年度",
+      "source": "岡崎市統計（syotoku04.xls）"
+    },
+    "income_note": null,
+    "summary_note": "市民意識調査・人口・食品営業許可は岡崎市オープンデータ、所得・産業構成は岡崎市統計ページから取得。調査は全市サンプルのため、康生通り通行者そのものを直接代表するものではありません。"
   }
 };

@@ -20,6 +20,7 @@
         <a class="nav-item active" data-target="summary">🏢 物件サマリー</a>
         <a class="nav-item" data-target="people">🚶 人流分析</a>
         <a class="nav-item" data-target="stores">🍽 周辺店舗・競合</a>
+        <a class="nav-item" data-target="consumer">🛒 消費者傾向</a>
         <a class="nav-item" data-target="demographics">👥 商圏人口</a>
         <a class="nav-item" data-target="scores">⭐ 業種チャンス</a>
       </nav>
@@ -170,7 +171,85 @@
         </div>
       </section>
 
-      <!-- 画面4: 商圏人口 -->
+      <!-- 画面4: 消費者傾向 -->
+      <section id="consumer" class="screen">
+        <header class="screen-head">
+          <h1>消費者傾向 <span>岡崎市民の暮らし・消費・所得</span></h1>
+          <p class="lead" id="consumerLead"></p>
+        </header>
+
+        <div class="kpi-grid" id="consumerKpi"></div>
+
+        <div class="card-row card-row--2-1">
+          <div class="card">
+            <div class="card-title">市民の年齢構成（意識調査）</div>
+            <div class="chart-wrap"><canvas id="consAgeChart"></canvas></div>
+          </div>
+          <div class="card">
+            <div class="card-title">市民の職業構成（意識調査）</div>
+            <div class="chart-wrap"><canvas id="consJobChart"></canvas></div>
+          </div>
+        </div>
+
+        <div class="card-row card-row--3">
+          <div class="card">
+            <div class="card-title">商業・観光への満足度</div>
+            <div class="chart-wrap chart-wrap--sm"><canvas id="consSatChart"></canvas></div>
+          </div>
+          <div class="card">
+            <div class="card-title">休日を市内で過ごす頻度</div>
+            <div class="chart-wrap chart-wrap--sm"><canvas id="consHolidayChart"></canvas></div>
+          </div>
+          <div class="card">
+            <div class="card-title">中心市街地（康生地区）への出没頻度</div>
+            <div class="chart-wrap chart-wrap--sm"><canvas id="consCenterChart"></canvas></div>
+          </div>
+        </div>
+
+        <div class="card-row card-row--2-1">
+          <div class="card">
+            <div class="card-title">市内の食品関連営業（種別上位）</div>
+            <div class="chart-wrap"><canvas id="consFoodChart"></canvas></div>
+            <div class="note" id="consFoodNote"></div>
+          </div>
+          <div class="card">
+            <div class="card-title">日常生活の交通手段（複数回答）</div>
+            <div class="chart-wrap"><canvas id="consTransportChart"></canvas></div>
+          </div>
+        </div>
+
+        <div class="card-row card-row--2-1">
+          <div class="card">
+            <div class="card-title">康生周辺エリアの人口構成</div>
+            <div class="chart-wrap chart-wrap--sm"><canvas id="consNearAgeChart"></canvas></div>
+            <div class="note" id="consNearPopNote"></div>
+          </div>
+          <div class="card">
+            <div class="card-title">岡崎市 人口・世帯数の推移</div>
+            <div class="chart-wrap chart-wrap--sm"><canvas id="consPopTrendChart"></canvas></div>
+          </div>
+        </div>
+
+        <div class="card-row card-row--2-1">
+          <div class="card">
+            <div class="card-title">一人当たり所得・家計所得の推移</div>
+            <div class="chart-wrap"><canvas id="consIncomeChart"></canvas></div>
+            <div class="note" id="consIncomeNote"></div>
+          </div>
+          <div class="card">
+            <div class="card-title">市民家計所得の内訳（最新年度）</div>
+            <div class="chart-wrap chart-wrap--sm"><canvas id="consIncomeBreakChart"></canvas></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">市内経済の産業構成（参考）</div>
+          <div class="table-wrap"><table id="consIndustryTable"></table></div>
+          <div class="note" id="consSummaryNote"></div>
+        </div>
+      </section>
+
+      <!-- 画面5: 商圏人口 -->
       <section id="demographics" class="screen">
         <header class="screen-head">
           <h1>商圏人口分析 <span id="demoDummyBadge"></span></h1>
@@ -200,7 +279,7 @@
         </div>
       </section>
 
-      <!-- 画面5: 業種チャンス -->
+      <!-- 画面6: 業種チャンス -->
       <section id="scores" class="screen">
         <header class="screen-head">
           <h1>業種チャンスランキング <span>この場所に合う業種</span></h1>

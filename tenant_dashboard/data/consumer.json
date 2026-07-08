@@ -1,0 +1,630 @@
+{
+  "survey": {
+    "year": "令和6年度",
+    "respondents": 2755,
+    "source": "岡崎市オープンデータ（令和6年度市民意識調査）",
+    "age_groups": [
+      {
+        "code": 1,
+        "label": "10歳未満",
+        "count": 115,
+        "pct": 4.2
+      },
+      {
+        "code": 2,
+        "label": "10代",
+        "count": 299,
+        "pct": 10.9
+      },
+      {
+        "code": 3,
+        "label": "20代",
+        "count": 366,
+        "pct": 13.4
+      },
+      {
+        "code": 4,
+        "label": "30代",
+        "count": 437,
+        "pct": 15.9
+      },
+      {
+        "code": 5,
+        "label": "40代",
+        "count": 490,
+        "pct": 17.9
+      },
+      {
+        "code": 6,
+        "label": "50代",
+        "count": 422,
+        "pct": 15.4
+      },
+      {
+        "code": 7,
+        "label": "60代",
+        "count": 422,
+        "pct": 15.4
+      },
+      {
+        "code": 8,
+        "label": "70歳以上",
+        "count": 190,
+        "pct": 6.9
+      }
+    ],
+    "occupations": [
+      {
+        "code": 1,
+        "label": "会社員・公務員等",
+        "count": 1102,
+        "pct": 40.3
+      },
+      {
+        "code": 2,
+        "label": "自営業",
+        "count": 164,
+        "pct": 6.0
+      },
+      {
+        "code": 3,
+        "label": "自由業",
+        "count": 155,
+        "pct": 5.7
+      },
+      {
+        "code": 4,
+        "label": "パート・アルバイト",
+        "count": 483,
+        "pct": 17.6
+      },
+      {
+        "code": 5,
+        "label": "専業主婦（夫）",
+        "count": 307,
+        "pct": 11.2
+      },
+      {
+        "code": 6,
+        "label": "学生",
+        "count": 491,
+        "pct": 17.9
+      },
+      {
+        "code": 7,
+        "label": "無職・その他",
+        "count": 35,
+        "pct": 1.3
+      }
+    ],
+    "commerce_satisfaction": [
+      {
+        "label": "満足（7〜10）",
+        "count": 803,
+        "pct": 30.2
+      },
+      {
+        "label": "どちらかと言えば満足（5〜6）",
+        "count": 1121,
+        "pct": 42.1
+      },
+      {
+        "label": "不満（1〜4）",
+        "count": 695,
+        "pct": 26.1
+      }
+    ],
+    "commerce_importance": [
+      {
+        "label": "満足（7〜10）",
+        "count": 1336,
+        "pct": 50.2
+      },
+      {
+        "label": "どちらかと言えば満足（5〜6）",
+        "count": 952,
+        "pct": 35.8
+      },
+      {
+        "label": "不満（1〜4）",
+        "count": 354,
+        "pct": 13.3
+      }
+    ],
+    "commerce_sat_avg": 5.48,
+    "shopping_convenience": {
+      "count": 1510,
+      "pct": 54.8,
+      "label": "買い物・飲食の便利さを「住みよさ」と回答"
+    },
+    "online_shopping": {
+      "count": 1241,
+      "pct": 45.0,
+      "label": "スマホでオンラインショッピングを利用"
+    },
+    "holiday_in_city": [
+      {
+        "code": 1,
+        "label": "非常に多い",
+        "count": 1450,
+        "pct": 53.5
+      },
+      {
+        "code": 2,
+        "label": "やや多い",
+        "count": 776,
+        "pct": 28.6
+      },
+      {
+        "code": 3,
+        "label": "どちらともいえない",
+        "count": 298,
+        "pct": 11.0
+      },
+      {
+        "code": 4,
+        "label": "あまり多くない",
+        "count": 138,
+        "pct": 5.1
+      },
+      {
+        "code": 5,
+        "label": "全く多くない",
+        "count": 50,
+        "pct": 1.8
+      }
+    ],
+    "holiday_in_city_often_pct": 80.8,
+    "center_city_visit": [
+      {
+        "code": 1,
+        "label": "非常に多い",
+        "count": 177,
+        "pct": 6.5
+      },
+      {
+        "code": 2,
+        "label": "やや多い",
+        "count": 279,
+        "pct": 10.3
+      },
+      {
+        "code": 3,
+        "label": "どちらともいえない",
+        "count": 419,
+        "pct": 15.4
+      },
+      {
+        "code": 4,
+        "label": "あまり多くない",
+        "count": 733,
+        "pct": 27.0
+      },
+      {
+        "code": 5,
+        "label": "全く多くない",
+        "count": 1104,
+        "pct": 40.7
+      }
+    ],
+    "center_city_visit_often_pct": 16.6,
+    "transport_modes": [
+      {
+        "label": "自家用車",
+        "count": 2380,
+        "pct": 86.4
+      },
+      {
+        "label": "徒歩",
+        "count": 1032,
+        "pct": 37.5
+      },
+      {
+        "label": "鉄道",
+        "count": 980,
+        "pct": 35.6
+      },
+      {
+        "label": "自転車",
+        "count": 571,
+        "pct": 20.7
+      },
+      {
+        "label": "バス",
+        "count": 522,
+        "pct": 18.9
+      },
+      {
+        "label": "タクシー",
+        "count": 122,
+        "pct": 4.4
+      },
+      {
+        "label": "オートバイ",
+        "count": 89,
+        "pct": 3.2
+      }
+    ]
+  },
+  "nearby_population": {
+    "date": "2025-04-01",
+    "areas": [
+      {
+        "name": "康生通",
+        "population": 2000,
+        "households": 1041
+      },
+      {
+        "name": "六供町",
+        "population": 1855,
+        "households": 831
+      },
+      {
+        "name": "梅園町",
+        "population": 1476,
+        "households": 646
+      },
+      {
+        "name": "元能見町",
+        "population": 1203,
+        "households": 549
+      },
+      {
+        "name": "板屋町",
+        "population": 1104,
+        "households": 582
+      },
+      {
+        "name": "康生町",
+        "population": 893,
+        "households": 458
+      },
+      {
+        "name": "材木町",
+        "population": 782,
+        "households": 470
+      },
+      {
+        "name": "伝馬通",
+        "population": 613,
+        "households": 309
+      },
+      {
+        "name": "松本町",
+        "population": 304,
+        "households": 145
+      },
+      {
+        "name": "十王町",
+        "population": 182,
+        "households": 84
+      },
+      {
+        "name": "花崗町",
+        "population": 146,
+        "households": 80
+      },
+      {
+        "name": "六供本町",
+        "population": 137,
+        "households": 67
+      },
+      {
+        "name": "連尺通",
+        "population": 132,
+        "households": 64
+      },
+      {
+        "name": "祐金町",
+        "population": 129,
+        "households": 66
+      },
+      {
+        "name": "本町通",
+        "population": 115,
+        "households": 64
+      },
+      {
+        "name": "籠田町",
+        "population": 78,
+        "households": 45
+      }
+    ],
+    "area_count": 16,
+    "population": 11149,
+    "households": 5501,
+    "age_structure": [
+      {
+        "label": "0-14歳",
+        "count": 1321,
+        "pct": 11.8
+      },
+      {
+        "label": "15-64歳",
+        "count": 6435,
+        "pct": 57.7
+      },
+      {
+        "label": "65歳以上",
+        "count": 3393,
+        "pct": 30.4
+      }
+    ],
+    "source": "岡崎市オープンデータ（地域・年齢別人口）",
+    "note": "康生通東周辺の町字（完全一致）を合算。商圏の厳密な徒歩圏とは異なります。"
+  },
+  "city_population_trend": {
+    "items": [
+      {
+        "year_label": "20",
+        "population": 376220,
+        "households": 146402
+      },
+      {
+        "year_label": "21",
+        "population": 376120,
+        "households": 146941
+      },
+      {
+        "year_label": "22",
+        "population": 376469,
+        "households": 148074
+      },
+      {
+        "year_label": "23",
+        "population": 378217,
+        "households": 149932
+      },
+      {
+        "year_label": "24",
+        "population": 378249,
+        "households": 149060
+      },
+      {
+        "year_label": "25",
+        "population": 379264,
+        "households": 150968
+      },
+      {
+        "year_label": "26",
+        "population": 380764,
+        "households": 152849
+      },
+      {
+        "year_label": "27",
+        "population": 383493,
+        "households": 155905
+      },
+      {
+        "year_label": "28",
+        "population": 384950,
+        "households": 157966
+      },
+      {
+        "year_label": "29",
+        "population": 386943,
+        "households": 160783
+      },
+      {
+        "year_label": "30",
+        "population": 387887,
+        "households": 163104
+      },
+      {
+        "year_label": "令和元年度",
+        "population": 387106,
+        "households": 164390
+      },
+      {
+        "year_label": "2",
+        "population": 385823,
+        "households": 165775
+      },
+      {
+        "year_label": "3",
+        "population": 384996,
+        "households": 166994
+      },
+      {
+        "year_label": "4",
+        "population": 383789,
+        "households": 168543
+      }
+    ],
+    "latest": {
+      "year_label": "4",
+      "population": 383789,
+      "households": 168543
+    },
+    "source": "岡崎市オープンデータ（人口・世帯数等）"
+  },
+  "city_food_kinds": [
+    {
+      "kind": "飲食店営業",
+      "count": 3045,
+      "pct": 74.9
+    },
+    {
+      "kind": "菓子製造業",
+      "count": 501,
+      "pct": 12.3
+    },
+    {
+      "kind": "そうざい製造業",
+      "count": 136,
+      "pct": 3.3
+    },
+    {
+      "kind": "食肉販売業",
+      "count": 94,
+      "pct": 2.3
+    },
+    {
+      "kind": "魚介類販売業",
+      "count": 89,
+      "pct": 2.2
+    },
+    {
+      "kind": "調理の機能を有する自動販売機により食品を調理し、調理された食品を販売する営業",
+      "count": 46,
+      "pct": 1.1
+    },
+    {
+      "kind": "アイスクリーム類製造業",
+      "count": 23,
+      "pct": 0.6
+    },
+    {
+      "kind": "漬物製造業",
+      "count": 21,
+      "pct": 0.5
+    },
+    {
+      "kind": "食肉処理業",
+      "count": 19,
+      "pct": 0.5
+    },
+    {
+      "kind": "食品の小分け業",
+      "count": 13,
+      "pct": 0.3
+    },
+    {
+      "kind": "麺類製造業",
+      "count": 12,
+      "pct": 0.3
+    },
+    {
+      "kind": "乳類販売業",
+      "count": 10,
+      "pct": 0.2
+    }
+  ],
+  "income_trend": {
+    "trend": [
+      {
+        "year_label": "平成24年度",
+        "citizen_income_k": 3714,
+        "household_income_k": 3717
+      },
+      {
+        "year_label": "25",
+        "citizen_income_k": 3921,
+        "household_income_k": 3797
+      },
+      {
+        "year_label": "26",
+        "citizen_income_k": 3593,
+        "household_income_k": 3794
+      },
+      {
+        "year_label": "27",
+        "citizen_income_k": 3790,
+        "household_income_k": 3866
+      },
+      {
+        "year_label": "28",
+        "citizen_income_k": 3622,
+        "household_income_k": 3853
+      },
+      {
+        "year_label": "29",
+        "citizen_income_k": 3859,
+        "household_income_k": 3838
+      },
+      {
+        "year_label": "30",
+        "citizen_income_k": 3724,
+        "household_income_k": 3890
+      },
+      {
+        "year_label": "令和元年度",
+        "citizen_income_k": 3484,
+        "household_income_k": 3850
+      },
+      {
+        "year_label": "2",
+        "citizen_income_k": 3296,
+        "household_income_k": 3876
+      },
+      {
+        "year_label": "3",
+        "citizen_income_k": 3541,
+        "household_income_k": 3892
+      },
+      {
+        "year_label": "4",
+        "citizen_income_k": 3519,
+        "household_income_k": 3907
+      }
+    ],
+    "latest": {
+      "year_label": "4",
+      "citizen_income_k": 3519,
+      "household_income_k": 3907
+    },
+    "source": "岡崎市統計（syotoku20.xls）/ 愛知県市町村民所得推計",
+    "unit": "千円"
+  },
+  "income_breakdown": {
+    "year_label": "令和4年度",
+    "total_m": 1496812,
+    "breakdown": [
+      {
+        "label": "雇用者報酬",
+        "amount_m": 1036040,
+        "pct": 69.2
+      },
+      {
+        "label": "営業余剰・混合所得",
+        "amount_m": 101172,
+        "pct": 6.8
+      },
+      {
+        "label": "財産所得",
+        "amount_m": 89224,
+        "pct": 6.0
+      },
+      {
+        "label": "社会給付",
+        "amount_m": 242646,
+        "pct": 16.2
+      },
+      {
+        "label": "その他の経常移転",
+        "amount_m": 27851,
+        "pct": 1.9
+      }
+    ],
+    "source": "岡崎市統計（syotoku18.xls）",
+    "unit": "百万円"
+  },
+  "industry_share": {
+    "items": [
+      {
+        "industry": "製造業",
+        "value_m": 337909,
+        "share_pct": 32.8
+      },
+      {
+        "industry": "卸売・小売業",
+        "value_m": 138790,
+        "share_pct": 13.5
+      },
+      {
+        "industry": "不動産業",
+        "value_m": 74974,
+        "share_pct": 7.3
+      },
+      {
+        "industry": "宿泊・飲食サービス",
+        "value_m": 15712,
+        "share_pct": 1.5
+      }
+    ],
+    "year_label": "令和4年度",
+    "source": "岡崎市統計（syotoku04.xls）"
+  },
+  "income_note": null,
+  "summary_note": "市民意識調査・人口・食品営業許可は岡崎市オープンデータ、所得・産業構成は岡崎市統計ページから取得。調査は全市サンプルのため、康生通り通行者そのものを直接代表するものではありません。"
+}

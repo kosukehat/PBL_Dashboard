@@ -12,7 +12,7 @@
     },
     {
       "industry": "テイクアウト惣菜・弁当",
-      "people_fit": 85,
+      "people_fit": 86,
       "competition": 76,
       "facility_fit": 70,
       "profitability": 74,
@@ -22,12 +22,12 @@
     },
     {
       "industry": "居酒屋・カフェバー",
-      "people_fit": 76,
+      "people_fit": 75,
       "competition": 68,
       "facility_fit": 65,
       "profitability": 70,
       "reason": "夜間の回遊・食事需要。ただし周辺に競合が多い点に注意。",
-      "total": 71,
+      "total": 70,
       "rank": 3
     },
     {

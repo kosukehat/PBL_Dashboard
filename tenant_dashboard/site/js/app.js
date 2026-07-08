@@ -571,7 +571,248 @@ function renderStores() {
 }
 
 /* =========================================================
-   画面4: 商圏人口（ダミー）
+   画面4: 消費者傾向
+   ========================================================= */
+const CONS_PALETTE = [
+  "#2563eb", "#0ea5e9", "#10b981", "#f59e0b", "#ef4444",
+  "#8b5cf6", "#ec4899", "#14b8a6", "#64748b",
+];
+const FREQ_COLORS = ["#16a34a", "#86efac", "#cbd5e1", "#fdba74", "#ef4444"];
+
+function consChart(id, config) {
+  config.options = config.options || {};
+  config.options.responsive = true;
+  config.options.maintainAspectRatio = false;
+  return new Chart(document.getElementById(id), config);
+}
+
+function fmtYearLabel(label) {
+  const s = String(label || "");
+  return /^\d+$/.test(s) ? `令和${s}年度` : s;
+}
+
+function renderConsumer() {
+  const c = D.consumer;
+  if (!c) return;
+  const sv = c.survey || {};
+  const np = c.nearby_population || {};
+  const grid = "#e2e8f0";
+
+  const latestIncome = (c.income_trend && c.income_trend.latest) || {};
+  const hhIncome = latestIncome.household_income_k;
+  const cityPop = (c.city_population_trend && c.city_population_trend.latest) || {};
+  const topFood = (c.city_food_kinds || [])[0];
+  const topAge = (sv.age_groups || []).slice().sort((a, b) => b.pct - a.pct)[0];
+  const topJob = (sv.occupations || []).slice().sort((a, b) => b.pct - a.pct)[0];
+
+  document.getElementById("consumerLead").innerHTML =
+    `令和6年度市民意識調査（<b>${fmt(sv.respondents || 0)}人</b>）と岡崎市の人口・所得・食品営業データから、` +
+    `「市民が何に・どこで・どう消費しているか」の傾向を把握できます。` +
+    `康生周辺（${np.area_count || 0}町字）の居住人口は<b>${fmt(np.population || 0)}人</b>、` +
+    `世帯数<b>${fmt(np.households || 0)}世帯</b>（${np.date || "—"}時点）。` +
+    `<br><span class="muted">${c.summary_note || ""}</span>`;
+
+  document.getElementById("consumerKpi").innerHTML = [
+    {
+      cls: "", label: "家計所得（1人あたり）",
+      value: hhIncome ? fmt(hhIncome) : "—", unit: hhIncome ? "千円/年" : "",
+      sub: fmtYearLabel(latestIncome.year_label) || "岡崎市統計",
+    },
+    {
+      cls: "good", label: "休日を市内で過ごす",
+      value: sv.holiday_in_city_often_pct ?? "—", unit: sv.holiday_in_city_often_pct != null ? "%" : "",
+      sub: "「非常に／やや多い」の割合",
+    },
+    {
+      cls: "accent", label: "オンラインショッピング利用",
+      value: (sv.online_shopping && sv.online_shopping.pct) ?? "—",
+      unit: sv.online_shopping ? "%" : "",
+      sub: "スマホ利用（複数回答）",
+    },
+    {
+      cls: "sky", label: "市内最多の食品営業",
+      value: topFood ? topFood.kind : "—", unit: "",
+      sub: topFood ? `${fmt(topFood.count)}件（${topFood.pct}%）` : "",
+    },
+  ].map(k => `<div class="kpi ${k.cls}"><div class="k-label">${k.label}</div>
+    <div class="k-value" style="font-size:${k.value.length > 8 ? 18 : 28}px">${k.value}<span class="k-unit">${k.unit}</span></div>
+    <div class="k-sub">${k.sub}</div></div>`).join("");
+
+  // 年齢・職業
+  consChart("consAgeChart", {
+    type: "bar",
+    data: {
+      labels: (sv.age_groups || []).map(x => x.label),
+      datasets: [{ label: "構成比 %", data: (sv.age_groups || []).map(x => x.pct),
+        backgroundColor: CONS_PALETTE, borderRadius: 4 }],
+    },
+    options: { plugins: { legend: { display: false } },
+      scales: { y: { grid: { color: grid }, title: { display: true, text: "%" } }, x: { grid: { display: false } } } },
+  });
+  consChart("consJobChart", {
+    type: "bar",
+    data: {
+      labels: (sv.occupations || []).map(x => x.label),
+      datasets: [{ data: (sv.occupations || []).map(x => x.pct),
+        backgroundColor: CONS_PALETTE, borderRadius: 4 }],
+    },
+    options: { indexAxis: "y", plugins: { legend: { display: false } },
+      scales: { x: { grid: { color: grid }, title: { display: true, text: "%" } } } },
+  });
+
+  // 満足度・休日・中心市街地
+  consChart("consSatChart", {
+    type: "doughnut",
+    data: {
+      labels: (sv.commerce_satisfaction || []).map(x => x.label),
+      datasets: [{ data: (sv.commerce_satisfaction || []).map(x => x.pct),
+        backgroundColor: ["#16a34a", "#86efac", "#fca5a5"] }],
+    },
+    options: { plugins: { legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 10 } } } } },
+  });
+  consChart("consHolidayChart", {
+    type: "bar",
+    data: {
+      labels: (sv.holiday_in_city || []).map(x => x.label),
+      datasets: [{ data: (sv.holiday_in_city || []).map(x => x.pct), backgroundColor: FREQ_COLORS, borderRadius: 4 }],
+    },
+    options: { plugins: { legend: { display: false } }, scales: { y: { grid: { color: grid } } } },
+  });
+  consChart("consCenterChart", {
+    type: "bar",
+    data: {
+      labels: (sv.center_city_visit || []).map(x => x.label),
+      datasets: [{ data: (sv.center_city_visit || []).map(x => x.pct), backgroundColor: FREQ_COLORS, borderRadius: 4 }],
+    },
+    options: { plugins: { legend: { display: false } }, scales: { y: { grid: { color: grid } } } },
+  });
+
+  // 食品営業種別
+  const foods = c.city_food_kinds || [];
+  consChart("consFoodChart", {
+    type: "bar",
+    data: {
+      labels: foods.map(x => x.kind),
+      datasets: [{ data: foods.map(x => x.count), backgroundColor: "#0891b2", borderRadius: 4 }],
+    },
+    options: { indexAxis: "y", plugins: { legend: { display: false } },
+      scales: { x: { grid: { color: grid }, title: { display: true, text: "件数" } } } },
+  });
+  document.getElementById("consFoodNote").textContent =
+    "岡崎市内の現存する食品等営業許可・届出件数（種別別）。飲食・菓子等の「消費ジャンル」の市全体像。";
+
+  // 交通手段
+  consChart("consTransportChart", {
+    type: "bar",
+    data: {
+      labels: (sv.transport_modes || []).map(x => x.label),
+      datasets: [{ data: (sv.transport_modes || []).map(x => x.pct), backgroundColor: "#6366f1", borderRadius: 4 }],
+    },
+    options: { indexAxis: "y", plugins: { legend: { display: false } },
+      scales: { x: { grid: { color: grid }, max: 100, title: { display: true, text: "回答者の %" } } } },
+  });
+
+  // 周辺人口年齢
+  consChart("consNearAgeChart", {
+    type: "doughnut",
+    data: {
+      labels: (np.age_structure || []).map(x => x.label),
+      datasets: [{ data: (np.age_structure || []).map(x => x.pct),
+        backgroundColor: ["#93c5fd", "#3b82f6", "#1e3a8a"] }],
+    },
+    options: { plugins: { legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 11 } } } } },
+  });
+  document.getElementById("consNearPopNote").innerHTML =
+    `${np.note || ""} 最多町字: ${(np.areas && np.areas[0]) ? np.areas[0].name + "（" + fmt(np.areas[0].population) + "人）" : "—"}`;
+
+  // 人口推移
+  const popItems = (c.city_population_trend && c.city_population_trend.items) || [];
+  consChart("consPopTrendChart", {
+    type: "line",
+    data: {
+      labels: popItems.map(x => x.year_label),
+      datasets: [{
+        label: "人口", data: popItems.map(x => x.population),
+        borderColor: "#2563eb", backgroundColor: "rgba(37,99,235,.1)",
+        fill: true, tension: .25, yAxisID: "y",
+      }, {
+        label: "世帯数", data: popItems.map(x => x.households),
+        borderColor: "#f59e0b", borderDash: [4, 4], tension: .25, yAxisID: "y1",
+      }],
+    },
+    options: {
+      plugins: { legend: { position: "bottom", labels: { boxWidth: 12, font: { size: 11 } } } },
+      scales: {
+        y: { position: "left", grid: { color: grid }, title: { display: true, text: "人口" } },
+        y1: { position: "right", grid: { display: false }, title: { display: true, text: "世帯" } },
+        x: { grid: { display: false }, ticks: { maxTicksLimit: 10, font: { size: 10 } } },
+      },
+    },
+  });
+
+  // 所得推移
+  const incTrend = (c.income_trend && c.income_trend.trend) || [];
+  if (incTrend.length) {
+    consChart("consIncomeChart", {
+      type: "line",
+      data: {
+        labels: incTrend.map(x => x.year_label),
+        datasets: [{
+          label: "市民所得", data: incTrend.map(x => x.citizen_income_k),
+          borderColor: "#2563eb", tension: .25,
+        }, {
+          label: "家計所得", data: incTrend.map(x => x.household_income_k),
+          borderColor: "#10b981", tension: .25,
+        }],
+      },
+      options: {
+        plugins: { legend: { position: "bottom" } },
+        scales: {
+          y: { grid: { color: grid }, title: { display: true, text: "千円/人" } },
+          x: { grid: { display: false }, ticks: { maxTicksLimit: 12, font: { size: 10 } } },
+        },
+      },
+    });
+    document.getElementById("consIncomeNote").textContent =
+      (c.income_trend.source || "") + "。" + (c.income_note || "");
+  } else {
+    document.getElementById("consIncomeNote").textContent = c.income_note || "所得データを取得できませんでした。";
+  }
+
+  // 家計所得内訳
+  const ib = c.income_breakdown || {};
+  if (ib.breakdown && ib.breakdown.length) {
+    consChart("consIncomeBreakChart", {
+      type: "doughnut",
+      data: {
+        labels: ib.breakdown.map(x => x.label),
+        datasets: [{ data: ib.breakdown.map(x => x.pct), backgroundColor: CONS_PALETTE }],
+      },
+      options: {
+        plugins: {
+          legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 10 } } },
+          title: { display: true, text: `${ib.year_label} 合計 ${fmt(ib.total_m)} 百万円`, font: { size: 12 } },
+        },
+      },
+    });
+  }
+
+  // 産業構成
+  const ind = (c.industry_share && c.industry_share.items) || [];
+  document.getElementById("consIndustryTable").innerHTML =
+    `<tr><th>産業</th><th>市内総生産（百万円）</th><th>構成比</th></tr>` +
+    ind.map(x => `<tr><td>${x.industry}</td><td>${fmt(x.value_m)}</td><td>${x.share_pct}%</td></tr>`).join("");
+
+  document.getElementById("consSummaryNote").innerHTML =
+    `調査の最多年代は<b>${topAge ? topAge.label : "—"}</b>（${topAge ? topAge.pct : "—"}%）、` +
+    `最多職業は<b>${topJob ? topJob.label : "—"}</b>（${topJob ? topJob.pct : "—"}%）。` +
+    `中心市街地への出没は「あまり／全く多くない」が約${sv.center_city_visit ? (sv.center_city_visit.filter(x => x.code >= 4).reduce((s, x) => s + x.pct, 0)).toFixed(1) : "—"}%と、` +
+    `日常の来店獲得・回遊促進の余地を示唆します。` +
+    (sv.commerce_sat_avg != null ? ` 商業・観光満足度の平均は<b>${sv.commerce_sat_avg}</b>点（10点満点）。` : "");
+}
+
+/* =========================================================
+   画面5: 商圏人口（ダミー）
    ========================================================= */
 function renderDemographics() {
   const dm = D.demographics, rent = D.rent, fut = D.future;
@@ -614,7 +855,7 @@ function renderDemographics() {
 }
 
 /* =========================================================
-   画面5: 業種チャンス
+   画面6: 業種チャンス
    ========================================================= */
 function renderScores() {
   const sc = D.scores;
@@ -665,6 +906,7 @@ renderSummary();
 setupPeoplePeriod();
 updatePeople();
 renderStores();
+renderConsumer();
 renderDemographics();
 renderScores();
 

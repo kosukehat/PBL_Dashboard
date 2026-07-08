@@ -17,12 +17,14 @@ site/js/data.js（ブラウザがそのまま読める JS）と data/*.json を�
 """
 
 import argparse
+import io
 import json
 import math
 import re
 import time
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
+from urllib.parse import urljoin
 
 import pandas as pd
 import requests
@@ -49,6 +51,29 @@ NEARBY_TOWN_KEYWORDS = [
     "康生", "連尺", "籠田", "伝馬", "材木", "松本町", "祐金", "元能見",
     "十王", "花崗", "六供", "三清", "本町", "梅園", "板屋",
 ]
+
+# 地域・年齢別人口で康生周辺として集計する町名（完全一致）
+NEARBY_AREA_NAMES = [
+    "康生町", "康生通", "連尺通", "籠田町", "伝馬通", "材木町", "松本町",
+    "祐金町", "元能見町", "十王町", "花崗町", "六供町", "六供本町", "本町通",
+    "梅園町", "板屋町",
+]
+
+# 令和6年度市民意識調査の選択肢ラベル
+SURVEY_AGE_LABELS = {
+    1: "10歳未満", 2: "10代", 3: "20代", 4: "30代", 5: "40代",
+    6: "50代", 7: "60代", 8: "70歳以上",
+}
+SURVEY_JOB_LABELS = {
+    1: "会社員・公務員等", 2: "自営業", 3: "自由業", 4: "パート・アルバイト",
+    5: "専業主婦（夫）", 6: "学生", 7: "無職・その他",
+}
+SURVEY_FREQ_LABELS = {
+    1: "非常に多い", 2: "やや多い", 3: "どちらともいえない",
+    4: "あまり多くない", 5: "全く多くない",
+}
+OKAZAKI_INCOME_BASE = "https://www.city.okazaki.lg.jp/shisei/tokei/1014399.html"
+OKAZAKI_INCOME_RES = "../../_res/projects/default_project/_page_/001/014/399/"
 
 DOW_LABELS = ["月", "火", "水", "木", "金", "土", "日"]
 GENDER_LABELS = {0: "男性", 1: "女性", 2: "不明"}
@@ -662,6 +687,331 @@ def build_scores(peopleflow, stores):
 
 
 # ---------------------------------------------------------------------------
+# 5. 消費者傾向（市民意識調査・人口・所得・食品営業許可）
+# ---------------------------------------------------------------------------
+def _survey_value_counts(series, labels):
+    total = int(series.notna().sum()) or 1
+    out = []
+    for code in sorted(labels):
+        n = int((series == code).sum())
+        if n:
+            out.append({
+                "code": code, "label": labels[code], "count": n,
+                "pct": round(100 * n / total, 1),
+            })
+    return out
+
+
+def _fetch_okazaki_xls(name):
+    url = urljoin(OKAZAKI_INCOME_BASE, OKAZAKI_INCOME_RES + name)
+    r = requests.get(url, timeout=30)
+    r.raise_for_status()
+    return pd.read_excel(io.BytesIO(r.content), header=None)
+
+
+def _parse_income_trend():
+    """一人当たり市民所得・家計所得の年度推移（千円）。"""
+    df = _fetch_okazaki_xls("syotoku20.xls")
+    rows = []
+    for i in range(4, len(df)):
+        year_label = str(df.iloc[i, 1]).strip() if pd.notna(df.iloc[i, 1]) else ""
+        citizen = df.iloc[i, 2]
+        household = df.iloc[i, 4]
+        if pd.isna(citizen) or pd.isna(household):
+            continue
+        try:
+            citizen = float(citizen)
+            household = float(household)
+        except (TypeError, ValueError):
+            continue
+        rows.append({
+            "year_label": year_label,
+            "citizen_income_k": int(citizen),
+            "household_income_k": int(household),
+        })
+    latest = rows[-1] if rows else None
+    return {
+        "trend": rows[-12:],
+        "latest": latest,
+        "source": "岡崎市統計（syotoku20.xls）/ 愛知県市町村民所得推計",
+        "unit": "千円",
+    }
+
+
+def _parse_household_income_breakdown():
+    """市民家計所得の内訳（最新年度・百万円）。"""
+    df = _fetch_okazaki_xls("syotoku18.xls")
+    col_idx = df.shape[1] - 1
+    year_label = str(df.iloc[2, col_idx]).strip()
+    if year_label.isdigit():
+        year_label = f"令和{year_label}年度"
+
+    row_map = [
+        (3, "雇用者報酬"), (4, "営業余剰・混合所得"), (5, "財産所得"),
+        (10, "社会給付"), (15, "その他の経常移転"),
+    ]
+    breakdown = []
+    total = None
+    val = df.iloc[18, col_idx]
+    if pd.notna(val):
+        total = int(float(val))
+    for row_i, label in row_map:
+        v = df.iloc[row_i, col_idx]
+        if pd.notna(v):
+            amount = int(float(v))
+            breakdown.append({"label": label, "amount_m": amount})
+    if total and breakdown:
+        for b in breakdown:
+            b["pct"] = round(100 * b["amount_m"] / total, 1)
+    return {
+        "year_label": year_label,
+        "total_m": total,
+        "breakdown": breakdown,
+        "source": "岡崎市統計（syotoku18.xls）",
+        "unit": "百万円",
+    }
+
+
+def _parse_city_population_trend(packages):
+    pkg = next((p for p in packages if "人口・世帯" in p["title"]), None)
+    if pkg is None:
+        return {"items": [], "note": "人口・世帯数データが見つかりません"}
+
+    df = pd.read_csv(pkg["resources"][0]["url"])
+    col_year = df.columns[1]
+    col_pop = df.columns[2]
+    col_house = df.columns[5]
+    items = []
+    for _, row in df.iterrows():
+        year = str(row[col_year]).strip()
+        pop_raw = str(row[col_pop]).replace(",", "").strip()
+        hh_raw = str(row[col_house]).replace(",", "").strip()
+        if not pop_raw.isdigit():
+            continue
+        pop = int(pop_raw)
+        hh = int(hh_raw) if hh_raw.isdigit() else None
+        items.append({"year_label": year, "population": pop, "households": hh})
+    recent = items[-15:]
+    latest = recent[-1] if recent else None
+    return {
+        "items": recent,
+        "latest": latest,
+        "source": "岡崎市オープンデータ（人口・世帯数等）",
+    }
+
+
+def _parse_nearby_population(packages):
+    pkg = next((p for p in packages if "地域・年齢別人口" in p["title"]), None)
+    if pkg is None:
+        return {"note": "地域・年齢別人口データが見つかりません"}
+
+    df = pd.read_csv(pkg["resources"][0]["url"])
+    latest_date = sorted(df["調査年月日"].unique())[-1]
+    dpl = df[df["調査年月日"] == latest_date]
+    near = dpl[dpl["地域名"].isin(NEARBY_AREA_NAMES)].copy()
+
+    pop = int(pd.to_numeric(near["総人口"], errors="coerce").sum())
+    households = int(pd.to_numeric(near["世帯数"], errors="coerce").sum())
+
+    age_band_cols = [
+        ("0-14歳", [
+            "0-4歳の男性", "0-4歳の女性", "5-9歳の男性", "5-9歳の女性",
+            "10-14歳の男性", "10-14歳の女性",
+        ]),
+        ("15-64歳", [
+            c for c in df.columns
+            if any(a in c for a in [
+                "15-19", "20-24", "25-29", "30-34", "35-39", "40-44",
+                "45-49", "50-54", "55-59", "60-64",
+            ]) and ("男性" in c or "女性" in c)
+        ]),
+        ("65歳以上", [
+            c for c in df.columns
+            if any(a in c for a in ["65-69", "70-74", "75-79", "80-84", "85歳以上"])
+            and ("男性" in c or "女性" in c)
+        ]),
+    ]
+    age_structure = []
+    for label, cols in age_band_cols:
+        n = int(sum(pd.to_numeric(near[c], errors="coerce").fillna(0).sum() for c in cols))
+        age_structure.append({
+            "label": label, "count": n,
+            "pct": round(100 * n / max(pop, 1), 1),
+        })
+
+    areas = [
+        {"name": str(r["地域名"]), "population": int(r["総人口"]), "households": int(r["世帯数"])}
+        for _, r in near.sort_values("総人口", ascending=False).iterrows()
+    ]
+    return {
+        "date": latest_date,
+        "areas": areas,
+        "area_count": len(areas),
+        "population": pop,
+        "households": households,
+        "age_structure": age_structure,
+        "source": "岡崎市オープンデータ（地域・年齢別人口）",
+        "note": "康生通東周辺の町字（完全一致）を合算。商圏の厳密な徒歩圏とは異なります。",
+    }
+
+
+def _parse_city_food_kinds(packages):
+    pkg = next((p for p in packages if "食品" in p["title"]), None)
+    if pkg is None:
+        return []
+
+    df = pd.read_csv(pkg["resources"][0]["url"])
+    df = df[df["廃業年月日"].isna()]
+    counts = df["営業の種類"].value_counts()
+    total = int(counts.sum()) or 1
+    top = []
+    for kind, n in counts.head(12).items():
+        top.append({
+            "kind": str(kind), "count": int(n),
+            "pct": round(100 * n / total, 1),
+        })
+    return top
+
+
+def _parse_industry_share():
+    """市内総生産の産業構成（卸売・小売、宿泊・飲食等）。"""
+    df = _fetch_okazaki_xls("syotoku04.xls")
+    targets = {
+        "６\u3000卸売・小売業": "卸売・小売業",
+        "８\u3000宿泊・飲食サービス業": "宿泊・飲食サービス",
+        "３\u3000製造業": "製造業",
+        "11\u3000不動産業": "不動産業",
+    }
+    items = []
+    for i in range(len(df)):
+        name = str(df.iloc[i, 1]).strip() if pd.notna(df.iloc[i, 1]) else ""
+        if name not in targets:
+            continue
+        val = df.iloc[i, 4]
+        share = df.iloc[i, 8]
+        if pd.notna(val) and pd.notna(share):
+            try:
+                items.append({
+                    "industry": targets[name],
+                    "value_m": int(float(val)),
+                    "share_pct": round(float(share), 1),
+                })
+            except (TypeError, ValueError):
+                pass
+    items.sort(key=lambda x: -x["share_pct"])
+    return {
+        "items": items,
+        "year_label": "令和4年度",
+        "source": "岡崎市統計（syotoku04.xls）",
+    }
+
+
+def build_consumer(packages):
+    log("消費者傾向データを集計...")
+
+    # --- 市民意識調査 ---
+    survey_pkg = next((p for p in packages if "市民意識" in p["title"]), None)
+    survey = {"note": "市民意識調査データが見つかりません"}
+    if survey_pkg:
+        csv_url = next(r["url"] for r in survey_pkg["resources"] if r.get("format") == "CSV")
+        sdf = pd.read_csv(csv_url, encoding="utf-8-sig", low_memory=False)
+        n = len(sdf)
+
+        q14_sat = sdf["問14．商業・観光_満足度"].dropna()
+        q14_imp = sdf["問14．商業・観光_重要度"].dropna()
+        sat_total = len(q14_sat) or 1
+        imp_total = len(q14_imp) or 1
+
+        def sat_bucket(series, total):
+            high = int(((series >= 7) & (series <= 10)).sum())
+            mid = int(((series >= 5) & (series <= 6)).sum())
+            low = int(((series >= 1) & (series <= 4)).sum())
+            return [
+                {"label": "満足（7〜10）", "count": high, "pct": round(100 * high / total, 1)},
+                {"label": "どちらかと言えば満足（5〜6）", "count": mid, "pct": round(100 * mid / total, 1)},
+                {"label": "不満（1〜4）", "count": low, "pct": round(100 * low / total, 1)},
+            ]
+
+        shopping_conv = int(sdf["問19_8．買い物や飲食が便利である"].notna().sum())
+        online_shop = int(sdf["問33_5．オンラインショッピング"].notna().sum())
+        transport = []
+        for col in sdf.columns:
+            if col.startswith("問26_"):
+                label = col.split("．", 1)[-1]
+                cnt = int(sdf[col].notna().sum())
+                transport.append({
+                    "label": label, "count": cnt,
+                    "pct": round(100 * cnt / n, 1),
+                })
+        transport.sort(key=lambda x: -x["count"])
+
+        q36 = _survey_value_counts(sdf["問36．あなたは、岡崎市内で休日を過ごすことが多いですか。（○は１つ）"], SURVEY_FREQ_LABELS)
+        q37 = _survey_value_counts(sdf["問37．あなたは、仕事や学校以外で中心市街地（東岡崎駅・康生地区）周辺に出かけることが多いですか。（○は１つ）"], SURVEY_FREQ_LABELS)
+
+        holiday_often = sum(x["count"] for x in q36 if x["code"] <= 2)
+        center_often = sum(x["count"] for x in q37 if x["code"] <= 2)
+
+        survey = {
+            "year": "令和6年度",
+            "respondents": n,
+            "source": "岡崎市オープンデータ（令和6年度市民意識調査）",
+            "age_groups": _survey_value_counts(sdf["問２．年齢（○は1つ）"], SURVEY_AGE_LABELS),
+            "occupations": _survey_value_counts(sdf["問３．職業（○は1つ）"], SURVEY_JOB_LABELS),
+            "commerce_satisfaction": sat_bucket(q14_sat, sat_total),
+            "commerce_importance": sat_bucket(q14_imp, imp_total),
+            "commerce_sat_avg": round(float(q14_sat[q14_sat > 0].mean()), 2) if len(q14_sat) else None,
+            "shopping_convenience": {
+                "count": shopping_conv,
+                "pct": round(100 * shopping_conv / n, 1),
+                "label": "買い物・飲食の便利さを「住みよさ」と回答",
+            },
+            "online_shopping": {
+                "count": online_shop,
+                "pct": round(100 * online_shop / n, 1),
+                "label": "スマホでオンラインショッピングを利用",
+            },
+            "holiday_in_city": q36,
+            "holiday_in_city_often_pct": round(100 * holiday_often / n, 1),
+            "center_city_visit": q37,
+            "center_city_visit_often_pct": round(100 * center_often / n, 1),
+            "transport_modes": transport[:7],
+        }
+
+    # --- 人口・所得・食品 ---
+    nearby_pop = _parse_nearby_population(packages)
+    city_trend = _parse_city_population_trend(packages)
+    food_kinds = _parse_city_food_kinds(packages)
+
+    income_trend = income_breakdown = industry_share = None
+    income_note = None
+    try:
+        income_trend = _parse_income_trend()
+        income_breakdown = _parse_household_income_breakdown()
+        industry_share = _parse_industry_share()
+    except Exception as e:
+        income_note = f"岡崎市統計ページからの所得データ取得に失敗: {e}"
+        log(f"  所得データ: {income_note}")
+
+    log(f"  市民意識調査: {survey.get('respondents', 0)}件")
+    log(f"  康生周辺人口: {nearby_pop.get('population', '—')}人")
+    log(f"  市内食品営業種別: {len(food_kinds)}カテゴリ")
+
+    return {
+        "survey": survey,
+        "nearby_population": nearby_pop,
+        "city_population_trend": city_trend,
+        "city_food_kinds": food_kinds,
+        "income_trend": income_trend,
+        "income_breakdown": income_breakdown,
+        "industry_share": industry_share,
+        "income_note": income_note,
+        "summary_note": "市民意識調査・人口・食品営業許可は岡崎市オープンデータ、"
+                        "所得・産業構成は岡崎市統計ページから取得。"
+                        "調査は全市サンプルのため、康生通り通行者そのものを直接代表するものではありません。",
+    }
+
+
+# ---------------------------------------------------------------------------
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--months", type=int, default=24, help="人流集計に使う直近月数（時系列の期間）")
@@ -691,18 +1041,22 @@ def main():
     log("業種チャンススコアを算出...")
     scores = build_scores(peopleflow, stores)
 
+    log("消費者傾向を集計...")
+    consumer = build_consumer(packages)
+
     jst = timezone(timedelta(hours=9))
     payload = {
         "meta": {
             "building": BUILDING,
             "generated_at": datetime.now(jst).strftime("%Y-%m-%d %H:%M"),
-            "source": "岡崎市オープンデータ（BODIK） / 国土地理院ジオコーダ",
+            "source": "岡崎市オープンデータ（BODIK） / 国土地理院ジオコーダ / 岡崎市統計",
             "target_street": TARGET_CAMERA_GROUP,
             "cameras": cameras,
             "notes": {
                 "peopleflow": "康生通りカメラ（AIカメラ人流実証実験）。1日あたり平均に換算。時系列(日/週/月)を含む。欠損は中央値補間。",
                 "events": "岡崎市イベント一覧から物件周辺のイベントを抽出。開催日の通行量と押し上げ効果を算出。",
                 "stores": "食品等営業許可・届出一覧を国土地理院ジオコーダで座標化。飲食系中心のため全業種は網羅しない。",
+                "consumer": "令和6年度市民意識調査・地域人口・食品営業許可・岡崎市統計（所得）から集計。",
                 "dummy": "商圏人口・賃料相場・都市計画/将来性はダミー値（画面に明記）。",
             },
         },
@@ -713,6 +1067,7 @@ def main():
         "rent": rent,
         "future": future,
         "scores": scores,
+        "consumer": consumer,
     }
 
     # data/*.json（参照用）
