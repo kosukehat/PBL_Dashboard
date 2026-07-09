@@ -14,6 +14,16 @@ const CAT_COLORS = {
   "その他": "#94a3b8",
 };
 
+// 多項目の円グラフ用（家計所得内訳・年代別・世帯構成など）
+const CONS_PALETTE = [
+  "#2563eb", "#0ea5e9", "#10b981", "#f59e0b", "#ef4444",
+  "#8b5cf6", "#ec4899", "#14b8a6", "#64748b",
+];
+
+function paletteShades(palette, n) {
+  return Array.from({ length: n }, (_, i) => palette[Math.min(i, palette.length - 1)]);
+}
+
 // QURUWA周辺の主要施設（回遊動線。座標は概算）
 const LANDMARKS = [
   { name: "図書館 りぶら", lat: 34.95917, lon: 137.16055 },
@@ -130,10 +140,6 @@ function renderSummary() {
    ========================================================= */
 const PF_DOW = ["月", "火", "水", "木", "金", "土", "日"];
 const PF_MONTHS = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
-const AGE_PALETTE = [
-  "#38bdf8", "#4ade80", "#facc15", "#fb923c",
-  "#f87171", "#c084fc", "#f472b6", "#94a3b8",
-];
 let peopleCharts = {};   // canvasId -> Chart インスタンス
 let tsChart = null;
 let tsMode = "monthly";
@@ -355,7 +361,7 @@ function updatePeople() {
   // 年代別
   chartAt("ageChart", {
     type: "doughnut",
-    data: { labels: ageLabels, datasets: [{ data: agePct, backgroundColor: AGE_PALETTE }] },
+    data: { labels: ageLabels, datasets: [{ data: agePct, backgroundColor: paletteShades(CONS_PALETTE, ageLabels.length) }] },
     options: { plugins: { legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 10 }, padding: 6 } } } },
   });
   // 性別
@@ -620,11 +626,15 @@ function renderStores() {
 /* =========================================================
    画面4: 消費者傾向
    ========================================================= */
-const CONS_PALETTE = [
-  "#2563eb", "#0ea5e9", "#10b981", "#f59e0b", "#ef4444",
-  "#8b5cf6", "#ec4899", "#14b8a6", "#64748b",
-];
-const FREQ_COLORS = ["#16a34a", "#86efac", "#cbd5e1", "#fdba74", "#ef4444"];
+// 棒グラフ・折れ線など（多項目円グラフ以外は青系で統一）
+const CONS_BAR = "#2563eb";
+const CONS_BAR_MUTED = "#64748b";
+const CONS_ORDINAL = ["#1e3a8a", "#2563eb", "#60a5fa", "#93c5fd", "#cbd5e1"];
+const CONS_DOUGHNUT_3 = ["#1e40af", "#60a5fa", "#cbd5e1"];
+
+function consShades(palette, n) {
+  return paletteShades(palette, n);
+}
 
 function consChart(id, config) {
   config.options = config.options || {};
@@ -691,7 +701,7 @@ function renderConsumer() {
     data: {
       labels: (sv.age_groups || []).map(x => x.label),
       datasets: [{ label: "構成比 %", data: (sv.age_groups || []).map(x => x.pct),
-        backgroundColor: CONS_PALETTE, borderRadius: 4 }],
+        backgroundColor: CONS_BAR, borderRadius: 4 }],
     },
     options: { plugins: { legend: { display: false } },
       scales: { y: { grid: { color: grid }, title: { display: true, text: "%" } }, x: { grid: { display: false } } } },
@@ -701,35 +711,40 @@ function renderConsumer() {
     data: {
       labels: (sv.occupations || []).map(x => x.label),
       datasets: [{ data: (sv.occupations || []).map(x => x.pct),
-        backgroundColor: CONS_PALETTE, borderRadius: 4 }],
+        backgroundColor: CONS_BAR, borderRadius: 4 }],
     },
     options: { indexAxis: "y", plugins: { legend: { display: false } },
       scales: { x: { grid: { color: grid }, title: { display: true, text: "%" } } } },
   });
 
   // 満足度・休日・中心市街地
+  const satItems = sv.commerce_satisfaction || [];
   consChart("consSatChart", {
     type: "doughnut",
     data: {
-      labels: (sv.commerce_satisfaction || []).map(x => x.label),
-      datasets: [{ data: (sv.commerce_satisfaction || []).map(x => x.pct),
-        backgroundColor: ["#16a34a", "#86efac", "#fca5a5"] }],
+      labels: satItems.map(x => x.label),
+      datasets: [{ data: satItems.map(x => x.pct),
+        backgroundColor: consShades(CONS_DOUGHNUT_3, satItems.length) }],
     },
     options: { plugins: { legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 10 } } } } },
   });
+  const holItems = sv.holiday_in_city || [];
   consChart("consHolidayChart", {
     type: "bar",
     data: {
-      labels: (sv.holiday_in_city || []).map(x => x.label),
-      datasets: [{ data: (sv.holiday_in_city || []).map(x => x.pct), backgroundColor: FREQ_COLORS, borderRadius: 4 }],
+      labels: holItems.map(x => x.label),
+      datasets: [{ data: holItems.map(x => x.pct),
+        backgroundColor: consShades(CONS_ORDINAL, holItems.length), borderRadius: 4 }],
     },
     options: { plugins: { legend: { display: false } }, scales: { y: { grid: { color: grid } } } },
   });
+  const ctrItems = sv.center_city_visit || [];
   consChart("consCenterChart", {
     type: "bar",
     data: {
-      labels: (sv.center_city_visit || []).map(x => x.label),
-      datasets: [{ data: (sv.center_city_visit || []).map(x => x.pct), backgroundColor: FREQ_COLORS, borderRadius: 4 }],
+      labels: ctrItems.map(x => x.label),
+      datasets: [{ data: ctrItems.map(x => x.pct),
+        backgroundColor: consShades(CONS_ORDINAL, ctrItems.length), borderRadius: 4 }],
     },
     options: { plugins: { legend: { display: false } }, scales: { y: { grid: { color: grid } } } },
   });
@@ -740,7 +755,7 @@ function renderConsumer() {
     type: "bar",
     data: {
       labels: foods.map(x => x.kind),
-      datasets: [{ data: foods.map(x => x.count), backgroundColor: "#0891b2", borderRadius: 4 }],
+      datasets: [{ data: foods.map(x => x.count), backgroundColor: CONS_BAR, borderRadius: 4 }],
     },
     options: { indexAxis: "y", plugins: { legend: { display: false } },
       scales: { x: { grid: { color: grid }, title: { display: true, text: "件数" } } } },
@@ -753,19 +768,20 @@ function renderConsumer() {
     type: "bar",
     data: {
       labels: (sv.transport_modes || []).map(x => x.label),
-      datasets: [{ data: (sv.transport_modes || []).map(x => x.pct), backgroundColor: "#6366f1", borderRadius: 4 }],
+      datasets: [{ data: (sv.transport_modes || []).map(x => x.pct), backgroundColor: CONS_BAR, borderRadius: 4 }],
     },
     options: { indexAxis: "y", plugins: { legend: { display: false } },
       scales: { x: { grid: { color: grid }, max: 100, title: { display: true, text: "回答者の %" } } } },
   });
 
   // 周辺人口年齢
+  const nearAge = np.age_structure || [];
   consChart("consNearAgeChart", {
     type: "doughnut",
     data: {
-      labels: (np.age_structure || []).map(x => x.label),
-      datasets: [{ data: (np.age_structure || []).map(x => x.pct),
-        backgroundColor: ["#93c5fd", "#3b82f6", "#1e3a8a"] }],
+      labels: nearAge.map(x => x.label),
+      datasets: [{ data: nearAge.map(x => x.pct),
+        backgroundColor: consShades(CONS_DOUGHNUT_3, nearAge.length) }],
     },
     options: { plugins: { legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 11 } } } } },
   });
@@ -784,7 +800,7 @@ function renderConsumer() {
         fill: true, tension: .25, yAxisID: "y",
       }, {
         label: "世帯数", data: popItems.map(x => x.households),
-        borderColor: "#f59e0b", borderDash: [4, 4], tension: .25, yAxisID: "y1",
+        borderColor: CONS_BAR_MUTED, borderDash: [4, 4], tension: .25, yAxisID: "y1",
       }],
     },
     options: {
@@ -806,10 +822,10 @@ function renderConsumer() {
         labels: incTrend.map(x => x.year_label),
         datasets: [{
           label: "市民所得", data: incTrend.map(x => x.citizen_income_k),
-          borderColor: "#2563eb", tension: .25,
+          borderColor: CONS_BAR, tension: .25,
         }, {
           label: "家計所得", data: incTrend.map(x => x.household_income_k),
-          borderColor: "#10b981", tension: .25,
+          borderColor: CONS_BAR_MUTED, borderDash: [5, 3], tension: .25,
         }],
       },
       options: {
@@ -902,13 +918,13 @@ function renderDemographics() {
     options: { plugins: { legend: { position: "right", labels: { boxWidth: 10, font: { size: 11 } } } } },
   });
 
-  const hhColors = ["#f59e0b", "#10b981", "#6366f1", "#a855f7", "#cbd5e1"];
   if (dm.household && dm.household.length) {
     new Chart(document.getElementById("demoHouseChart"), {
       type: "doughnut",
       data: {
         labels: dm.household.map(h => h.label),
-        datasets: [{ data: dm.household.map(h => h.pct), backgroundColor: hhColors }],
+        datasets: [{ data: dm.household.map(h => h.pct),
+          backgroundColor: paletteShades(CONS_PALETTE, dm.household.length) }],
       },
       options: { plugins: { legend: { position: "right", labels: { boxWidth: 10, font: { size: 10 } } } } },
     });
