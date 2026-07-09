@@ -12,8 +12,9 @@ site/js/data.js（ブラウザがそのまま読める JS）と data/*.json を�
 画面側で「ダミー」と明記する。
 
 使い方:
-    python build_data.py                # 直近12か月で集計
-    python build_data.py --months 6     # 直近6か月で集計（速い）
+    python build_data.py                # 公開されている全期間で集計（既定）
+    python build_data.py --months 24    # 直近24か月のみ
+    python build_data.py --months 6     # 直近6か月（速い）
 """
 
 import argparse
@@ -43,6 +44,9 @@ BUILDING = {
 
 # 「物件が面する通り」= 康生通り。カメラグループ「康生通り」（カメラID 0-3）を使う。
 TARGET_CAMERA_GROUP = "康生通り"
+
+# 人流データの利用開始月（2020年分は欠損補間が多く実測として不適切なため除外）
+PEOPLEFLOW_MIN_YM = "202101"
 
 STORE_RADIUS_M = 400  # 周辺店舗として集計する半径
 
@@ -104,6 +108,23 @@ def log(msg):
     print(msg, flush=True)
 
 
+def fetch_csv(url, retries=4, pause=3):
+    """BODIKのCSV取得（403等で失敗した場合リトライ）。"""
+    last_err = None
+    for i in range(retries):
+        try:
+            r = requests.get(url, timeout=120)
+            r.raise_for_status()
+            return pd.read_csv(io.StringIO(r.text))
+        except Exception as e:
+            last_err = e
+            if i < retries - 1:
+                wait = pause * (i + 1)
+                log(f"      取得失敗、{wait}秒後に再試行 ({i + 1}/{retries}): {e}")
+                time.sleep(wait)
+    raise last_err
+
+
 def haversine_m(lat1, lon1, lat2, lon2):
     r = 6371000.0
     p1, p2 = math.radians(lat1), math.radians(lat2)
@@ -113,9 +134,21 @@ def haversine_m(lat1, lon1, lat2, lon2):
     return 2 * r * math.asin(math.sqrt(a))
 
 
-def fetch_package_list():
+def fetch_package_list(retries=4, pause=3):
     url = f"https://data.bodik.jp/api/3/action/package_search?q=organization:{ORG}&rows=200"
-    return requests.get(url, timeout=60).json()["result"]["results"]
+    last_err = None
+    for i in range(retries):
+        try:
+            r = requests.get(url, timeout=60)
+            r.raise_for_status()
+            return r.json()["result"]["results"]
+        except Exception as e:
+            last_err = e
+            if i < retries - 1:
+                wait = pause * (i + 1)
+                log(f"  BODIK取得失敗、{wait}秒後に再試行 ({i + 1}/{retries}): {e}")
+                time.sleep(wait)
+    raise last_err
 
 
 # ---------------------------------------------------------------------------
@@ -153,8 +186,19 @@ def build_peopleflow(packages, months):
         return m.group(1) if m else "000000"
 
     month_res.sort(key=month_key)
-    picked = month_res[-months:]
-    log(f"  使用月: {[month_key(r) for r in picked]}")
+    before = len(month_res)
+    month_res = [r for r in month_res if month_key(r) >= PEOPLEFLOW_MIN_YM]
+    if before > len(month_res):
+        log(f"  2020年分を除外: {before - len(month_res)}か月スキップ（{PEOPLEFLOW_MIN_YM}以降を使用）")
+    if not month_res:
+        raise SystemExit(f"人流データがありません（{PEOPLEFLOW_MIN_YM}以降）")
+
+    if months is None or months <= 0:
+        picked = month_res
+        log(f"  使用月: 全{len(picked)}か月（{month_key(picked[0])}〜{month_key(picked[-1])}）")
+    else:
+        picked = month_res[-months:]
+        log(f"  使用月: {[month_key(r) for r in picked]}")
 
     agg = {
         "hour": {h: 0.0 for h in range(24)},
@@ -173,7 +217,7 @@ def build_peopleflow(packages, months):
 
     for r in picked:
         log(f"    読込: {month_key(r)} ...")
-        df = pd.read_csv(r["url"])
+        df = fetch_csv(r["url"])
         df = df[df["camera_id"].isin(target_ids)]
         if df.empty:
             continue
@@ -351,9 +395,204 @@ def build_peopleflow(packages, months):
     return peopleflow, cameras
 
 
-# ---------------------------------------------------------------------------
-# 2. 周辺店舗（食品営業許可）
-# ---------------------------------------------------------------------------
+def filter_peopleflow_min_ym(pf, min_ym=PEOPLEFLOW_MIN_YM):
+    """既存 peopleflow から min_ym 未満を除外し、集計値を再計算。"""
+    min_date = f"{min_ym[:4]}-{min_ym[4:]}-01"
+    min_ym_dash = f"{min_ym[:4]}-{min_ym[4:]}"
+
+    pf = json.loads(json.dumps(pf))
+    pf["months"] = [m for m in pf.get("months", []) if m >= min_ym]
+    pf["monthly_breakdown"] = {
+        k: v for k, v in pf.get("monthly_breakdown", {}).items() if k >= min_ym_dash
+    }
+
+    daily = [d for d in pf["timeseries"]["daily"] if d["date"] >= min_date]
+    n_days = max(len(daily), 1)
+
+    month_sum, month_days = {}, {}
+    week_sum, week_days, week_start_map = {}, {}, {}
+    for row in daily:
+        y, m, d = (int(x) for x in row["date"].split("-"))
+        dt = datetime(y, m, d)
+        month_sum[(y, m)] = month_sum.get((y, m), 0) + row["count"]
+        month_days[(y, m)] = month_days.get((y, m), 0) + 1
+        iso = dt.isocalendar()
+        wk = (iso[0], iso[1])
+        week_sum[wk] = week_sum.get(wk, 0) + row["count"]
+        week_days[wk] = week_days.get(wk, 0) + 1
+        week_start_map[wk] = dt - timedelta(days=dt.weekday())
+
+    monthly = [
+        {"ym": f"{y:04d}-{m:02d}", "count": round(s), "days": month_days[(y, m)],
+         "avg": round(s / month_days[(y, m)])}
+        for (y, m), s in sorted(month_sum.items())
+    ]
+    weekly = []
+    for k, s in sorted(week_sum.items(), key=lambda x: week_start_map[x[0]]):
+        ws = week_start_map[k].strftime("%Y-%m-%d")
+        weekly.append({
+            "week_start": max(ws, min_date),
+            "count": round(s),
+            "days": week_days[k],
+            "avg": round(s / week_days[k]),
+        })
+
+    mb = pf["monthly_breakdown"]
+    hour = [0.0] * 24
+    age = [0.0] * len(AGE_COLS)
+    gender = [0.0] * 3
+    dir_agg = {}
+    total = 0.0
+    for b in mb.values():
+        total += b.get("total", 0)
+        for i in range(24):
+            hour[i] += b["hour"][i]
+        for i in range(len(AGE_COLS)):
+            age[i] += b["age"][i]
+        for i in range(3):
+            gender[i] += b["gender"][i]
+        for cid, v in (b.get("dir") or {}).items():
+            d = dir_agg.setdefault(cid, {"in": 0.0, "out": 0.0, "total": 0.0})
+            d["in"] += v["in"]
+            d["out"] += v["out"]
+            d["total"] += v["total"]
+
+    def per_day(v):
+        return round(v / n_days, 1)
+
+    dow_sum = [0.0] * 7
+    dow_days = [0] * 7
+    w_sum = h_sum = w_days = h_days = 0
+    dow_values = {i: [] for i in range(7)}
+    for row in daily:
+        dow_values[row["dow"]].append(row["count"])
+        dow_sum[row["dow"]] += row["count"]
+        dow_days[row["dow"]] += 1
+        if row["is_holiday"]:
+            h_sum += row["count"]
+            h_days += 1
+        else:
+            w_sum += row["count"]
+            w_days += 1
+
+    def median(xs):
+        xs = sorted(xs)
+        n = len(xs)
+        if n == 0:
+            return 0
+        return xs[n // 2] if n % 2 else (xs[n // 2 - 1] + xs[n // 2]) / 2
+
+    age_total = sum(age) or 1
+    gender_total = sum(gender) or 1
+    by_direction = []
+    for m in pf.get("direction_meta", []):
+        cid = str(m["camera_id"])
+        v = dir_agg.get(cid, {"in": 0, "out": 0, "total": 0})
+        by_direction.append({
+            "camera_id": m["camera_id"], "name": m["name"],
+            "in_dir": m["in_dir"], "out_dir": m["out_dir"],
+            "in": per_day(v["in"]), "out": per_day(v["out"]), "total": per_day(v["total"]),
+        })
+
+    pf.update({
+        "total_per_day": per_day(total),
+        "by_hour": [{"hour": h, "count": per_day(hour[h])} for h in range(24)],
+        "by_dow": [
+            {"dow": d, "label": DOW_LABELS[d],
+             "count": round(dow_sum[d] / dow_days[d]) if dow_days[d] else 0}
+            for d in range(7)
+        ],
+        "weekday_holiday": [
+            {"type": "平日", "avg_per_day": round(w_sum / max(w_days, 1), 1), "days": w_days},
+            {"type": "休日", "avg_per_day": round(h_sum / max(h_days, 1), 1), "days": h_days},
+        ],
+        "by_age": [
+            {"age": c, "label": AGE_LABELS[c], "count": per_day(age[i]),
+             "pct": round(100 * age[i] / age_total, 1)}
+            for i, c in enumerate(AGE_COLS)
+        ],
+        "by_gender": [
+            {"gender": g, "label": GENDER_LABELS[g], "count": per_day(gender[g]),
+             "pct": round(100 * gender[g] / gender_total, 1)}
+            for g in (0, 1, 2)
+        ],
+        "by_direction": by_direction,
+        "n_days": n_days,
+        "timeseries": {"daily": daily, "weekly": weekly, "monthly": monthly},
+        "dow_median": {i: round(median(v)) for i, v in dow_values.items()},
+    })
+    return pf
+
+
+def refresh_events_for_peopleflow(events, peopleflow):
+    """人流の期間変更に合わせてイベントの押し上げ効果を再計算。"""
+    daily_index = {r["date"]: r["count"] for r in peopleflow["timeseries"]["daily"]}
+    dow_median = peopleflow.get("dow_median", {})
+    ts_min = min(daily_index) if daily_index else "9999"
+    ts_max = max(daily_index) if daily_index else "0000"
+    items = []
+    for e in events.get("items", []):
+        e = dict(e)
+        in_range = sorted(
+            d for d in _event_dates(e) if ts_min <= d <= ts_max
+        )
+        flow = uplift = rep_date = None
+        if in_range:
+            rep_date = in_range[0]
+            flow = daily_index.get(rep_date)
+            dt = datetime.strptime(rep_date, "%Y-%m-%d")
+            base = dow_median.get(dt.weekday()) or dow_median.get(str(dt.weekday()))
+            if flow is not None and base:
+                uplift = round(100 * (flow / base - 1), 1)
+        e["rep_date"] = rep_date
+        e["rep_flow"] = flow
+        e["uplift_pct"] = uplift
+        items.append(e)
+    return {**events, "items": items}
+
+
+def _event_dates(e):
+    """イベントの開催日リスト（開始〜終了の各日）。"""
+    try:
+        start = datetime.strptime(e["start"], "%Y-%m-%d")
+        end = datetime.strptime(e.get("end") or e["start"], "%Y-%m-%d")
+    except Exception:
+        return []
+    dates = []
+    cur = start
+    while cur <= end:
+        dates.append(cur.strftime("%Y-%m-%d"))
+        cur += timedelta(days=1)
+    return dates
+
+
+def refilter_local_data():
+    """data/*.json から 2020年人流を除外して data.js を再生成（BODIK再取得なし）。"""
+    log("ローカル data/*.json から2020年人流を除外...")
+    payload = {}
+    for path in DATA_DIR.glob("*.json"):
+        payload[path.stem] = json.loads(path.read_text(encoding="utf-8"))
+
+    pf = filter_peopleflow_min_ym(payload["peopleflow"])
+    payload["peopleflow"] = pf
+    payload["events"] = refresh_events_for_peopleflow(payload.get("events", {}), pf)
+    payload["scores"] = build_scores(pf, payload["stores"], payload.get("consumer"))
+    if "meta" in payload and "notes" in payload["meta"]:
+        payload["meta"]["notes"]["peopleflow"] = (
+            "康生通りカメラ（AIカメラ人流実証実験）。1日あたり平均に換算。"
+            f"{PEOPLEFLOW_MIN_YM[:4]}年以前は欠損補間が多いため除外。欠損は中央値補間。"
+        )
+    jst = timezone(timedelta(hours=9))
+    payload["meta"]["generated_at"] = datetime.now(jst).strftime("%Y-%m-%d %H:%M")
+
+    for key, val in payload.items():
+        (DATA_DIR / f"{key}.json").write_text(
+            json.dumps(val, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+    js = "window.DASHBOARD_DATA = " + json.dumps(payload, ensure_ascii=False, indent=2) + ";\n"
+    (JS_DIR / "data.js").write_text(js, encoding="utf-8")
+    log(f"  人流期間: {pf['months'][0]}〜{pf['months'][-1]}（{pf['n_days']}日）")
+    log(f"  出力: {JS_DIR / 'data.js'}")
 def classify_store(name, kind):
     name = str(name)
     kind = str(kind)
@@ -1213,11 +1452,18 @@ def build_consumer(packages):
 # ---------------------------------------------------------------------------
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--months", type=int, default=24, help="人流集計に使う直近月数（時系列の期間）")
+    ap.add_argument("--months", type=int, default=0,
+                    help="人流集計に使う月数（0=公開されている全期間、既定）")
+    ap.add_argument("--refilter-local", action="store_true",
+                    help="data/*.json から2020年人流を除外して data.js を再生成（BODIK再取得なし）")
     args = ap.parse_args()
 
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     JS_DIR.mkdir(parents=True, exist_ok=True)
+
+    if args.refilter_local:
+        refilter_local_data()
+        return
 
     log("BODIK パッケージ一覧を取得...")
     packages = fetch_package_list()
@@ -1252,7 +1498,8 @@ def main():
             "target_street": TARGET_CAMERA_GROUP,
             "cameras": cameras,
             "notes": {
-                "peopleflow": "康生通りカメラ（AIカメラ人流実証実験）。1日あたり平均に換算。時系列(日/週/月)を含む。欠損は中央値補間。",
+                "peopleflow": "康生通りカメラ（AIカメラ人流実証実験）。1日あたり平均に換算。"
+                                  f"{PEOPLEFLOW_MIN_YM[:4]}年以前は欠損補間が多いため除外。欠損は中央値補間。",
                 "events": "岡崎市イベント一覧から物件周辺のイベントを抽出。開催日の通行量と押し上げ効果を算出。",
                 "stores": "食品等営業許可・届出一覧を国土地理院ジオコーダで座標化。飲食系中心のため全業種は網羅しない。",
                 "consumer": "令和6年度市民意識調査・地域人口・食品営業許可・岡崎市統計（所得）から集計。",

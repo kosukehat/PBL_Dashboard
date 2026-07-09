@@ -118,11 +118,19 @@
           </div>
         </div>
 
-        <div class="card-row card-row--3">
+        <div class="card-row card-row--2">
           <div class="card">
-            <div class="card-title">曜日別 通行量</div>
+            <div class="card-title">曜日別 通行量（1日平均）</div>
             <div class="chart-wrap chart-wrap--sm"><canvas id="dowChart"></canvas></div>
           </div>
+          <div class="card">
+            <div class="card-title">暦月別 通行量（1日平均）</div>
+            <div class="chart-wrap chart-wrap--sm"><canvas id="monthBarChart"></canvas></div>
+            <div class="note">1月・2月…各月の全日を合算した平均（複数年分をまとめた季節性）</div>
+          </div>
+        </div>
+
+        <div class="card-row card-row--2">
           <div class="card">
             <div class="card-title">年代別 構成</div>
             <div class="chart-wrap chart-wrap--sm"><canvas id="ageChart"></canvas></div>

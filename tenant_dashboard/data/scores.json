@@ -12,7 +12,7 @@
     },
     {
       "industry": "テイクアウト惣菜・弁当",
-      "people_fit": 86,
+      "people_fit": 84,
       "competition": 76,
       "facility_fit": 78,
       "profitability": 94,
@@ -42,12 +42,12 @@
     },
     {
       "industry": "スイーツ・ベーカリー",
-      "people_fit": 85,
+      "people_fit": 86,
       "competition": 20,
       "facility_fit": 86,
       "profitability": 92,
       "reason": "散策・手土産・休日需要に合う。公園回遊動線上で歩き買い需要。",
-      "total": 70,
+      "total": 71,
       "rank": 5
     }
   ],

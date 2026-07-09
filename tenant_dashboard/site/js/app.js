@@ -129,6 +129,7 @@ function renderSummary() {
    画面2: 人流分析（時系列・イベント統合・期間指定対応）
    ========================================================= */
 const PF_DOW = ["月", "火", "水", "木", "金", "土", "日"];
+const PF_MONTHS = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
 const AGE_PALETTE = [
   "#38bdf8", "#4ade80", "#facc15", "#fb923c",
   "#f87171", "#c084fc", "#f472b6", "#94a3b8",
@@ -249,6 +250,19 @@ function updatePeople() {
   daily.forEach(d => { dowSum[d.dow] += d.count; dowDays[d.dow]++; });
   const byDow = dowSum.map((s, i) => dowDays[i] ? Math.round(s / dowDays[i]) : 0);
 
+  // 暦月別（1〜12月：選択期間内の全日を月ごとに合算した1日平均）
+  const calSum = Array(12).fill(0), calDays = Array(12).fill(0);
+  daily.forEach(d => {
+    const mi = parseInt(d.date.slice(5, 7), 10) - 1;
+    calSum[mi] += d.count;
+    calDays[mi]++;
+  });
+  const byCalMonth = calSum.map((s, i) => calDays[i] ? Math.round(s / calDays[i]) : 0);
+  const calActive = PF_MONTHS.map((label, i) => ({ label, avg: byCalMonth[i], days: calDays[i] }))
+    .filter(x => x.days > 0);
+  const hiCal = calActive.slice().sort((a, b) => b.avg - a.avg)[0] || { label: "-", avg: 0 };
+  const loCal = calActive.slice().sort((a, b) => a.avg - b.avg)[0] || { label: "-", avg: 0 };
+
   // 平日 / 休日
   let wSum = 0, wDays = 0, hSum = 0, hDays = 0;
   daily.forEach(d => { if (d.is_holiday) { hSum += d.count; hDays++; } else { wSum += d.count; wDays++; } });
@@ -264,15 +278,12 @@ function updatePeople() {
   document.getElementById("periodInfo").textContent =
     `${agg.sel.length}か月 / ${fmt(days)}日 / のべ ${fmt(Math.round(agg.total))} 人`;
 
-  const monthlySel = D.peopleflow.timeseries.monthly.filter(m => agg.sel.includes(m.ym));
-  const hi = monthlySel.slice().sort((a, b) => b.avg - a.avg)[0] || { ym: "-", avg: 0 };
-  const lo = monthlySel.slice().sort((a, b) => a.avg - b.avg)[0] || { ym: "-", avg: 0 };
   const holHigher = whAvg[1] > whAvg[0];
   document.getElementById("peopleKpi").innerHTML = [
     { cls: "", label: "1日平均通行量", value: fmt(totalPerDay), unit: "人/日", sub: `${agg.sel.length}か月平均` },
     { cls: "accent", label: "ピーク時間帯", value: peakHour + "時台", unit: "", sub: `約${fmt(byHour[peakHour])}人/日` },
-    { cls: "good", label: "最も多い月", value: hi.ym, unit: "", sub: `平均${fmt(hi.avg)}人/日` },
-    { cls: "sky", label: "最も少ない月", value: lo.ym, unit: "", sub: `平均${fmt(lo.avg)}人/日` },
+    { cls: "good", label: "最も多い暦月", value: hiCal.label, unit: "", sub: `平均${fmt(hiCal.avg)}人/日` },
+    { cls: "sky", label: "最も少ない暦月", value: loCal.label, unit: "", sub: `平均${fmt(loCal.avg)}人/日` },
   ].map(k => `<div class="kpi ${k.cls}"><div class="k-label">${k.label}</div>
     <div class="k-value" style="font-size:22px">${k.value}<span class="k-unit">${k.unit}</span></div>
     <div class="k-sub">${k.sub}</div></div>`).join("");
@@ -303,7 +314,43 @@ function updatePeople() {
   chartAt("dowChart", {
     type: "bar",
     data: { labels: PF_DOW, datasets: [{ data: byDow, backgroundColor: PF_DOW.map((_, i) => i >= 5 ? "#f59e0b" : "#2563eb"), borderRadius: 4 }] },
-    options: { plugins: { legend: { display: false } }, scales: { y: { grid: { color: grid } } } },
+    options: { plugins: { legend: { display: false } }, scales: { y: { grid: { color: grid }, title: { display: true, text: "人/日" } } } },
+  });
+  // 暦月別（1月〜12月の季節平均）
+  const peakCalIdx = byCalMonth.length ? byCalMonth.indexOf(Math.max(...byCalMonth.filter((_, i) => calDays[i] > 0))) : -1;
+  chartAt("monthBarChart", {
+    type: "bar",
+    data: {
+      labels: PF_MONTHS,
+      datasets: [{
+        label: "人/日",
+        data: byCalMonth,
+        backgroundColor: PF_MONTHS.map((_, i) => {
+          if (calDays[i] === 0) return "#e2e8f0";
+          return i === peakCalIdx ? "#f59e0b" : "#2563eb";
+        }),
+        borderRadius: 4,
+      }],
+    },
+    options: {
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (c) => {
+              const days = calDays[c.dataIndex];
+              return days
+                ? `${fmt(c.parsed.y)} 人/日（${days}日分の平均）`
+                : "データなし";
+            },
+          },
+        },
+      },
+      scales: {
+        y: { grid: { color: grid }, title: { display: true, text: "人/日" } },
+        x: { grid: { display: false } },
+      },
+    },
   });
   // 年代別
   chartAt("ageChart", {
