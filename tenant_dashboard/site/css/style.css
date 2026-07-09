@@ -167,6 +167,14 @@ th { position: sticky; top: 0; background: #f8fafc; color: var(--muted); font-we
 
 .muted { color: var(--muted); }
 
+.demo-area-lists {
+  font-size: 11px; line-height: 1.75; color: var(--muted);
+  margin: -6px 0 16px; padding: 10px 14px;
+  background: #f8fafc; border-radius: 10px; border: 1px solid var(--line);
+}
+.demo-area-lists .area-row { margin: 2px 0; }
+.demo-area-lists .area-label { font-weight: 700; color: #475569; margin-right: 4px; }
+
 /* セグメント切替 */
 .seg { display: inline-flex; gap: 2px; background: #eef2f7; border-radius: 8px; padding: 3px; flex-shrink: 0; }
 .seg button {

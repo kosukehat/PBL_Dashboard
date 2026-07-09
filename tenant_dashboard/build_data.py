@@ -52,11 +52,27 @@ NEARBY_TOWN_KEYWORDS = [
     "十王", "花崗", "六供", "三清", "本町", "梅園", "板屋",
 ]
 
-# 地域・年齢別人口で康生周辺として集計する町名（完全一致）
+# 地域・年齢別人口で集計する町名（完全一致）
+WALK5_AREA_NAMES = [
+    "康生町", "康生通", "連尺通", "籠田町", "伝馬通", "材木町", "本町通",
+]
+WALK10_AREA_NAMES = WALK5_AREA_NAMES + [
+    "松本町", "十王町", "花崗町", "六供町", "六供本町", "梅園町", "板屋町",
+    "元能見町", "祐金町", "若松町", "若松東１丁目", "若松東２丁目", "若松東３丁目",
+]
 NEARBY_AREA_NAMES = [
     "康生町", "康生通", "連尺通", "籠田町", "伝馬通", "材木町", "松本町",
     "祐金町", "元能見町", "十王町", "花崗町", "六供町", "六供本町", "本町通",
     "梅園町", "板屋町",
+]
+
+# 回遊動線上の主要施設（施設相性スコア算出用）
+LANDMARKS = [
+    {"name": "図書館 りぶら", "lat": 34.95917, "lon": 137.16055},
+    {"name": "籠田公園", "lat": 34.95820, "lon": 137.16330},
+    {"name": "桜城橋・乙川", "lat": 34.95480, "lon": 137.16620},
+    {"name": "岡崎公園（岡崎城）", "lat": 34.95560, "lon": 137.15900},
+    {"name": "東岡崎駅", "lat": 34.95232, "lon": 137.16698},
 ]
 
 # 令和6年度市民意識調査の選択肢ラベル
@@ -441,35 +457,189 @@ def gsi_geocode(q):
 
 
 # ---------------------------------------------------------------------------
-# 3. ダミーデータ（オープンデータで簡単に取れないもの）
+# 3. 商圏人口・賃料・将来性
 # ---------------------------------------------------------------------------
-def build_dummy_demographics():
+def _population_for_areas(packages, area_names, note=""):
+    """地域・年齢別人口から指定町字を合算。"""
+    pkg = next((p for p in packages if "地域・年齢別人口" in p["title"]), None)
+    if pkg is None:
+        return {"note": "地域・年齢別人口データが見つかりません", "is_dummy": True}
+
+    df = pd.read_csv(pkg["resources"][0]["url"])
+    latest_date = sorted(df["調査年月日"].unique())[-1]
+    dpl = df[df["調査年月日"] == latest_date]
+    sub = dpl[dpl["地域名"].isin(area_names)].copy()
+
+    pop = int(pd.to_numeric(sub["総人口"], errors="coerce").sum())
+    households = int(pd.to_numeric(sub["世帯数"], errors="coerce").sum())
+
+    age_band_cols = [
+        ("0-14歳", [
+            "0-4歳の男性", "0-4歳の女性", "5-9歳の男性", "5-9歳の女性",
+            "10-14歳の男性", "10-14歳の女性",
+        ]),
+        ("15-64歳", [
+            c for c in df.columns
+            if any(a in c for a in [
+                "15-19", "20-24", "25-29", "30-34", "35-39", "40-44",
+                "45-49", "50-54", "55-59", "60-64",
+            ]) and ("男性" in c or "女性" in c)
+        ]),
+        ("65歳以上", [
+            c for c in df.columns
+            if any(a in c for a in ["65-69", "70-74", "75-79", "80-84", "85歳以上"])
+            and ("男性" in c or "女性" in c)
+        ]),
+    ]
+    age_structure = []
+    for label, cols in age_band_cols:
+        n = int(sum(pd.to_numeric(sub[c], errors="coerce").fillna(0).sum() for c in cols))
+        age_structure.append({
+            "label": label, "count": n,
+            "pct": round(100 * n / max(pop, 1), 1),
+        })
+
     return {
-        "is_dummy": True,
-        "source_hint": "本番では国勢調査 小地域集計（e-Stat）から徒歩圏の町丁別人口を集計",
-        "walk5_population": 4200,
-        "walk10_population": 15800,
-        "age_structure": [
-            {"label": "0-14歳", "pct": 10.5},
-            {"label": "15-64歳", "pct": 58.2},
-            {"label": "65歳以上", "pct": 31.3},
-        ],
-        "household": [
-            {"label": "単身世帯", "pct": 46.0},
-            {"label": "夫婦のみ", "pct": 22.0},
-            {"label": "ファミリー", "pct": 24.0},
-            {"label": "その他", "pct": 8.0},
-        ],
-        "single_ratio": 46.0,
-        "elderly_ratio": 31.3,
-        "daytime_night_ratio": 1.35,
+        "date": latest_date,
+        "area_names": area_names,
+        "area_count": len(sub),
+        "population": pop,
+        "households": households,
+        "avg_household_size": round(pop / max(households, 1), 2),
+        "age_structure": age_structure,
+        "source": "岡崎市オープンデータ（地域・年齢別人口）",
+        "note": note,
+        "is_dummy": False,
     }
 
 
-def build_dummy_rent():
+def _parse_survey_household(packages):
+    """市民意識調査の同居家族（問5）から世帯類型の概算。"""
+    pkg = next((p for p in packages if "市民意識" in p["title"]), None)
+    if pkg is None:
+        return None
+
+    url = next(r["url"] for r in pkg["resources"] if r.get("format") == "CSV")
+    sdf = pd.read_csv(url, encoding="utf-8-sig", low_memory=False)
+    c1 = "問5_1．同居の家族はいない "
+    c2, c3, c4, c6 = "問5_2．配偶者がいる", "問5_3．就学前の子どもがいる", "問5_4．小・中学生の子どもがいる", "問5_6．親子孫の三世代以上が同居している"
+
+    alone = couple = family = three_gen = other = 0
+    for _, row in sdf.iterrows():
+        q1 = pd.notna(row.get(c1))
+        q2 = pd.notna(row.get(c2))
+        q3 = pd.notna(row.get(c3))
+        q4 = pd.notna(row.get(c4))
+        q6 = pd.notna(row.get(c6))
+        if q1 and not (q2 or q3 or q4 or q6):
+            alone += 1
+        elif q6:
+            three_gen += 1
+        elif q3 or q4:
+            family += 1
+        elif q2:
+            couple += 1
+        else:
+            other += 1
+
+    total = max(alone + couple + family + three_gen + other, 1)
+    return {
+        "household": [
+            {"label": "単身（同居家族なし）", "pct": round(100 * alone / total, 1), "count": alone},
+            {"label": "夫婦のみ", "pct": round(100 * couple / total, 1), "count": couple},
+            {"label": "ファミリー（子どもあり）", "pct": round(100 * family / total, 1), "count": family},
+            {"label": "三世代同居", "pct": round(100 * three_gen / total, 1), "count": three_gen},
+            {"label": "その他", "pct": round(100 * other / total, 1), "count": other},
+        ],
+        "single_ratio": round(100 * alone / total, 1),
+        "source": "令和6年度市民意識調査（問5・複数回答を類型化）",
+        "note": "岡崎市全体の調査サンプル。商圏限定の世帯構成ではありません。",
+    }
+
+
+def _parse_city_age_ratios(packages):
+    """岡崎市全体の年齢3区分（人口・世帯数等CSV）。"""
+    pkg = next((p for p in packages if "人口・世帯" in p["title"]), None)
+    if pkg is None:
+        return None
+    df = pd.read_csv(pkg["resources"][0]["url"])
+    row = df.iloc[-1]
+    cols = df.columns.tolist()
+    return {
+        "year_label": str(row[cols[1]]).strip(),
+        "age_structure": [
+            {"label": "0-14歳", "pct": float(str(row[cols[9]]).replace(",", ""))},
+            {"label": "15-64歳", "pct": float(str(row[cols[10]]).replace(",", ""))},
+            {"label": "65歳以上", "pct": float(str(row[cols[11]]).replace(",", ""))},
+        ],
+        "household_size": float(str(row[cols[6]]).replace(",", "")),
+        "source": "岡崎市オープンデータ（人口・世帯数等）",
+    }
+
+
+def build_demographics(packages):
+    walk5 = _population_for_areas(
+        packages, WALK5_AREA_NAMES,
+        note="徒歩5分圏（約400m）に相当する町字の合算。厳密な徒歩圏ではなく概算です。",
+    )
+    walk10 = _population_for_areas(
+        packages, WALK10_AREA_NAMES,
+        note="徒歩10分圏（約800m）に相当する町字の合算。厳密な徒歩圏ではなく概算です。",
+    )
+    if walk5.get("is_dummy") or walk10.get("is_dummy"):
+        return {
+            "is_dummy": True,
+            "source_hint": "地域・年齢別人口データが取得できませんでした",
+            "walk5_population": 4200,
+            "walk10_population": 15800,
+            "age_structure": [
+                {"label": "0-14歳", "pct": 10.5},
+                {"label": "15-64歳", "pct": 58.2},
+                {"label": "65歳以上", "pct": 31.3},
+            ],
+            "household": [
+                {"label": "単身世帯", "pct": 46.0},
+                {"label": "夫婦のみ", "pct": 22.0},
+                {"label": "ファミリー", "pct": 24.0},
+                {"label": "その他", "pct": 8.0},
+            ],
+            "single_ratio": 46.0,
+            "elderly_ratio": 31.3,
+        }
+
+    hh = _parse_survey_household(packages)
+    city_age = _parse_city_age_ratios(packages)
+    elderly = next((a["pct"] for a in walk10["age_structure"] if "65" in a["label"]), None)
+
+    return {
+        "is_dummy": False,
+        "is_partial": True,
+        "source": "岡崎市オープンデータ（地域・年齢別人口・市民意識調査）",
+        "walk5_population": walk5["population"],
+        "walk10_population": walk10["population"],
+        "walk5_households": walk5["households"],
+        "walk10_households": walk10["households"],
+        "walk5_areas": walk5["area_names"],
+        "walk10_areas": walk10["area_names"],
+        "population_date": walk10["date"],
+        "age_structure": walk10["age_structure"],
+        "household": hh["household"] if hh else [],
+        "single_ratio": hh["single_ratio"] if hh else None,
+        "elderly_ratio": elderly,
+        "avg_household_size": walk10["avg_household_size"],
+        "city_reference": city_age,
+        "notes": {
+            "population": walk10["note"],
+            "household": hh["note"] if hh else "世帯構成データなし",
+        },
+    }
+
+
+def build_rent():
+    """賃料・地価はオープンデータ/APIから取得できないためダミーのまま。"""
     return {
         "is_dummy": True,
-        "source_hint": "本番では不動産情報ライブラリ（地価公示・取引価格）や周辺募集賃料から算出",
+        "source_hint": "不動産情報ライブラリAPI等は要APIキー／エリア別賃料データが公開されていないため未使用",
         "floor1_tsubo_yen": [10000, 15000],
         "floor2_tsubo_yen": [5000, 9000],
         "this_building_tsubo_yen": 12000,
@@ -478,14 +648,62 @@ def build_dummy_rent():
 
 
 def build_future():
+    """都市計画・将来性（公開資料に基づく固定情報）。"""
     return {
-        "is_dummy": True,
+        "is_dummy": False,
+        "source": "岡崎市立地適正化計画・国交省資料・QURUWA",
         "items": [
-            {"label": "都市機能誘導区域", "value": "対象エリア内", "note": "立地適正化計画"},
-            {"label": "居住誘導区域", "value": "対象エリア内", "note": "立地適正化計画"},
-            {"label": "QURUWA戦略", "value": "回遊動線上の第2目的地", "note": "公共空間活用・回遊性向上"},
+            {
+                "label": "都市機能誘導区域",
+                "value": "中心市街地（康生地区）を包含",
+                "note": "岡崎市立地適正化計画（平成31年3月策定）",
+                "url": "https://www.city.okazaki.lg.jp/shisei/machi/1005061/1013142/1014117/1002912.html",
+            },
+            {
+                "label": "コンパクト都市",
+                "value": "国交省「モデル都市」に選定",
+                "note": "コンパクト・プラス・ネットワークのモデル都市（岡崎市）",
+                "url": "https://www.mlit.go.jp/sogochosei/teitanso/model_city.html",
+            },
+            {
+                "label": "QURUWA",
+                "value": "回遊動線・公共空間活用",
+                "note": "康生通りを含むQURUWA地区で人流実証・回遊性向上を推進",
+            },
+            {
+                "label": "中心市街地整備",
+                "value": "康生周辺地のまちづくり継続",
+                "note": "中心市街地活性化・歴史資源活用（康生周辺地交付金事業 等）",
+                "url": "https://www.city.okazaki.lg.jp/_res/projects/default_project/_page_/001/008/420/kouseifo.pdf",
+            },
         ],
     }
+
+
+def _facility_fit_score():
+    """主要施設までの距離から施設相性スコア（0-100）を算出。"""
+    b = BUILDING
+    dists = [haversine_m(b["lat"], b["lon"], lm["lat"], lm["lon"]) for lm in LANDMARKS]
+    avg_m = sum(dists) / len(dists)
+    nearest_m = min(dists)
+    # 平均800m以内・最寄500m以内なら高スコア
+    score = 100 - avg_m / 25 - max(0, nearest_m - 300) / 20
+    return int(max(40, min(95, round(score))))
+
+
+def _profitability_score(consumer):
+    """所得・小売業シェアから収益性の目安スコア（0-100）。"""
+    income_k = 3800
+    retail_pct = 13.0
+    if consumer:
+        latest = (consumer.get("income_trend") or {}).get("latest") or {}
+        income_k = latest.get("household_income_k") or income_k
+        for it in (consumer.get("industry_share") or {}).get("items") or []:
+            if "小売" in it.get("industry", ""):
+                retail_pct = it.get("share_pct") or retail_pct
+                break
+    score = 40 + income_k / 100 + retail_pct * 2.5
+    return int(max(45, min(90, round(score))))
 
 
 # ---------------------------------------------------------------------------
@@ -603,7 +821,7 @@ def build_events(packages, peopleflow):
 # ---------------------------------------------------------------------------
 # 4. 業種チャンススコア（人流・競合から算出するヒューリスティック）
 # ---------------------------------------------------------------------------
-def build_scores(peopleflow, stores):
+def build_scores(peopleflow, stores, consumer=None):
     # 実データから使う指標
     age = {a["age"]: a["pct"] for a in peopleflow["by_age"]}
     young = age.get("Age20", 0) + age.get("Age30", 0)
@@ -619,6 +837,8 @@ def build_scores(peopleflow, stores):
     night = sum(by_hour.get(h, 0) for h in range(18, 22)) / total_h
 
     cat_count = {c["category"]: c["count"] for c in stores["category_counts"]}
+    facility_base = _facility_fit_score()
+    profit_base = _profitability_score(consumer)
 
     def competition_score(cats):
         n = sum(cat_count.get(c, 0) for c in cats)
@@ -633,35 +853,40 @@ def build_scores(peopleflow, stores):
             "industry": "カフェ・軽食",
             "people_fit": clamp(50 + young * 0.8 + female * 0.4 + lunch * 60),
             "competition": competition_score(["カフェ・喫茶"]),
-            "facility_fit": 85, "profitability": 75,
+            "facility_fit": clamp(facility_base + 5),
+            "profitability": clamp(profit_base + 5),
             "reason": "回遊・休憩・待ち合わせ需要と相性。20〜30代と女性の通行が下支え。",
         },
         {
             "industry": "スイーツ・ベーカリー",
             "people_fit": clamp(50 + female * 0.6 + family * 0.5 + evening * 50),
             "competition": competition_score(["スイーツ・ベーカリー"]),
-            "facility_fit": 80, "profitability": 72,
+            "facility_fit": clamp(facility_base + 3),
+            "profitability": clamp(profit_base + 2),
             "reason": "散策・手土産・休日需要に合う。公園回遊動線上で歩き買い需要。",
         },
         {
             "industry": "テイクアウト惣菜・弁当",
             "people_fit": clamp(45 + lunch * 70 + evening * 40 + senior * 0.3),
             "competition": competition_score(["惣菜・弁当"]),
-            "facility_fit": 70, "profitability": 74,
+            "facility_fit": clamp(facility_base - 5),
+            "profitability": clamp(profit_base + 4),
             "reason": "昼・夕方の通行と近隣住民・帰宅動線を拾える。",
         },
         {
             "industry": "居酒屋・カフェバー",
             "people_fit": clamp(40 + young * 0.7 + night * 70),
             "competition": competition_score(["居酒屋・バー"]),
-            "facility_fit": 65, "profitability": 70,
+            "facility_fit": clamp(facility_base - 8),
+            "profitability": clamp(profit_base),
             "reason": "夜間の回遊・食事需要。ただし周辺に競合が多い点に注意。",
         },
         {
             "industry": "岡崎土産・地物物販",
             "people_fit": clamp(45 + senior * 0.5 + family * 0.3),
             "competition": competition_score(["物販・食品販売"]),
-            "facility_fit": 78, "profitability": 62,
+            "facility_fit": clamp(facility_base + 8),
+            "profitability": clamp(profit_base - 8),
             "reason": "岡崎城・城下町の観光/散策客に地元商品を訴求しやすい。",
         },
     ]
@@ -681,8 +906,8 @@ def build_scores(peopleflow, stores):
         "items": industries,
         "method": "総合 = 人流相性×0.35 + 競合の少なさ×0.25 + 近隣施設相性×0.20 + 収益性×0.20。"
                   "人流相性は実データ（年代・性別・時間帯構成）から算出、競合は半径内店舗数から算出。"
-                  "近隣施設相性・収益性は暫定値（ダミー）。",
-        "is_partial_dummy": True,
+                  "施設相性は主要施設までの距離、収益性は岡崎市の家計所得・小売業シェアから概算。",
+        "is_partial_dummy": False,
     }
 
 
@@ -801,57 +1026,31 @@ def _parse_city_population_trend(packages):
 
 
 def _parse_nearby_population(packages):
-    pkg = next((p for p in packages if "地域・年齢別人口" in p["title"]), None)
-    if pkg is None:
-        return {"note": "地域・年齢別人口データが見つかりません"}
+    data = _population_for_areas(
+        packages, NEARBY_AREA_NAMES,
+        note="康生通東周辺の町字（完全一致）を合算。商圏の厳密な徒歩圏とは異なります。",
+    )
+    if data.get("is_dummy"):
+        return {"note": data.get("note", "データなし")}
 
+    pkg = next(p for p in packages if "地域・年齢別人口" in p["title"])
     df = pd.read_csv(pkg["resources"][0]["url"])
-    latest_date = sorted(df["調査年月日"].unique())[-1]
+    latest_date = data["date"]
     dpl = df[df["調査年月日"] == latest_date]
-    near = dpl[dpl["地域名"].isin(NEARBY_AREA_NAMES)].copy()
-
-    pop = int(pd.to_numeric(near["総人口"], errors="coerce").sum())
-    households = int(pd.to_numeric(near["世帯数"], errors="coerce").sum())
-
-    age_band_cols = [
-        ("0-14歳", [
-            "0-4歳の男性", "0-4歳の女性", "5-9歳の男性", "5-9歳の女性",
-            "10-14歳の男性", "10-14歳の女性",
-        ]),
-        ("15-64歳", [
-            c for c in df.columns
-            if any(a in c for a in [
-                "15-19", "20-24", "25-29", "30-34", "35-39", "40-44",
-                "45-49", "50-54", "55-59", "60-64",
-            ]) and ("男性" in c or "女性" in c)
-        ]),
-        ("65歳以上", [
-            c for c in df.columns
-            if any(a in c for a in ["65-69", "70-74", "75-79", "80-84", "85歳以上"])
-            and ("男性" in c or "女性" in c)
-        ]),
-    ]
-    age_structure = []
-    for label, cols in age_band_cols:
-        n = int(sum(pd.to_numeric(near[c], errors="coerce").fillna(0).sum() for c in cols))
-        age_structure.append({
-            "label": label, "count": n,
-            "pct": round(100 * n / max(pop, 1), 1),
-        })
-
+    near = dpl[dpl["地域名"].isin(NEARBY_AREA_NAMES)].sort_values("総人口", ascending=False)
     areas = [
         {"name": str(r["地域名"]), "population": int(r["総人口"]), "households": int(r["世帯数"])}
-        for _, r in near.sort_values("総人口", ascending=False).iterrows()
+        for _, r in near.iterrows()
     ]
     return {
-        "date": latest_date,
+        "date": data["date"],
         "areas": areas,
-        "area_count": len(areas),
-        "population": pop,
-        "households": households,
-        "age_structure": age_structure,
-        "source": "岡崎市オープンデータ（地域・年齢別人口）",
-        "note": "康生通東周辺の町字（完全一致）を合算。商圏の厳密な徒歩圏とは異なります。",
+        "area_count": data["area_count"],
+        "population": data["population"],
+        "households": data["households"],
+        "age_structure": data["age_structure"],
+        "source": data["source"],
+        "note": data["note"],
     }
 
 
@@ -1033,16 +1232,16 @@ def main():
     geocode_cache = {}
     stores = build_stores(packages, geocode_cache)
 
-    log("商圏人口・賃料・将来性（ダミー）を作成...")
-    demographics = build_dummy_demographics()
-    rent = build_dummy_rent()
+    log("商圏人口・賃料・将来性を作成...")
+    demographics = build_demographics(packages)
+    rent = build_rent()
     future = build_future()
-
-    log("業種チャンススコアを算出...")
-    scores = build_scores(peopleflow, stores)
 
     log("消費者傾向を集計...")
     consumer = build_consumer(packages)
+
+    log("業種チャンススコアを算出...")
+    scores = build_scores(peopleflow, stores, consumer)
 
     jst = timezone(timedelta(hours=9))
     payload = {
@@ -1057,7 +1256,8 @@ def main():
                 "events": "岡崎市イベント一覧から物件周辺のイベントを抽出。開催日の通行量と押し上げ効果を算出。",
                 "stores": "食品等営業許可・届出一覧を国土地理院ジオコーダで座標化。飲食系中心のため全業種は網羅しない。",
                 "consumer": "令和6年度市民意識調査・地域人口・食品営業許可・岡崎市統計（所得）から集計。",
-                "dummy": "商圏人口・賃料相場・都市計画/将来性はダミー値（画面に明記）。",
+                "demographics": "地域・年齢別人口（町字合算）と市民意識調査から商圏人口を概算。",
+                "dummy": "賃料相場・地価のみダミー値（公開データ/APIが利用不可のため）。",
             },
         },
         "peopleflow": peopleflow,

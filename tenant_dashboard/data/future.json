@@ -1,20 +1,29 @@
 {
-  "is_dummy": true,
+  "is_dummy": false,
+  "source": "岡崎市立地適正化計画・国交省資料・QURUWA",
   "items": [
     {
       "label": "都市機能誘導区域",
-      "value": "対象エリア内",
-      "note": "立地適正化計画"
+      "value": "中心市街地（康生地区）を包含",
+      "note": "岡崎市立地適正化計画（平成31年3月策定）",
+      "url": "https://www.city.okazaki.lg.jp/shisei/machi/1005061/1013142/1014117/1002912.html"
     },
     {
-      "label": "居住誘導区域",
-      "value": "対象エリア内",
-      "note": "立地適正化計画"
+      "label": "コンパクト都市",
+      "value": "国交省「モデル都市」に選定",
+      "note": "コンパクト・プラス・ネットワークのモデル都市（岡崎市）",
+      "url": "https://www.mlit.go.jp/sogochosei/teitanso/model_city.html"
     },
     {
-      "label": "QURUWA戦略",
-      "value": "回遊動線上の第2目的地",
-      "note": "公共空間活用・回遊性向上"
+      "label": "QURUWA",
+      "value": "回遊動線・公共空間活用",
+      "note": "康生通りを含むQURUWA地区で人流実証・回遊性向上を推進"
+    },
+    {
+      "label": "中心市街地整備",
+      "value": "康生周辺地のまちづくり継続",
+      "note": "中心市街地活性化・歴史資源活用（康生周辺地交付金事業 等）",
+      "url": "https://www.city.okazaki.lg.jp/_res/projects/default_project/_page_/001/008/420/kouseifo.pdf"
     }
   ]
 }

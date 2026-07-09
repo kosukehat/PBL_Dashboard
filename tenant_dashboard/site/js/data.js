@@ -5,7 +5,7 @@ window.DASHBOARD_DATA = {
       "lat": 34.958324,
       "lon": 137.164444
     },
-    "generated_at": "2026-07-08 19:11",
+    "generated_at": "2026-07-09 10:16",
     "source": "岡崎市オープンデータ（BODIK） / 国土地理院ジオコーダ / 岡崎市統計",
     "target_street": "康生通り",
     "cameras": [
@@ -39,7 +39,8 @@ window.DASHBOARD_DATA = {
       "events": "岡崎市イベント一覧から物件周辺のイベントを抽出。開催日の通行量と押し上げ効果を算出。",
       "stores": "食品等営業許可・届出一覧を国土地理院ジオコーダで座標化。飲食系中心のため全業種は網羅しない。",
       "consumer": "令和6年度市民意識調査・地域人口・食品営業許可・岡崎市統計（所得）から集計。",
-      "dummy": "商圏人口・賃料相場・都市計画/将来性はダミー値（画面に明記）。"
+      "demographics": "地域・年齢別人口（町字合算）と市民意識調査から商圏人口を概算。",
+      "dummy": "賃料相場・地価のみダミー値（公開データ/APIが利用不可のため）。"
     }
   },
   "peopleflow": {
@@ -6826,49 +6827,119 @@ window.DASHBOARD_DATA = {
     "radius_m": 400
   },
   "demographics": {
-    "is_dummy": true,
-    "source_hint": "本番では国勢調査 小地域集計（e-Stat）から徒歩圏の町丁別人口を集計",
-    "walk5_population": 4200,
-    "walk10_population": 15800,
+    "is_dummy": false,
+    "is_partial": true,
+    "source": "岡崎市オープンデータ（地域・年齢別人口・市民意識調査）",
+    "walk5_population": 4613,
+    "walk10_population": 18886,
+    "walk5_households": 2451,
+    "walk10_households": 8876,
+    "walk5_areas": [
+      "康生町",
+      "康生通",
+      "連尺通",
+      "籠田町",
+      "伝馬通",
+      "材木町",
+      "本町通"
+    ],
+    "walk10_areas": [
+      "康生町",
+      "康生通",
+      "連尺通",
+      "籠田町",
+      "伝馬通",
+      "材木町",
+      "本町通",
+      "松本町",
+      "十王町",
+      "花崗町",
+      "六供町",
+      "六供本町",
+      "梅園町",
+      "板屋町",
+      "元能見町",
+      "祐金町",
+      "若松町",
+      "若松東１丁目",
+      "若松東２丁目",
+      "若松東３丁目"
+    ],
+    "population_date": "2025-04-01",
     "age_structure": [
       {
         "label": "0-14歳",
-        "pct": 10.5
+        "count": 2441,
+        "pct": 12.9
       },
       {
         "label": "15-64歳",
-        "pct": 58.2
+        "count": 11188,
+        "pct": 59.2
       },
       {
         "label": "65歳以上",
-        "pct": 31.3
+        "count": 5257,
+        "pct": 27.8
       }
     ],
     "household": [
       {
-        "label": "単身世帯",
-        "pct": 46.0
+        "label": "単身（同居家族なし）",
+        "pct": 11.0,
+        "count": 303
       },
       {
         "label": "夫婦のみ",
-        "pct": 22.0
+        "pct": 37.8,
+        "count": 1042
       },
       {
-        "label": "ファミリー",
-        "pct": 24.0
+        "label": "ファミリー（子どもあり）",
+        "pct": 19.5,
+        "count": 537
+      },
+      {
+        "label": "三世代同居",
+        "pct": 11.1,
+        "count": 307
       },
       {
         "label": "その他",
-        "pct": 8.0
+        "pct": 20.5,
+        "count": 566
       }
     ],
-    "single_ratio": 46.0,
-    "elderly_ratio": 31.3,
-    "daytime_night_ratio": 1.35
+    "single_ratio": 11.0,
+    "elderly_ratio": 27.8,
+    "avg_household_size": 2.13,
+    "city_reference": {
+      "year_label": "4",
+      "age_structure": [
+        {
+          "label": "0-14歳",
+          "pct": 13.6
+        },
+        {
+          "label": "15-64歳",
+          "pct": 62.14
+        },
+        {
+          "label": "65歳以上",
+          "pct": 24.26
+        }
+      ],
+      "household_size": 2.28,
+      "source": "岡崎市オープンデータ（人口・世帯数等）"
+    },
+    "notes": {
+      "population": "徒歩10分圏（約800m）に相当する町字の合算。厳密な徒歩圏ではなく概算です。",
+      "household": "岡崎市全体の調査サンプル。商圏限定の世帯構成ではありません。"
+    }
   },
   "rent": {
     "is_dummy": true,
-    "source_hint": "本番では不動産情報ライブラリ（地価公示・取引価格）や周辺募集賃料から算出",
+    "source_hint": "不動産情報ライブラリAPI等は要APIキー／エリア別賃料データが公開されていないため未使用",
     "floor1_tsubo_yen": [
       10000,
       15000
@@ -6881,22 +6952,31 @@ window.DASHBOARD_DATA = {
     "land_price_yen_sqm": 155000
   },
   "future": {
-    "is_dummy": true,
+    "is_dummy": false,
+    "source": "岡崎市立地適正化計画・国交省資料・QURUWA",
     "items": [
       {
         "label": "都市機能誘導区域",
-        "value": "対象エリア内",
-        "note": "立地適正化計画"
+        "value": "中心市街地（康生地区）を包含",
+        "note": "岡崎市立地適正化計画（平成31年3月策定）",
+        "url": "https://www.city.okazaki.lg.jp/shisei/machi/1005061/1013142/1014117/1002912.html"
       },
       {
-        "label": "居住誘導区域",
-        "value": "対象エリア内",
-        "note": "立地適正化計画"
+        "label": "コンパクト都市",
+        "value": "国交省「モデル都市」に選定",
+        "note": "コンパクト・プラス・ネットワークのモデル都市（岡崎市）",
+        "url": "https://www.mlit.go.jp/sogochosei/teitanso/model_city.html"
       },
       {
-        "label": "QURUWA戦略",
-        "value": "回遊動線上の第2目的地",
-        "note": "公共空間活用・回遊性向上"
+        "label": "QURUWA",
+        "value": "回遊動線・公共空間活用",
+        "note": "康生通りを含むQURUWA地区で人流実証・回遊性向上を推進"
+      },
+      {
+        "label": "中心市街地整備",
+        "value": "康生周辺地のまちづくり継続",
+        "note": "中心市街地活性化・歴史資源活用（康生周辺地交付金事業 等）",
+        "url": "https://www.city.okazaki.lg.jp/_res/projects/default_project/_page_/001/008/420/kouseifo.pdf"
       }
     ]
   },
@@ -6906,55 +6986,55 @@ window.DASHBOARD_DATA = {
         "industry": "カフェ・軽食",
         "people_fit": 100,
         "competition": 52,
-        "facility_fit": 85,
-        "profitability": 75,
+        "facility_fit": 88,
+        "profitability": 95,
         "reason": "回遊・休憩・待ち合わせ需要と相性。20〜30代と女性の通行が下支え。",
-        "total": 80,
+        "total": 85,
         "rank": 1
       },
       {
         "industry": "テイクアウト惣菜・弁当",
         "people_fit": 86,
         "competition": 76,
-        "facility_fit": 70,
-        "profitability": 74,
+        "facility_fit": 78,
+        "profitability": 94,
         "reason": "昼・夕方の通行と近隣住民・帰宅動線を拾える。",
-        "total": 78,
+        "total": 83,
         "rank": 2
       },
       {
         "industry": "居酒屋・カフェバー",
         "people_fit": 75,
         "competition": 68,
-        "facility_fit": 65,
-        "profitability": 70,
+        "facility_fit": 75,
+        "profitability": 90,
         "reason": "夜間の回遊・食事需要。ただし周辺に競合が多い点に注意。",
-        "total": 70,
+        "total": 76,
         "rank": 3
       },
       {
         "industry": "岡崎土産・地物物販",
         "people_fit": 59,
         "competition": 76,
-        "facility_fit": 78,
-        "profitability": 62,
+        "facility_fit": 91,
+        "profitability": 82,
         "reason": "岡崎城・城下町の観光/散策客に地元商品を訴求しやすい。",
-        "total": 68,
+        "total": 74,
         "rank": 4
       },
       {
         "industry": "スイーツ・ベーカリー",
         "people_fit": 85,
         "competition": 20,
-        "facility_fit": 80,
-        "profitability": 72,
+        "facility_fit": 86,
+        "profitability": 92,
         "reason": "散策・手土産・休日需要に合う。公園回遊動線上で歩き買い需要。",
-        "total": 65,
+        "total": 70,
         "rank": 5
       }
     ],
-    "method": "総合 = 人流相性×0.35 + 競合の少なさ×0.25 + 近隣施設相性×0.20 + 収益性×0.20。人流相性は実データ（年代・性別・時間帯構成）から算出、競合は半径内店舗数から算出。近隣施設相性・収益性は暫定値（ダミー）。",
-    "is_partial_dummy": true
+    "method": "総合 = 人流相性×0.35 + 競合の少なさ×0.25 + 近隣施設相性×0.20 + 収益性×0.20。人流相性は実データ（年代・性別・時間帯構成）から算出、競合は半径内店舗数から算出。施設相性は主要施設までの距離、収益性は岡崎市の家計所得・小売業シェアから概算。",
+    "is_partial_dummy": false
   },
   "consumer": {
     "survey": {

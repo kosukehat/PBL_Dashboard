@@ -70,7 +70,7 @@ function renderSummary() {
   const kpis = [
     { cls: "", label: "康生通り 1日平均通行量", value: fmt(pf.total_per_day), unit: "人/日", sub: `カメラ${D.meta.cameras.length}台の合計` },
     { cls: "sky", label: `半径${st.radius_m}m 周辺店舗`, value: fmt(st.points.length), unit: "件", sub: "食品営業許可ベース" },
-    { cls: "good", label: "徒歩5分圏 人口", value: fmt(D.demographics.walk5_population), unit: "人", sub: "※ダミー" },
+    { cls: "good", label: "徒歩5分圏 人口", value: fmt(D.demographics.walk5_population), unit: "人", sub: D.demographics.is_dummy ? "※ダミー" : (D.demographics.population_date || "実データ") },
     { cls: "accent", label: "おすすめ業種 1位", value: sc[0].industry, unit: "", sub: `スコア ${sc[0].total}` },
   ];
   document.getElementById("kpiGrid").innerHTML = kpis.map(k => `
@@ -812,46 +812,85 @@ function renderConsumer() {
 }
 
 /* =========================================================
-   画面5: 商圏人口（ダミー）
+   画面5: 商圏人口
    ========================================================= */
 function renderDemographics() {
   const dm = D.demographics, rent = D.rent, fut = D.future;
-  document.getElementById("demoDummyBadge").innerHTML =
-    dm.is_dummy ? '<span class="dummy-badge">ダミーデータ</span>' : "";
+  const badge = dm.is_dummy
+    ? '<span class="dummy-badge">ダミーデータ</span>'
+    : (dm.is_partial ? '<span class="dummy-badge" style="background:#dbeafe;color:#1e40af">概算（実データ）</span>' : "");
 
+  document.getElementById("demoDummyBadge").innerHTML = badge;
+
+  const popNote = dm.is_dummy ? "※ダミー" : (dm.notes && dm.notes.population ? "町字合算" : "実データ");
   const kpi = [
-    { cls: "", label: "徒歩5分圏 人口", value: fmt(dm.walk5_population), unit: "人" },
-    { cls: "sky", label: "徒歩10分圏 人口", value: fmt(dm.walk10_population), unit: "人" },
-    { cls: "accent", label: "単身世帯比率", value: dm.single_ratio, unit: "%" },
-    { cls: "good", label: "高齢者比率", value: dm.elderly_ratio, unit: "%" },
+    { cls: "", label: "徒歩5分圏 人口", value: fmt(dm.walk5_population), unit: "人", sub: popNote },
+    { cls: "sky", label: "徒歩10分圏 人口", value: fmt(dm.walk10_population), unit: "人", sub: popNote },
+    { cls: "accent", label: "単身比率", value: dm.single_ratio ?? "—", unit: dm.single_ratio != null ? "%" : "", sub: dm.is_dummy ? "※ダミー" : "市民意識調査" },
+    { cls: "good", label: "高齢者比率", value: dm.elderly_ratio ?? "—", unit: dm.elderly_ratio != null ? "%" : "", sub: dm.is_dummy ? "※ダミー" : "徒歩10分圏" },
   ];
   document.getElementById("demoKpi").innerHTML = kpi.map(k => `
     <div class="kpi ${k.cls}"><div class="k-label">${k.label}</div>
     <div class="k-value">${k.value}<span class="k-unit">${k.unit}</span></div>
-    <div class="k-sub">※ダミー</div></div>`).join("");
+    <div class="k-sub">${k.sub}</div></div>`).join("");
 
+  const w5 = dm.walk5_areas || [];
+  const w10 = dm.walk10_areas || [];
+  const areaEl = document.getElementById("demoAreaLists");
+  if (areaEl && (w5.length || w10.length)) {
+    areaEl.innerHTML =
+      `<div class="area-row"><span class="area-label">5分圏（${w5.length}町）:</span>${w5.join("・")}</div>` +
+      `<div class="area-row"><span class="area-label">10分圏（${w10.length}町）:</span>${w10.join("・")}</div>`;
+  } else if (areaEl) {
+    areaEl.innerHTML = "";
+  }
+
+  const ageColors = ["#93c5fd", "#3b82f6", "#1e3a8a"];
   new Chart(document.getElementById("demoAgeChart"), {
     type: "doughnut",
-    data: { labels: dm.age_structure.map(a => a.label), datasets: [{ data: dm.age_structure.map(a => a.pct), backgroundColor: ["#93c5fd", "#3b82f6", "#1e3a8a"] }] },
+    data: {
+      labels: dm.age_structure.map(a => a.label),
+      datasets: [{ data: dm.age_structure.map(a => a.pct), backgroundColor: ageColors }],
+    },
     options: { plugins: { legend: { position: "right", labels: { boxWidth: 10, font: { size: 11 } } } } },
   });
-  new Chart(document.getElementById("demoHouseChart"), {
-    type: "doughnut",
-    data: { labels: dm.household.map(h => h.label), datasets: [{ data: dm.household.map(h => h.pct), backgroundColor: ["#f59e0b", "#10b981", "#6366f1", "#cbd5e1"] }] },
-    options: { plugins: { legend: { position: "right", labels: { boxWidth: 10, font: { size: 11 } } } } },
-  });
+
+  const hhColors = ["#f59e0b", "#10b981", "#6366f1", "#a855f7", "#cbd5e1"];
+  if (dm.household && dm.household.length) {
+    new Chart(document.getElementById("demoHouseChart"), {
+      type: "doughnut",
+      data: {
+        labels: dm.household.map(h => h.label),
+        datasets: [{ data: dm.household.map(h => h.pct), backgroundColor: hhColors }],
+      },
+      options: { plugins: { legend: { position: "right", labels: { boxWidth: 10, font: { size: 10 } } } } },
+    });
+  }
 
   document.getElementById("rentBox").innerHTML = `
     <div class="rent-line"><span>1階路面</span><b>${fmt(rent.floor1_tsubo_yen[0])}〜${fmt(rent.floor1_tsubo_yen[1])} 円/坪</b></div>
     <div class="rent-line"><span>2階以上</span><b>${fmt(rent.floor2_tsubo_yen[0])}〜${fmt(rent.floor2_tsubo_yen[1])} 円/坪</b></div>
     <div class="rent-line"><span>本物件（想定）</span><b>${fmt(rent.this_building_tsubo_yen)} 円/坪</b></div>
     <div class="rent-line"><span>地価</span><b>${fmt(rent.land_price_yen_sqm)} 円/㎡</b></div>
-    <div class="note">※賃料・地価はダミー。本番は不動産情報ライブラリ等から算出。</div>`;
+    <div class="note">※賃料・地価は${rent.is_dummy ? "ダミー" : "参考値"}。公開オープンデータからは取得できないため、本番は不動産情報ライブラリ等で算出してください。</div>`;
 
   document.getElementById("futureBox").innerHTML = fut.items.map(i => `
     <div class="future-item"><div class="fi-label">${i.label}</div>
-    <div class="fi-value">${i.value}</div><div class="fi-note">${i.note}</div></div>`).join("")
-    + (fut.is_dummy ? '<div class="note" style="grid-column:1/-1">※将来性・都市計画はダミー。本番は岡崎市立地適正化計画等で確認。</div>' : "");
+    <div class="fi-value">${i.value}</div><div class="fi-note">${i.note}${i.url ? ` <a href="${i.url}" target="_blank" rel="noopener">出典</a>` : ""}</div></div>`).join("")
+    + (fut.is_dummy
+      ? '<div class="note" style="grid-column:1/-1">※将来性・都市計画はダミー。</div>'
+      : `<div class="note" style="grid-column:1/-1">出典: ${fut.source || "岡崎市公開資料"}</div>`);
+
+  if (!dm.is_dummy && dm.notes) {
+    const extra = document.createElement("div");
+    extra.className = "note";
+    extra.style.marginTop = "12px";
+    extra.innerHTML = `<b>データ出典:</b> ${dm.source || ""} ` +
+      (dm.population_date ? `（人口基準日: ${dm.population_date}）` : "") +
+      `<br>${dm.notes.population || ""} ${dm.notes.household ? "<br>" + dm.notes.household : ""}` +
+      (dm.avg_household_size ? `<br>徒歩10分圏の1世帯当たり人口: ${dm.avg_household_size}人` : "");
+    document.getElementById("demographics").querySelector(".card-row").after(extra);
+  }
 }
 
 /* =========================================================
@@ -898,7 +937,7 @@ function renderScores() {
 
   document.getElementById("scoreMethod").innerHTML =
     "<b>算出方法:</b> " + sc.method +
-    (sc.is_partial_dummy ? " 施設相性・収益性は暫定（ダミー）値を含みます。売上を断定するものではなく、あくまで「出店ポテンシャル／業種適合度」の目安です。" : "");
+    (sc.is_partial_dummy ? " 一部指標は暫定値を含みます。" : "");
 }
 
 /* ---------- 実行 ---------- */

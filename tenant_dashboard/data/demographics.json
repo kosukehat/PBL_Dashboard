@@ -1,41 +1,111 @@
 {
-  "is_dummy": true,
-  "source_hint": "本番では国勢調査 小地域集計（e-Stat）から徒歩圏の町丁別人口を集計",
-  "walk5_population": 4200,
-  "walk10_population": 15800,
+  "is_dummy": false,
+  "is_partial": true,
+  "source": "岡崎市オープンデータ（地域・年齢別人口・市民意識調査）",
+  "walk5_population": 4613,
+  "walk10_population": 18886,
+  "walk5_households": 2451,
+  "walk10_households": 8876,
+  "walk5_areas": [
+    "康生町",
+    "康生通",
+    "連尺通",
+    "籠田町",
+    "伝馬通",
+    "材木町",
+    "本町通"
+  ],
+  "walk10_areas": [
+    "康生町",
+    "康生通",
+    "連尺通",
+    "籠田町",
+    "伝馬通",
+    "材木町",
+    "本町通",
+    "松本町",
+    "十王町",
+    "花崗町",
+    "六供町",
+    "六供本町",
+    "梅園町",
+    "板屋町",
+    "元能見町",
+    "祐金町",
+    "若松町",
+    "若松東１丁目",
+    "若松東２丁目",
+    "若松東３丁目"
+  ],
+  "population_date": "2025-04-01",
   "age_structure": [
     {
       "label": "0-14歳",
-      "pct": 10.5
+      "count": 2441,
+      "pct": 12.9
     },
     {
       "label": "15-64歳",
-      "pct": 58.2
+      "count": 11188,
+      "pct": 59.2
     },
     {
       "label": "65歳以上",
-      "pct": 31.3
+      "count": 5257,
+      "pct": 27.8
     }
   ],
   "household": [
     {
-      "label": "単身世帯",
-      "pct": 46.0
+      "label": "単身（同居家族なし）",
+      "pct": 11.0,
+      "count": 303
     },
     {
       "label": "夫婦のみ",
-      "pct": 22.0
+      "pct": 37.8,
+      "count": 1042
     },
     {
-      "label": "ファミリー",
-      "pct": 24.0
+      "label": "ファミリー（子どもあり）",
+      "pct": 19.5,
+      "count": 537
+    },
+    {
+      "label": "三世代同居",
+      "pct": 11.1,
+      "count": 307
     },
     {
       "label": "その他",
-      "pct": 8.0
+      "pct": 20.5,
+      "count": 566
     }
   ],
-  "single_ratio": 46.0,
-  "elderly_ratio": 31.3,
-  "daytime_night_ratio": 1.35
+  "single_ratio": 11.0,
+  "elderly_ratio": 27.8,
+  "avg_household_size": 2.13,
+  "city_reference": {
+    "year_label": "4",
+    "age_structure": [
+      {
+        "label": "0-14歳",
+        "pct": 13.6
+      },
+      {
+        "label": "15-64歳",
+        "pct": 62.14
+      },
+      {
+        "label": "65歳以上",
+        "pct": 24.26
+      }
+    ],
+    "household_size": 2.28,
+    "source": "岡崎市オープンデータ（人口・世帯数等）"
+  },
+  "notes": {
+    "population": "徒歩10分圏（約800m）に相当する町字の合算。厳密な徒歩圏ではなく概算です。",
+    "household": "岡崎市全体の調査サンプル。商圏限定の世帯構成ではありません。"
+  }
 }
