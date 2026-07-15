@@ -70,15 +70,6 @@ NEARBY_AREA_NAMES = [
     "梅園町", "板屋町",
 ]
 
-# 回遊動線上の主要施設（施設相性スコア算出用）
-LANDMARKS = [
-    {"name": "図書館 りぶら", "lat": 34.95917, "lon": 137.16055},
-    {"name": "籠田公園", "lat": 34.95820, "lon": 137.16330},
-    {"name": "桜城橋・乙川", "lat": 34.95480, "lon": 137.16620},
-    {"name": "岡崎公園（岡崎城）", "lat": 34.95560, "lon": 137.15900},
-    {"name": "東岡崎駅", "lat": 34.95232, "lon": 137.16698},
-]
-
 # 令和6年度市民意識調査の選択肢ラベル
 SURVEY_AGE_LABELS = {
     1: "10歳未満", 2: "10代", 3: "20代", 4: "30代", 5: "40代",
@@ -576,7 +567,6 @@ def refilter_local_data():
     pf = filter_peopleflow_min_ym(payload["peopleflow"])
     payload["peopleflow"] = pf
     payload["events"] = refresh_events_for_peopleflow(payload.get("events", {}), pf)
-    payload["scores"] = build_scores(pf, payload["stores"], payload.get("consumer"))
     if "meta" in payload and "notes" in payload["meta"]:
         payload["meta"]["notes"]["peopleflow"] = (
             "康生通りカメラ（AIカメラ人流実証実験）。1日あたり平均に換算。"
@@ -1069,32 +1059,6 @@ def build_future():
     }
 
 
-def _facility_fit_score():
-    """主要施設までの距離から施設相性スコア（0-100）を算出。"""
-    b = BUILDING
-    dists = [haversine_m(b["lat"], b["lon"], lm["lat"], lm["lon"]) for lm in LANDMARKS]
-    avg_m = sum(dists) / len(dists)
-    nearest_m = min(dists)
-    # 平均800m以内・最寄500m以内なら高スコア
-    score = 100 - avg_m / 25 - max(0, nearest_m - 300) / 20
-    return int(max(40, min(95, round(score))))
-
-
-def _profitability_score(consumer):
-    """所得・小売業シェアから収益性の目安スコア（0-100）。"""
-    income_k = 3800
-    retail_pct = 13.0
-    if consumer:
-        latest = (consumer.get("income_trend") or {}).get("latest") or {}
-        income_k = latest.get("household_income_k") or income_k
-        for it in (consumer.get("industry_share") or {}).get("items") or []:
-            if "小売" in it.get("industry", ""):
-                retail_pct = it.get("share_pct") or retail_pct
-                break
-    score = 40 + income_k / 100 + retail_pct * 2.5
-    return int(max(45, min(90, round(score))))
-
-
 # ---------------------------------------------------------------------------
 # 3.5 イベント（人流タイムラインに重ねる）
 # ---------------------------------------------------------------------------
@@ -1204,99 +1168,6 @@ def build_events(packages, peopleflow):
         "radius_m": EVENT_RADIUS_M,
         "note": "物件周辺のイベント。押し上げ効果は開催日の通行量を同曜日の中央値と比較した概算。"
                 "人流の欠損補間期間はイベント効果が出にくい点に注意。",
-    }
-
-
-# ---------------------------------------------------------------------------
-# 4. 業種チャンススコア（人流・競合から算出するヒューリスティック）
-# ---------------------------------------------------------------------------
-def build_scores(peopleflow, stores, consumer=None):
-    # 実データから使う指標
-    age = {a["age"]: a["pct"] for a in peopleflow["by_age"]}
-    young = age.get("Age20", 0) + age.get("Age30", 0)
-    family = age.get("Age00", 0) + age.get("Age40", 0)
-    senior = age.get("Age60", 0) + age.get("Age70", 0)
-    female = next((g["pct"] for g in peopleflow["by_gender"] if g["gender"] == 1), 0)
-
-    # 時間帯の重み（昼/夕方/夜の通行量割合）
-    by_hour = {h["hour"]: h["count"] for h in peopleflow["by_hour"]}
-    total_h = sum(by_hour.values()) or 1
-    lunch = sum(by_hour.get(h, 0) for h in range(11, 15)) / total_h
-    evening = sum(by_hour.get(h, 0) for h in range(16, 19)) / total_h
-    night = sum(by_hour.get(h, 0) for h in range(18, 22)) / total_h
-
-    cat_count = {c["category"]: c["count"] for c in stores["category_counts"]}
-    facility_base = _facility_fit_score()
-    profit_base = _profitability_score(consumer)
-
-    def competition_score(cats):
-        n = sum(cat_count.get(c, 0) for c in cats)
-        # 競合が少ないほど高スコア
-        return max(20, 100 - n * 8)
-
-    def clamp(v):
-        return int(max(0, min(100, round(v))))
-
-    industries = [
-        {
-            "industry": "カフェ・軽食",
-            "people_fit": clamp(50 + young * 0.8 + female * 0.4 + lunch * 60),
-            "competition": competition_score(["カフェ・喫茶"]),
-            "facility_fit": clamp(facility_base + 5),
-            "profitability": clamp(profit_base + 5),
-            "reason": "回遊・休憩・待ち合わせ需要と相性。20〜30代と女性の通行が下支え。",
-        },
-        {
-            "industry": "スイーツ・ベーカリー",
-            "people_fit": clamp(50 + female * 0.6 + family * 0.5 + evening * 50),
-            "competition": competition_score(["スイーツ・ベーカリー"]),
-            "facility_fit": clamp(facility_base + 3),
-            "profitability": clamp(profit_base + 2),
-            "reason": "散策・手土産・休日需要に合う。公園回遊動線上で歩き買い需要。",
-        },
-        {
-            "industry": "テイクアウト惣菜・弁当",
-            "people_fit": clamp(45 + lunch * 70 + evening * 40 + senior * 0.3),
-            "competition": competition_score(["惣菜・弁当"]),
-            "facility_fit": clamp(facility_base - 5),
-            "profitability": clamp(profit_base + 4),
-            "reason": "昼・夕方の通行と近隣住民・帰宅動線を拾える。",
-        },
-        {
-            "industry": "居酒屋・カフェバー",
-            "people_fit": clamp(40 + young * 0.7 + night * 70),
-            "competition": competition_score(["居酒屋・バー"]),
-            "facility_fit": clamp(facility_base - 8),
-            "profitability": clamp(profit_base),
-            "reason": "夜間の回遊・食事需要。ただし周辺に競合が多い点に注意。",
-        },
-        {
-            "industry": "岡崎土産・地物物販",
-            "people_fit": clamp(45 + senior * 0.5 + family * 0.3),
-            "competition": competition_score(["物販・食品販売"]),
-            "facility_fit": clamp(facility_base + 8),
-            "profitability": clamp(profit_base - 8),
-            "reason": "岡崎城・城下町の観光/散策客に地元商品を訴求しやすい。",
-        },
-    ]
-
-    for it in industries:
-        it["total"] = int(round(
-            it["people_fit"] * 0.35
-            + it["competition"] * 0.25
-            + it["facility_fit"] * 0.20
-            + it["profitability"] * 0.20
-        ))
-    industries.sort(key=lambda x: -x["total"])
-    for i, it in enumerate(industries):
-        it["rank"] = i + 1
-
-    return {
-        "items": industries,
-        "method": "総合 = 人流相性×0.35 + 競合の少なさ×0.25 + 近隣施設相性×0.20 + 収益性×0.20。"
-                  "人流相性は実データ（年代・性別・時間帯構成）から算出、競合は半径内店舗数から算出。"
-                  "施設相性は主要施設までの距離、収益性は岡崎市の家計所得・小売業シェアから概算。",
-        "is_partial_dummy": False,
     }
 
 
@@ -1642,9 +1513,6 @@ def main():
     log("消費者傾向を集計...")
     consumer = build_consumer(packages)
 
-    log("業種チャンススコアを算出...")
-    scores = build_scores(peopleflow, stores, consumer)
-
     jst = timezone(timedelta(hours=9))
     payload = {
         "meta": {
@@ -1669,7 +1537,6 @@ def main():
         "demographics": demographics,
         "rent": rent,
         "future": future,
-        "scores": scores,
         "consumer": consumer,
     }
 

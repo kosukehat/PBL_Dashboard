@@ -23089,62 +23089,6 @@ window.DASHBOARD_DATA = {
     },
     "land_price_error": null
   },
-  "scores": {
-    "items": [
-      {
-        "industry": "カフェ・軽食",
-        "people_fit": 100,
-        "competition": 52,
-        "facility_fit": 88,
-        "profitability": 95,
-        "reason": "回遊・休憩・待ち合わせ需要と相性。20〜30代と女性の通行が下支え。",
-        "total": 85,
-        "rank": 1
-      },
-      {
-        "industry": "テイクアウト惣菜・弁当",
-        "people_fit": 84,
-        "competition": 76,
-        "facility_fit": 78,
-        "profitability": 94,
-        "reason": "昼・夕方の通行と近隣住民・帰宅動線を拾える。",
-        "total": 83,
-        "rank": 2
-      },
-      {
-        "industry": "居酒屋・カフェバー",
-        "people_fit": 75,
-        "competition": 68,
-        "facility_fit": 75,
-        "profitability": 90,
-        "reason": "夜間の回遊・食事需要。ただし周辺に競合が多い点に注意。",
-        "total": 76,
-        "rank": 3
-      },
-      {
-        "industry": "岡崎土産・地物物販",
-        "people_fit": 59,
-        "competition": 76,
-        "facility_fit": 91,
-        "profitability": 82,
-        "reason": "岡崎城・城下町の観光/散策客に地元商品を訴求しやすい。",
-        "total": 74,
-        "rank": 4
-      },
-      {
-        "industry": "スイーツ・ベーカリー",
-        "people_fit": 86,
-        "competition": 20,
-        "facility_fit": 86,
-        "profitability": 92,
-        "reason": "散策・手土産・休日需要に合う。公園回遊動線上で歩き買い需要。",
-        "total": 71,
-        "rank": 5
-      }
-    ],
-    "method": "総合 = 人流相性×0.35 + 競合の少なさ×0.25 + 近隣施設相性×0.20 + 収益性×0.20。人流相性は実データ（年代・性別・時間帯構成）から算出、競合は半径内店舗数から算出。施設相性は主要施設までの距離、収益性は岡崎市の家計所得・小売業シェアから概算。",
-    "is_partial_dummy": false
-  },
   "stores": {
     "points": [
       {

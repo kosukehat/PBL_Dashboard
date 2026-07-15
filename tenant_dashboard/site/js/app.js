@@ -74,14 +74,13 @@ document.getElementById("metaGenerated").textContent = "生成: " + D.meta.gener
    画面1: 物件サマリー
    ========================================================= */
 function renderSummary() {
-  const pf = D.peopleflow, st = D.stores, sc = D.scores.items;
+  const pf = D.peopleflow, st = D.stores;
   const topPct = pf.by_age.slice().sort((a, b) => b.pct - a.pct)[0];
 
   const kpis = [
     { cls: "", label: "康生通り 1日平均通行量", value: fmt(pf.total_per_day), unit: "人/日", sub: `カメラ${D.meta.cameras.length}台の合計` },
     { cls: "sky", label: `半径${st.radius_m}m 周辺店舗`, value: fmt(st.points.length), unit: "件", sub: "食品営業許可ベース" },
     { cls: "good", label: "徒歩5分圏 人口", value: fmt(D.demographics.walk5_population), unit: "人", sub: D.demographics.is_dummy ? "※ダミー" : (D.demographics.population_date || "実データ") },
-    { cls: "accent", label: "おすすめ業種 1位", value: sc[0].industry, unit: "", sub: `スコア ${sc[0].total}` },
   ];
   document.getElementById("kpiGrid").innerHTML = kpis.map(k => `
     <div class="kpi ${k.cls}">
@@ -128,11 +127,6 @@ function renderSummary() {
   document.getElementById("landmarkList").innerHTML = ll.map(l => `
     <div class="landmark"><span>${l.name}</span>
     <span class="dist">${l.d < 1000 ? Math.round(l.d) + " m" : (l.d / 1000).toFixed(1) + " km"}</span></div>`).join("");
-
-  // TOP3
-  document.getElementById("topPicks").innerHTML = sc.slice(0, 3).map(s => `
-    <div class="pick"><div class="rank">${s.rank}</div>
-    <div class="pname">${s.industry}</div><div class="pscore">${s.total}</div></div>`).join("");
 }
 
 /* =========================================================
@@ -612,7 +606,7 @@ function renderStores() {
     options: { indexAxis: "y", plugins: { legend: { display: false } }, scales: { x: { grid: { color: "#e2e8f0" } } } },
   });
   document.getElementById("storeNote").innerHTML =
-    "「店が少ない＝チャンス」とは限りません。人流属性と合わせて業種チャンス画面で総合評価しています。";
+    "「店が少ない＝チャンス」とは限りません。人流分析の来街者属性と合わせて判断してください。";
 
   const pts = st.points.slice().sort((a, b) => a.dist_m - b.dist_m);
   let rows = pts.map(p => `
@@ -974,53 +968,6 @@ function renderDemographics() {
   }
 }
 
-/* =========================================================
-   画面6: 業種チャンス
-   ========================================================= */
-function renderScores() {
-  const sc = D.scores;
-  const metrics = [
-    ["people_fit", "人流相性"], ["competition", "競合の少なさ"],
-    ["facility_fit", "施設相性"], ["profitability", "収益性"],
-  ];
-  document.getElementById("scoreList").innerHTML = sc.items.map(it => `
-    <div class="score-item">
-      <div class="score-head">
-        <div class="rank r${it.rank}">${it.rank}</div>
-        <div class="name">${it.industry}</div>
-        <div class="total">${it.total}</div>
-      </div>
-      <div class="score-reason">${it.reason}</div>
-      <div class="bars">
-        ${metrics.map(([k, lbl]) => `
-          <div class="bar-block">${lbl} ${it[k]}
-            <div class="bar-track"><div class="bar-fill" style="width:${it[k]}%"></div></div>
-          </div>`).join("")}
-      </div>
-    </div>`).join("");
-
-  // レーダー（上位3業種）
-  const top3 = sc.items.slice(0, 3);
-  const colors = ["#f59e0b", "#2563eb", "#10b981"];
-  new Chart(document.getElementById("radarChart"), {
-    type: "radar",
-    data: {
-      labels: metrics.map(m => m[1]),
-      datasets: top3.map((it, i) => ({
-        label: it.industry,
-        data: metrics.map(m => it[m[0]]),
-        backgroundColor: colors[i] + "22",
-        borderColor: colors[i], borderWidth: 2, pointBackgroundColor: colors[i],
-      })),
-    },
-    options: { scales: { r: { suggestedMin: 0, suggestedMax: 100, ticks: { display: false } } }, plugins: { legend: { position: "bottom", labels: { boxWidth: 12, font: { size: 11 } } } } },
-  });
-
-  document.getElementById("scoreMethod").innerHTML =
-    "<b>算出方法:</b> " + sc.method +
-    (sc.is_partial_dummy ? " 一部指標は暫定値を含みます。" : "");
-}
-
 /* ---------- 実行 ---------- */
 renderSummary();
 setupPeoplePeriod();
@@ -1028,7 +975,6 @@ updatePeople();
 renderStores();
 renderConsumer();
 renderDemographics();
-renderScores();
 
 // URLハッシュ（#people / #people:daily 等）で画面を直接開けるように
 function applyHash() {
