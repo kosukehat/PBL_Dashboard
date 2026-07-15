@@ -23095,7 +23095,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "銀界　拉麺",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市連尺通3-7 2F",
         "lat": 34.959808,
         "lon": 137.166779,
@@ -23104,7 +23104,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "Ｃｈｉｙａ　Ｇｈａｒ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市材木町1-28",
         "lat": 34.960609,
         "lon": 137.16246,
@@ -23113,7 +23113,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "スバカマナ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市材木町1-18(施設保管場所)",
         "lat": 34.959919,
         "lon": 137.162628,
@@ -23131,7 +23131,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "森ん家",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市本町通3-42 ",
         "lat": 34.961296,
         "lon": 137.162827,
@@ -23140,7 +23140,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "アオキスーパー岡崎康生店",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通西3-15-2",
         "lat": 34.958614,
         "lon": 137.160553,
@@ -23158,7 +23158,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "さかな　八百弥",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通南2-31",
         "lat": 34.956135,
         "lon": 137.164597,
@@ -23176,7 +23176,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "国産十割蕎麦　カネタ商店",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通西2-20-2",
         "lat": 34.95927,
         "lon": 137.162613,
@@ -23194,7 +23194,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ｃｌｕｂ　Ｄｉａｎａ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通西3-29-3",
         "lat": 34.959545,
         "lon": 137.161087,
@@ -23203,7 +23203,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "Ｄｉａｎａ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通西3-29-3",
         "lat": 34.959545,
         "lon": 137.161087,
@@ -23221,7 +23221,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "メコン　ライフ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市材木町1-34",
         "lat": 34.960457,
         "lon": 137.161804,
@@ -23230,7 +23230,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ｍ７８１３０",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市本町通1-7",
         "lat": 34.95937,
         "lon": 137.164124,
@@ -23257,7 +23257,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ｕｌｕ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市籠田町32",
         "lat": 34.958191,
         "lon": 137.167435,
@@ -23266,7 +23266,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "魚一商店",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通西2-20-2",
         "lat": 34.95927,
         "lon": 137.162613,
@@ -23275,7 +23275,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ＴＥＲＡＫＡＤＯ　ＣＯＦＦＥＥ　ＯＫＡＺＡＫＩ・ＮＹ店",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通東2-10",
         "lat": 34.958401,
         "lon": 137.16568,
@@ -23284,7 +23284,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ＴＡＫＯ　ＱＵＥＥＮ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通東2-50",
         "lat": 34.959,
         "lon": 137.166534,
@@ -23293,7 +23293,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ＳＴＡＮＤ　ＣＨＩＬＬＩＮ’　ＦＩＬＬＩＮ’",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市籠田町1",
         "lat": 34.958996,
         "lon": 137.167313,
@@ -23302,7 +23302,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "Ｇｌｏｂａｌ　Ｓｔｕｄｉｅｓ　Ｃａｆｅ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通東1-23",
         "lat": 34.958817,
         "lon": 137.164459,
@@ -23311,7 +23311,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "Ａｒｃ－ｅｎ－ｃｉｅｌ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通南2-45",
         "lat": 34.956593,
         "lon": 137.164856,
@@ -23329,7 +23329,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ＥＶＥＲＹＦＯＯＤ（０４０９）事業所",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市伝馬通1-78",
         "lat": 34.957462,
         "lon": 137.167923,
@@ -23338,7 +23338,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ａｔ　ｔｈｅ　ｔａｂｌｅ　ｅｓｔ　２０１５",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市連尺通3-7",
         "lat": 34.959808,
         "lon": 137.166779,
@@ -23347,7 +23347,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "有限会社　松栄鮨本店",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通南1-25",
         "lat": 34.957333,
         "lon": 137.164474,
@@ -23356,7 +23356,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "札幌かに本家岡崎店",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通西3-26",
         "lat": 34.959545,
         "lon": 137.161087,
@@ -23383,7 +23383,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "トリノ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通南2-58",
         "lat": 34.956066,
         "lon": 137.165955,
@@ -23401,7 +23401,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "東海ハートカステラ　ＭｅｌｏＭｅｌｏ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通西2-20-2",
         "lat": 34.95927,
         "lon": 137.162613,
@@ -23410,7 +23410,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ｂａｎｋｓ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通南2-15",
         "lat": 34.956108,
         "lon": 137.163651,
@@ -23419,7 +23419,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "萬珍軒本店",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通東2-53",
         "lat": 34.958973,
         "lon": 137.166031,
@@ -23437,7 +23437,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "株式会社　亀屋",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通西1-4",
         "lat": 34.958172,
         "lon": 137.163452,
@@ -23464,7 +23464,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "暴れん坊チキン",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通東2-7",
         "lat": 34.958401,
         "lon": 137.16568,
@@ -23482,7 +23482,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "暴れん坊チキン",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通東2-7(施設保管場所)",
         "lat": 34.958401,
         "lon": 137.16568,
@@ -23491,7 +23491,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "韓国料理　オモニ　＆　Ｂ－Ｇａｒｄｅｎ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市本町通3-48",
         "lat": 34.961296,
         "lon": 137.162827,
@@ -23500,7 +23500,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ＯＨＫＡ　ＧＥＬＡＴＯ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通南3-43",
         "lat": 34.957779,
         "lon": 137.166641,
@@ -23509,7 +23509,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "石室ＩＮＡＳＥ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通南3-43",
         "lat": 34.957779,
         "lon": 137.166641,
@@ -23518,7 +23518,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "偶偶キッチン",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通南3-43",
         "lat": 34.957779,
         "lon": 137.166641,
@@ -23536,7 +23536,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "食堂　こなん",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通東2-41",
         "lat": 34.958923,
         "lon": 137.165283,
@@ -23545,7 +23545,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "チングポチャ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通東2-37",
         "lat": 34.958923,
         "lon": 137.165283,
@@ -23563,7 +23563,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "拉麺ししまる",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市材木町1-23",
         "lat": 34.959919,
         "lon": 137.162628,
@@ -23572,7 +23572,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ＯＭＥＮ　ｒｅｌａｘ　ｓｈｉｓｈａ　ｌｏｕｎｇｅ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市材木町1-23",
         "lat": 34.959919,
         "lon": 137.162628,
@@ -23581,7 +23581,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "スバカマナ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市材木町1-18",
         "lat": 34.959919,
         "lon": 137.162628,
@@ -23590,7 +23590,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ＱＵＲＵＷＡ　こそだてひろば　ｔｅｔｏｗａ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市材木町1-37",
         "lat": 34.960602,
         "lon": 137.161285,
@@ -23608,7 +23608,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ファミリーマート岡崎材木町店",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市材木町2-60",
         "lat": 34.961285,
         "lon": 137.162323,
@@ -23617,7 +23617,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ｂｉｓｔｒｏｔ　Ａｏ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市材木町1-22",
         "lat": 34.959919,
         "lon": 137.162628,
@@ -23626,7 +23626,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "株式会社　うを勝",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通南3-19",
         "lat": 34.956833,
         "lon": 137.165833,
@@ -23644,7 +23644,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "岡崎ニューグランドホテル　バンケット",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生町515-33",
         "lat": 34.956032,
         "lon": 137.161697,
@@ -23653,7 +23653,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "岡崎ニューグランドホテル　ラウンジ　ルポー",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生町515-33",
         "lat": 34.956032,
         "lon": 137.161697,
@@ -23662,7 +23662,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "岡崎ニューグランドホテル　和食処おとがわ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生町515-33",
         "lat": 34.956032,
         "lon": 137.161697,
@@ -23671,7 +23671,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "岡崎シングルホテル",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生町515-1",
         "lat": 34.956032,
         "lon": 137.161697,
@@ -23680,7 +23680,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ＥＶＥＲＥＳＴ　ＳＰＩＣＥ　ＲＥＳＴＡＵＲＡＮＴ　ＡＮＤ　ＭＡＲＴ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市本町通3-10",
         "lat": 34.961121,
         "lon": 137.163681,
@@ -23689,7 +23689,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ＰＩＣＨＵ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通西1-13",
         "lat": 34.958172,
         "lon": 137.163452,
@@ -23698,7 +23698,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "岡崎ニューグランドホテル　ＢＡＲ　グランディール",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生町515-33",
         "lat": 34.956032,
         "lon": 137.161697,
@@ -23707,7 +23707,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "岡崎ニューグランドホテル　スカイレストラン　パリ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生町515-33",
         "lat": 34.956032,
         "lon": 137.161697,
@@ -23734,7 +23734,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ＥＡＧＬＥ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通東2-37",
         "lat": 34.958923,
         "lon": 137.165283,
@@ -23743,7 +23743,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "千も登",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通東2-62",
         "lat": 34.958923,
         "lon": 137.165283,
@@ -23752,7 +23752,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "弛流　四川麻辣湯",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市籠田町32",
         "lat": 34.958191,
         "lon": 137.167435,
@@ -23761,7 +23761,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "笹葵",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市伝馬通1-31",
         "lat": 34.958561,
         "lon": 137.168137,
@@ -23770,7 +23770,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "徳川",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通西1-6",
         "lat": 34.958172,
         "lon": 137.163452,
@@ -23779,7 +23779,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "海族鮮",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市本町通3-49",
         "lat": 34.961296,
         "lon": 137.162827,
@@ -23788,7 +23788,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ＲＯＬＥ　ＣＯＦＦＥＥ　岡崎康生店",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通南1-13-1",
         "lat": 34.957333,
         "lon": 137.164474,
@@ -23797,7 +23797,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "むらかみ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通南2-27",
         "lat": 34.956707,
         "lon": 137.164215,
@@ -23806,7 +23806,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "Ｍ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通東2-38",
         "lat": 34.958923,
         "lon": 137.165283,
@@ -23815,7 +23815,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "久米商店",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市六供本町2-16",
         "lat": 34.96143,
         "lon": 137.165771,
@@ -23824,7 +23824,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "和泉屋",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通西2-6",
         "lat": 34.958694,
         "lon": 137.162598,
@@ -23851,7 +23851,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ポニョん",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市連尺通2-21-1",
         "lat": 34.9594,
         "lon": 137.165268,
@@ -23860,7 +23860,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "éｃｕｍｅｒ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市籠田町40",
         "lat": 34.959927,
         "lon": 137.167587,
@@ -23869,7 +23869,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ＦＵＮＫＹ　ＧＯＯＤ　ＴＩＭＥ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市材木町1-23",
         "lat": 34.959919,
         "lon": 137.162628,
@@ -23878,7 +23878,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ＮＥＷＳＴＡＮＤ　ＷＯＷ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市籠田町39",
         "lat": 34.959927,
         "lon": 137.167587,
@@ -23887,7 +23887,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "みんなの笑会場　さくらこ。",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通東1-14",
         "lat": 34.958324,
         "lon": 137.164444,
@@ -23896,7 +23896,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ラウンジ　ＧＡＬＡＸＹ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通西3-29-3",
         "lat": 34.959545,
         "lon": 137.161087,
@@ -23905,7 +23905,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ｂａｒ　ｍｅｇａｎｅ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通東1-24",
         "lat": 34.958817,
         "lon": 137.164459,
@@ -23914,7 +23914,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ゆきんこ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市本町通3-49-1",
         "lat": 34.961296,
         "lon": 137.162827,
@@ -23932,7 +23932,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ＺＩＰＡＮＧ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市材木町1-34",
         "lat": 34.960457,
         "lon": 137.161804,
@@ -23950,7 +23950,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ファミリーマート岡崎本町通店",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市本町通2-5-1",
         "lat": 34.960133,
         "lon": 137.164124,
@@ -23959,7 +23959,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "しろへび座",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市連尺通2-21-1",
         "lat": 34.9594,
         "lon": 137.165268,
@@ -23968,7 +23968,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "Ｂｉｓｔｒｏ　ｕｎ　Ｓｏｎ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市材木町1-18",
         "lat": 34.959919,
         "lon": 137.162628,
@@ -23977,7 +23977,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "和香",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市連尺通3-3",
         "lat": 34.959808,
         "lon": 137.166779,
@@ -23986,7 +23986,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "パブ　バレンタイン",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市材木町2-64",
         "lat": 34.961285,
         "lon": 137.162323,
@@ -23995,7 +23995,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ＳＰＩＣＥ　ＣＵＲＲＹ　咖喱永",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市籠田町68",
         "lat": 34.958996,
         "lon": 137.167313,
@@ -24004,7 +24004,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ｃａｆｅ　ｙｏｍｏｙａｍａ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通西3-8",
         "lat": 34.958035,
         "lon": 137.161514,
@@ -24013,7 +24013,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "スパイスカレーかいらす",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通西1-9",
         "lat": 34.958172,
         "lon": 137.163452,
@@ -24031,7 +24031,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "鰻の成瀬　岡崎店",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通東2-37",
         "lat": 34.958923,
         "lon": 137.165283,
@@ -24040,7 +24040,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ＢＩＯ　ＶＥＲＴ　ＣＯＦＦＥＥ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市連尺通2-29",
         "lat": 34.9594,
         "lon": 137.165268,
@@ -24049,7 +24049,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ファミリーマート岡崎康生通南店",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通南3-2-2",
         "lat": 34.956833,
         "lon": 137.165833,
@@ -24058,7 +24058,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ＣＯＦＦＥＥと＿＿＿＿＿＿",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市籠田町6",
         "lat": 34.958996,
         "lon": 137.167313,
@@ -24067,7 +24067,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "Ｓｅｌｅｎｅ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通西2-13-2",
         "lat": 34.958694,
         "lon": 137.162598,
@@ -24076,7 +24076,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "日本料理　輪",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市花崗町1-51",
         "lat": 34.958862,
         "lon": 137.168442,
@@ -24094,7 +24094,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ＭＯＭＯＴＡＲＯ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通西2-24",
         "lat": 34.958118,
         "lon": 137.162521,
@@ -24103,7 +24103,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ｅｓｏｔｅｒｉｃ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市本町通3-1",
         "lat": 34.96064,
         "lon": 137.164093,
@@ -24112,7 +24112,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "天木",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市籠田町59",
         "lat": 34.959927,
         "lon": 137.167587,
@@ -24121,7 +24121,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "Ｈａｓｔａ　ｍａñａｎａ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通南3-39",
         "lat": 34.957443,
         "lon": 137.167221,
@@ -24130,7 +24130,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "チャーム",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市材木町1-16",
         "lat": 34.960064,
         "lon": 137.161514,
@@ -24139,7 +24139,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "飲み食い処　けんちゃん",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市本町通3-58-4",
         "lat": 34.961296,
         "lon": 137.162827,
@@ -24166,7 +24166,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ももや",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通西3-29-3",
         "lat": 34.959545,
         "lon": 137.161087,
@@ -24175,7 +24175,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ひらき屋",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生町515-17",
         "lat": 34.956032,
         "lon": 137.161697,
@@ -24193,7 +24193,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "旨いもの処　かぴちゃん",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市連尺通2-20-1",
         "lat": 34.959423,
         "lon": 137.166016,
@@ -24202,7 +24202,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "川井",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通東2-26",
         "lat": 34.958401,
         "lon": 137.16568,
@@ -24211,7 +24211,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "Ｂａｋｕ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通東2-37-1",
         "lat": 34.958923,
         "lon": 137.165283,
@@ -24220,7 +24220,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "焼肉　むぐんふぁ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市材木町1-28",
         "lat": 34.960609,
         "lon": 137.16246,
@@ -24229,7 +24229,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "あんだんて",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通東2-51",
         "lat": 34.959,
         "lon": 137.166534,
@@ -24238,7 +24238,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ｒｈｉｎｏ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市材木町1-28",
         "lat": 34.960609,
         "lon": 137.16246,
@@ -24247,7 +24247,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "とんかつ　しば太",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通南3-43",
         "lat": 34.957779,
         "lon": 137.166641,
@@ -24256,7 +24256,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ａｔｅ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市材木町1-23",
         "lat": 34.959919,
         "lon": 137.162628,
@@ -24265,7 +24265,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "Ｌｏｕｎｇｅ　ＶｉＶｉ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通西3-29-3",
         "lat": 34.959545,
         "lon": 137.161087,
@@ -24274,7 +24274,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "からめ亭　岡崎店",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市本町通3-41",
         "lat": 34.960678,
         "lon": 137.163269,
@@ -24283,7 +24283,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "５０２",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通東1-9",
         "lat": 34.958324,
         "lon": 137.164444,
@@ -24292,7 +24292,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "黒牛　ｍｕｒａｎｏｋａｊｉｙａ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市伝馬通1-1",
         "lat": 34.958031,
         "lon": 137.167999,
@@ -24301,7 +24301,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ＬＯＵＫＵＭＡ　Ｈｏｕｓｅ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通西3-1",
         "lat": 34.958035,
         "lon": 137.161514,
@@ -24310,7 +24310,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ｃｌｕｂ　Ｄａｈｌｉａ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通西3-29-3",
         "lat": 34.959545,
         "lon": 137.161087,
@@ -24319,7 +24319,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "Ｊ’ｓ　Ｍｕｓｉｃ　Ｃｌｕｂ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市本町通1-3",
         "lat": 34.959011,
         "lon": 137.164139,
@@ -24346,7 +24346,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ｐｏｍｍｅ　ｄｅ　ｔｅｒｒｅ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通東1-24",
         "lat": 34.958817,
         "lon": 137.164459,
@@ -24355,7 +24355,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "Ｆ　ｔｏ　ｂｒｅａｄ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通東2-27-2",
         "lat": 34.958401,
         "lon": 137.16568,
@@ -24364,7 +24364,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "バードスペース殿橋",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通南2-34",
         "lat": 34.956135,
         "lon": 137.164597,
@@ -24373,7 +24373,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "Ｔｉｇｅ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通東2-37",
         "lat": 34.958923,
         "lon": 137.165283,
@@ -24382,7 +24382,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ＢＵＲＮＹ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市材木町1-18",
         "lat": 34.959919,
         "lon": 137.162628,
@@ -24391,7 +24391,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "くらぶ牡丹",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通西3-29-3",
         "lat": 34.959545,
         "lon": 137.161087,
@@ -24409,7 +24409,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ダンケ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市材木町1-14",
         "lat": 34.960064,
         "lon": 137.161514,
@@ -24418,7 +24418,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "和亭　やなぎ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市連尺通3-13",
         "lat": 34.959431,
         "lon": 137.166718,
@@ -24427,7 +24427,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "さんとくや",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市籠田町15",
         "lat": 34.958378,
         "lon": 137.166779,
@@ -24436,7 +24436,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "ルークマトラック",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市本町通3-36(施設保管場所)",
         "lat": 34.960678,
         "lon": 137.163269,
@@ -24445,7 +24445,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "福虎",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通東2-5",
         "lat": 34.958401,
         "lon": 137.16568,
@@ -24454,7 +24454,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "１５４",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市材木町1-54",
         "lat": 34.960609,
         "lon": 137.16246,
@@ -24472,7 +24472,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "棒餃子専門店　ＹＡＮ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通南3-43",
         "lat": 34.957779,
         "lon": 137.166641,
@@ -24481,7 +24481,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "Ｉｒｉｅ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市籠田町12",
         "lat": 34.958191,
         "lon": 137.167435,
@@ -24490,7 +24490,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "三嶋寿司本店",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市伝馬通1-5",
         "lat": 34.958031,
         "lon": 137.167999,
@@ -24499,7 +24499,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "Ｒｅｉｋｙ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通西3-29-3",
         "lat": 34.959545,
         "lon": 137.161087,
@@ -24508,7 +24508,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "お酒とアテ　Ｓｅｎ",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市連尺通2-21",
         "lat": 34.9594,
         "lon": 137.165268,
@@ -24517,7 +24517,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "Ｓｔｉｒｒｅｄ　＆　Ｃｏ．",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市本町通1-3",
         "lat": 34.959011,
         "lon": 137.164139,
@@ -24526,7 +24526,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "蜂号車",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通東2-7(施設保管場所)",
         "lat": 34.958401,
         "lon": 137.16568,
@@ -24535,7 +24535,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "アジアン　リゾート　マームーダ！",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市康生通西1-6",
         "lat": 34.958172,
         "lon": 137.163452,
@@ -24553,7 +24553,7 @@ window.DASHBOARD_DATA = {
       {
         "name": "会員制らうんじ　鈴蘭",
         "kind": "飲食店営業",
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "address": "愛知県岡崎市材木町1-34",
         "lat": 34.960457,
         "lon": 137.161804,
@@ -24562,7 +24562,7 @@ window.DASHBOARD_DATA = {
     ],
     "category_counts": [
       {
-        "category": "飲食店",
+        "category": "レストラン・食堂",
         "count": 128
       },
       {

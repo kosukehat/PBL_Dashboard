@@ -598,7 +598,7 @@ def classify_store(name, kind):
     if "販売業" in kind:
         return "物販・食品販売"
     if kind == "飲食店営業":
-        return "飲食店"
+        return "レストラン・食堂"
     return "その他"
 
 

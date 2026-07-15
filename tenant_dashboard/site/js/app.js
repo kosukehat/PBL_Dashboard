@@ -5,7 +5,7 @@ const D = window.DASHBOARD_DATA;
 
 // 業種カテゴリの色
 const CAT_COLORS = {
-  "飲食店": "#ef4444",
+  "レストラン・食堂": "#ef4444",
   "カフェ・喫茶": "#a16207",
   "居酒屋・バー": "#7c3aed",
   "スイーツ・ベーカリー": "#ec4899",
@@ -565,9 +565,9 @@ function renderStores() {
   const cats = st.category_counts;
   const cafe = (cats.find(c => c.category === "カフェ・喫茶") || {}).count || 0;
   const sweets = (cats.find(c => c.category === "スイーツ・ベーカリー") || {}).count || 0;
-  const izakaya = (cats.find(c => c.category === "飲食店") || {}).count || 0;
+  const restaurant = (cats.find(c => c.category === "レストラン・食堂") || {}).count || 0;
   document.getElementById("storesLead").innerHTML =
-    `半径${st.radius_m}m以内に飲食系<b>${st.points.length}件</b>。飲食店が<b>${izakaya}件</b>と多い一方、` +
+    `半径${st.radius_m}m以内に飲食・食品の店が<b>${st.points.length}件</b>。うち<b>レストラン・食堂</b>が<b>${restaurant}件</b>と多い一方、` +
     `カフェ・喫茶は<b>${cafe}件</b>と手薄で余地があります。<br>` +
     `<span class="muted">※食品営業許可・届出ベースのため、物販・サービス業（美容/学習塾/フィットネス等）は含みません。</span>`;
 
