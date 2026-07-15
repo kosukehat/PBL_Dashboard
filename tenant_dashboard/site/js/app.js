@@ -642,6 +642,29 @@ function fmtYearLabel(label) {
   return /^\d+$/.test(s) ? `令和${s}年度` : s;
 }
 
+// 和暦（平成/令和・元号省略の数字含む）を西暦の年ラベルに統一する。
+// 配列を先頭から走査し、「令和」出現以降は元号を令和として数字だけの年を解釈する。
+function toSeirekiLabels(labels) {
+  const ERA_BASE = { 平成: 1988, 令和: 2018 };
+  let era = "平成"; // データは平成→令和の順で並ぶ前提
+  return labels.map((raw) => {
+    const s = String(raw == null ? "" : raw).trim();
+    let matchedEra = null;
+    if (s.includes("令和")) matchedEra = "令和";
+    else if (s.includes("平成")) matchedEra = "平成";
+    if (matchedEra) era = matchedEra;
+
+    let num;
+    if (s.includes("元")) num = 1;
+    else {
+      const m = s.match(/\d+/);
+      if (!m) return s; // 数字が無ければそのまま
+      num = parseInt(m[0], 10);
+    }
+    return `${ERA_BASE[era] + num}年`;
+  });
+}
+
 function renderConsumer() {
   const c = D.consumer;
   if (!c) return;
@@ -787,7 +810,7 @@ function renderConsumer() {
   consChart("consPopTrendChart", {
     type: "line",
     data: {
-      labels: popItems.map(x => x.year_label),
+      labels: toSeirekiLabels(popItems.map(x => x.year_label)),
       datasets: [{
         label: "人口", data: popItems.map(x => x.population),
         borderColor: "#2563eb", backgroundColor: "rgba(37,99,235,.1)",
@@ -813,7 +836,7 @@ function renderConsumer() {
     consChart("consIncomeChart", {
       type: "line",
       data: {
-        labels: incTrend.map(x => x.year_label),
+        labels: toSeirekiLabels(incTrend.map(x => x.year_label)),
         datasets: [{
           label: "市民所得", data: incTrend.map(x => x.citizen_income_k),
           borderColor: CONS_BAR, tension: .25,
