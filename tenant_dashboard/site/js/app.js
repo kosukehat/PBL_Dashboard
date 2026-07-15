@@ -263,11 +263,6 @@ function updatePeople() {
   const hiCal = calActive.slice().sort((a, b) => b.avg - a.avg)[0] || { label: "-", avg: 0 };
   const loCal = calActive.slice().sort((a, b) => a.avg - b.avg)[0] || { label: "-", avg: 0 };
 
-  // 平日 / 休日
-  let wSum = 0, wDays = 0, hSum = 0, hDays = 0;
-  daily.forEach(d => { if (d.is_holiday) { hSum += d.count; hDays++; } else { wSum += d.count; wDays++; } });
-  const whAvg = [wDays ? Math.round(wSum / wDays) : 0, hDays ? Math.round(hSum / hDays) : 0];
-
   const ageTotal = agg.age.reduce((a, b) => a + b, 0) || 1;
   const agePct = agg.age.map(v => Math.round(1000 * v / ageTotal) / 10);
   const genderTotal = agg.gender.reduce((a, b) => a + b, 0) || 1;
@@ -278,7 +273,6 @@ function updatePeople() {
   document.getElementById("periodInfo").textContent =
     `${agg.sel.length}か月 / ${fmt(days)}日 / のべ ${fmt(Math.round(agg.total))} 人`;
 
-  const holHigher = whAvg[1] > whAvg[0];
   document.getElementById("peopleKpi").innerHTML = [
     { cls: "", label: "1日平均通行量", value: fmt(totalPerDay), unit: "人/日", sub: `${agg.sel.length}か月平均` },
     { cls: "accent", label: "ピーク時間帯", value: peakHour + "時台", unit: "", sub: `約${fmt(byHour[peakHour])}人/日` },
@@ -292,7 +286,7 @@ function updatePeople() {
   const ageLabels = D.peopleflow.age_labels;
   document.getElementById("peopleLead").innerHTML =
     `選択期間（<b>${periodFrom}〜${periodTo}</b>）の康生通りは、ピークが<b>${peakHour}時台</b>（約${fmt(byHour[peakHour])}人/日）。` +
-    `${holHigher ? "休日" : "平日"}の通行が多く（${fmt(holHigher ? whAvg[1] : whAvg[0])}人/日）、年代は<b>${ageLabels[topAgeIdx]}</b>が最多（${agePct[topAgeIdx]}%）。` +
+    `年代は<b>${ageLabels[topAgeIdx]}</b>が最多（${agePct[topAgeIdx]}%）。` +
     `<br><span class="muted">※上の期間ボタン／プルダウンで表示期間を変更できます。性別「不明」が多いのはAIカメラの判定特性によるものです。</span>`;
 
   // 通行量の推移
@@ -303,12 +297,6 @@ function updatePeople() {
     type: "bar",
     data: { labels: byHour.map((_, h) => h + "時"), datasets: [{ label: "人/日", data: byHour, backgroundColor: "#2563eb", borderRadius: 4 }] },
     options: { plugins: { legend: { display: false } }, scales: { y: { grid: { color: grid } }, x: { grid: { display: false } } } },
-  });
-  // 平日/休日
-  chartAt("whChart", {
-    type: "bar",
-    data: { labels: ["平日", "休日"], datasets: [{ data: whAvg, backgroundColor: ["#0ea5e9", "#f59e0b"], borderRadius: 6 }] },
-    options: { plugins: { legend: { display: false } }, scales: { y: { grid: { color: grid } } } },
   });
   // 曜日別
   chartAt("dowChart", {
