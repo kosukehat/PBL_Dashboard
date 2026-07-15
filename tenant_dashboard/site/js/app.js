@@ -977,7 +977,7 @@ function renderDemographics() {
     <div class="fi-value">${i.value}</div><div class="fi-note">${i.note}${i.url ? ` <a href="${i.url}" target="_blank" rel="noopener">出典</a>` : ""}</div></div>`).join("")
     + (fut.is_dummy
       ? '<div class="note" style="grid-column:1/-1">※将来性・都市計画はダミー。</div>'
-      : `<div class="note" style="grid-column:1/-1">出典: ${fut.source || "岡崎市公開資料"}</div>`);
+      : "");
 
   if (!dm.is_dummy && dm.notes) {
     const extra = document.createElement("div");

@@ -4021,13 +4021,14 @@ window.DASHBOARD_DATA = {
       {
         "label": "コンパクト都市",
         "value": "国交省「モデル都市」に選定",
-        "note": "コンパクト・プラス・ネットワークのモデル都市（岡崎市）",
-        "url": "https://www.mlit.go.jp/sogochosei/teitanso/model_city.html"
+        "note": "コンパクト・プラス・ネットワークのモデル都市（第3弾・令和元年6月公表）に岡崎市が選定",
+        "url": "https://www.mlit.go.jp/common/001295519.pdf"
       },
       {
         "label": "QURUWA",
         "value": "回遊動線・公共空間活用",
-        "note": "康生通りを含むQURUWA地区で人流実証・回遊性向上を推進"
+        "note": "康生通りを含むQURUWA地区で人流実証・回遊性向上を推進",
+        "url": "https://www.city.okazaki.lg.jp/shisei/machi/1005061/1002967/1002968.html"
       },
       {
         "label": "中心市街地整備",
