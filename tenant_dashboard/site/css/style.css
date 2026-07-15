@@ -168,7 +168,26 @@ th { position: sticky; top: 0; background: #f8fafc; color: var(--muted); font-we
 .future-item .fi-value { font-size: 16px; font-weight: 700; margin: 4px 0; color: var(--good); }
 .future-item .fi-note { font-size: 11px; color: var(--muted); }
 
-#rentBox .rent-line { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed var(--line); font-size: 13px; }
+#rentBox .rent-line {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--line);
+  font-size: 13px;
+}
+#rentBox .rent-value {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  min-width: 11.5rem;
+  text-align: right;
+  white-space: nowrap;
+}
+#rentBox .rent-dummy { font-size: 10px; margin-left: 0; flex-shrink: 0; }
+#rentBox .rent-sub { font-size: 11px; line-height: 1.5; margin: 2px 0 6px; }
 #rentBox .rent-line b { color: var(--brand); }
 
 .muted { color: var(--muted); }

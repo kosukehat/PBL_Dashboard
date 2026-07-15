@@ -32,7 +32,8 @@
 | 周辺店舗（飲食系） | 岡崎市「食品等営業許可・届出一覧」(BODIK) + 国土地理院ジオコーダで座標化 | 実データ |
 | 消費者傾向（意識調査・人口・所得） | 令和6年度市民意識調査・地域・年齢別人口・人口世帯数(BODIK) + 岡崎市統計(所得) | 実データ |
 | 商圏人口・世帯 | 地域・年齢別人口（町字合算）+ 市民意識調査 | 実データ（概算） |
-| 賃料相場・地価 | （公開API/オープンデータなし） | **ダミー** |
+| 賃料相場 | （公開オープンデータなし） | **ダミー** |
+| 地価 | 国土交通省 [国土数値情報 地価公示](https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-L01-2026.html)（最寄り商業地標準地） | 実データ |
 | 将来性・都市計画 | 岡崎市立地適正化計画・QURUWA等（公開資料） | 実データ |
 
 > 人流データは2021年1月以降を使用（2020年分は欠損補間が多いため除外）。2025〜2026年分は一部中央値補間を含みます（提供元仕様）。
@@ -46,7 +47,8 @@ cd tenant_dashboard
 python build_data.py             # 全期間（BODIK公開分すべて）
 python build_data.py --months 24 # 直近24か月のみ
 python build_data.py --months 12 # 直近12か月（速い）
-python build_data.py --refilter-local  # 既存 data/*.json から2020年を除外して再生成（API不要）
+python build_data.py --refilter-local  # 既存 data/*.json から2020年人流を除外して再生成
+python build_data.py --rent-only        # 地価公示だけ取得して rent を更新
 ```
 
 > 既定は**全期間**（2021年1月〜最新月）。2020年分は欠損補間が多いため除外しています。

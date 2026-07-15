@@ -930,12 +930,30 @@ function renderDemographics() {
     });
   }
 
+  const lp = rent.land_price || {};
+  const dummyBadge = rent.rent_is_dummy
+    ? '<span class="dummy-badge rent-dummy">ダミー</span>' : "";
+  const rentValue = (html) => `<span class="rent-value"><b>${html}</b>${dummyBadge}</span>`;
+
+  const landLine = rent.land_is_dummy
+    ? `<div class="rent-line"><span>地価</span>${rentValue(`${fmt(rent.land_price_yen_sqm)} 円/㎡`)}</div>`
+    : `<div class="rent-line"><span>地価（最寄り${lp.use_label || "標準地"}）</span>
+       <span class="rent-value"><b>${fmt(rent.land_price_yen_sqm)} 円/㎡</b></span></div>
+       <div class="rent-sub muted">${lp.address || ""}（物件から ${fmt(lp.dist_m || 0)} m）</div>
+       <div class="rent-sub muted">調査時点: ${lp.survey_year || "—"}年1月1日
+         ${lp.change_pct != null ? `／ 前年比 ${lp.change_pct}%` : ""}</div>`;
+
   document.getElementById("rentBox").innerHTML = `
-    <div class="rent-line"><span>1階路面</span><b>${fmt(rent.floor1_tsubo_yen[0])}〜${fmt(rent.floor1_tsubo_yen[1])} 円/坪</b></div>
-    <div class="rent-line"><span>2階以上</span><b>${fmt(rent.floor2_tsubo_yen[0])}〜${fmt(rent.floor2_tsubo_yen[1])} 円/坪</b></div>
-    <div class="rent-line"><span>本物件（想定）</span><b>${fmt(rent.this_building_tsubo_yen)} 円/坪</b></div>
-    <div class="rent-line"><span>地価</span><b>${fmt(rent.land_price_yen_sqm)} 円/㎡</b></div>
-    <div class="note">※賃料・地価は${rent.is_dummy ? "ダミー" : "参考値"}。公開オープンデータからは取得できないため、本番は不動産情報ライブラリ等で算出してください。</div>`;
+    <div class="rent-line"><span>1階路面</span>${rentValue(`${fmt(rent.floor1_tsubo_yen[0])}〜${fmt(rent.floor1_tsubo_yen[1])} 円/坪`)}</div>
+    <div class="rent-line"><span>2階以上</span>${rentValue(`${fmt(rent.floor2_tsubo_yen[0])}〜${fmt(rent.floor2_tsubo_yen[1])} 円/坪`)}</div>
+    <div class="rent-line"><span>本物件（想定）</span>${rentValue(`${fmt(rent.this_building_tsubo_yen)} 円/坪`)}</div>
+    ${landLine}
+    <div class="note" style="margin-top:10px">
+      ${rent.rent_is_dummy ? "賃料は公開オープンデータがないためダミー値です。" : ""}
+      ${rent.land_is_dummy
+        ? "地価の取得に失敗したため参考値を表示しています。"
+        : `地価は<a href="${lp.source_url || '#'}" target="_blank" rel="noopener">${lp.source || "国土数値情報 地価公示"}</a>の標準地価格です（${lp.note || "物件敷地そのものではありません"}）。`}
+    </div>`;
 
   document.getElementById("futureBox").innerHTML = fut.items.map(i => `
     <div class="future-item"><div class="fi-label">${i.label}</div>

@@ -874,16 +874,166 @@ def build_demographics(packages):
     }
 
 
+# ---------------------------------------------------------------------------
+# 3b. 地価公示（国土数値情報）
+# ---------------------------------------------------------------------------
+OKAZAKI_CITY_CODE = "23202"
+AICHI_PREF_CODE = "23"
+LAND_USE_LABELS = {
+    "000": "住宅地",
+    "005": "商業地",
+    "009": "工業地",
+    "003": "宅地見込地",
+    "013": "林地",
+}
+LAND_PRICE_SOURCE = "国土交通省 国土数値情報 地価公示"
+LAND_PRICE_SOURCE_URL = "https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-L01-2026.html"
+LAND_PRICE_YEARS_TRY = ("26", "25", "24")
+
+
+def _fetch_land_price_geojson(pref_code=AICHI_PREF_CODE, year_suffix="25"):
+    import io
+    import zipfile
+
+    url = (
+        f"https://nlftp.mlit.go.jp/ksj/gml/data/L01/L01-{year_suffix}/"
+        f"L01-{year_suffix}_{pref_code}_GML.zip"
+    )
+    headers = {"User-Agent": "tenant_dashboard/1.0 (PBL study)"}
+    r = requests.get(url, headers=headers, timeout=120)
+    r.raise_for_status()
+    zf = zipfile.ZipFile(io.BytesIO(r.content))
+    gj_name = next(n for n in zf.namelist() if n.endswith(".geojson"))
+    return json.loads(zf.read(gj_name))
+
+
+def _land_price_points_for_city(geojson, city_code=OKAZAKI_CITY_CODE):
+    points = []
+    for feat in geojson.get("features", []):
+        p = feat.get("properties") or {}
+        if str(p.get("L01_001") or "") != city_code:
+            continue
+        try:
+            price = int(p.get("L01_008") or 0)
+        except (TypeError, ValueError):
+            continue
+        if price <= 0:
+            continue
+        lon, lat = feat["geometry"]["coordinates"][:2]
+        use_code = str(p.get("L01_005") or "")
+        points.append({
+            "price_yen_sqm": price,
+            "survey_year": int(p.get("L01_007") or 0),
+            "use_code": use_code,
+            "use_label": LAND_USE_LABELS.get(use_code, use_code),
+            "address": str(p.get("L01_025") or p.get("L01_024") or ""),
+            "location_name": str(p.get("L01_024") or ""),
+            "change_pct": p.get("L01_009"),
+            "lat": round(float(lat), 6),
+            "lon": round(float(lon), 6),
+            "dist_m": round(haversine_m(BUILDING["lat"], BUILDING["lon"], lat, lon)),
+        })
+    return points
+
+
+def _pick_nearest_land_price(points, prefer_use="005"):
+    pool = [p for p in points if p["use_code"] == prefer_use]
+    if not pool:
+        pool = points
+    return min(pool, key=lambda p: p["dist_m"]) if pool else None
+
+
+def fetch_land_price_for_building():
+    """岡崎市内の地価公示から物件に最も近い商業地標準地を選ぶ。"""
+    last_err = None
+    for ys in LAND_PRICE_YEARS_TRY:
+        try:
+            log(f"  地価公示（愛知・L01-{ys}）を取得...")
+            geo = _fetch_land_price_geojson(year_suffix=ys)
+            points = _land_price_points_for_city(geo)
+            picked = _pick_nearest_land_price(points, prefer_use="005")
+            if not picked:
+                raise ValueError("岡崎市の地価公示が見つかりません")
+            picked = {
+                **picked,
+                "source": LAND_PRICE_SOURCE,
+                "source_url": LAND_PRICE_SOURCE_URL,
+                "data_year_tag": f"L01-{ys}",
+                "note": "地価公示の標準地価格（物件敷地そのものではありません）",
+            }
+            log(
+                f"  最寄り{picked['use_label']}: {picked['price_yen_sqm']:,}円/㎡ "
+                f"（{picked['dist_m']}m）"
+            )
+            return picked
+        except Exception as e:
+            last_err = e
+            log(f"  L01-{ys} 失敗: {e}")
+    raise last_err
+
+
 def build_rent():
-    """賃料・地価はオープンデータ/APIから取得できないためダミーのまま。"""
+    """賃料はダミー、地価は国土数値情報（地価公示）から取得。"""
+    land = None
+    land_err = None
+    try:
+        land = fetch_land_price_for_building()
+    except Exception as e:
+        land_err = str(e)
+        log(f"  地価公示取得失敗: {e}")
+
     return {
-        "is_dummy": True,
-        "source_hint": "不動産情報ライブラリAPI等は要APIキー／エリア別賃料データが公開されていないため未使用",
+        "is_dummy": land is None,
+        "rent_is_dummy": True,
+        "land_is_dummy": land is None,
+        "source_hint": "賃料は公開オープンデータなし（ダミー）。地価は国土数値情報 地価公示。",
         "floor1_tsubo_yen": [10000, 15000],
         "floor2_tsubo_yen": [5000, 9000],
         "this_building_tsubo_yen": 12000,
-        "land_price_yen_sqm": 155000,
+        "land_price_yen_sqm": land["price_yen_sqm"] if land else 155000,
+        "land_price": land,
+        "land_price_error": land_err,
     }
+
+
+def load_payload_from_data_dir():
+    skip = {"osm_probe", "osm_pois"}
+    payload = {}
+    for path in sorted(DATA_DIR.glob("*.json")):
+        if path.stem in skip:
+            continue
+        payload[path.stem] = json.loads(path.read_text(encoding="utf-8"))
+    return payload
+
+
+def write_payload(payload):
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    JS_DIR.mkdir(parents=True, exist_ok=True)
+    for key, val in payload.items():
+        (DATA_DIR / f"{key}.json").write_text(
+            json.dumps(val, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+    js = "window.DASHBOARD_DATA = " + json.dumps(payload, ensure_ascii=False, indent=2) + ";\n"
+    (JS_DIR / "data.js").write_text(js, encoding="utf-8")
+
+
+def merge_rent_only():
+    """既存 data/*.json の rent（地価）だけ更新して data.js を再生成。"""
+    log("地価公示を取得して rent を更新...")
+    payload = load_payload_from_data_dir()
+    payload["rent"] = build_rent()
+    if "meta" in payload:
+        notes = payload["meta"].setdefault("notes", {})
+        if payload["rent"].get("land_is_dummy"):
+            notes["dummy"] = "賃料相場はダミー。地価公示の取得に失敗。"
+        else:
+            notes["dummy"] = "賃料相場のみダミー。地価は国土数値情報 地価公示（最寄り商業地標準地）。"
+        jst = timezone(timedelta(hours=9))
+        payload["meta"]["generated_at"] = datetime.now(jst).strftime("%Y-%m-%d %H:%M")
+    write_payload(payload)
+    lp = payload["rent"].get("land_price") or {}
+    log(f"  地価: {payload['rent']['land_price_yen_sqm']:,}円/㎡ ({lp.get('use_label', '?')})")
+    log(f"  出力: {JS_DIR / 'data.js'}")
 
 
 def build_future():
@@ -1456,6 +1606,8 @@ def main():
                     help="人流集計に使う月数（0=公開されている全期間、既定）")
     ap.add_argument("--refilter-local", action="store_true",
                     help="data/*.json から2020年人流を除外して data.js を再生成（BODIK再取得なし）")
+    ap.add_argument("--rent-only", action="store_true",
+                    help="地価公示だけ取得して rent を更新（BODIK再取得なし）")
     args = ap.parse_args()
 
     DATA_DIR.mkdir(parents=True, exist_ok=True)
@@ -1463,6 +1615,10 @@ def main():
 
     if args.refilter_local:
         refilter_local_data()
+        return
+
+    if args.rent_only:
+        merge_rent_only()
         return
 
     log("BODIK パッケージ一覧を取得...")
@@ -1504,7 +1660,7 @@ def main():
                 "stores": "食品等営業許可・届出一覧を国土地理院ジオコーダで座標化。飲食系中心のため全業種は網羅しない。",
                 "consumer": "令和6年度市民意識調査・地域人口・食品営業許可・岡崎市統計（所得）から集計。",
                 "demographics": "地域・年齢別人口（町字合算）と市民意識調査から商圏人口を概算。",
-                "dummy": "賃料相場・地価のみダミー値（公開データ/APIが利用不可のため）。",
+                "dummy": "賃料相場のみダミー。地価は国土数値情報 地価公示（最寄り商業地標準地）。",
             },
         },
         "peopleflow": peopleflow,

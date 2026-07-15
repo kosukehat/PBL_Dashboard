@@ -4043,7 +4043,7 @@ window.DASHBOARD_DATA = {
       "lat": 34.958324,
       "lon": 137.164444
     },
-    "generated_at": "2026-07-09 10:51",
+    "generated_at": "2026-07-15 15:06",
     "source": "岡崎市オープンデータ（BODIK） / 国土地理院ジオコーダ / 岡崎市統計",
     "target_street": "康生通り",
     "cameras": [
@@ -4078,7 +4078,7 @@ window.DASHBOARD_DATA = {
       "stores": "食品等営業許可・届出一覧を国土地理院ジオコーダで座標化。飲食系中心のため全業種は網羅しない。",
       "consumer": "令和6年度市民意識調査・地域人口・食品営業許可・岡崎市統計（所得）から集計。",
       "demographics": "地域・年齢別人口（町字合算）と市民意識調査から商圏人口を概算。",
-      "dummy": "賃料相場・地価のみダミー値（公開データ/APIが利用不可のため）。"
+      "dummy": "賃料相場のみダミー。地価は国土数値情報 地価公示（最寄り商業地標準地）。"
     }
   },
   "peopleflow": {
@@ -23057,8 +23057,10 @@ window.DASHBOARD_DATA = {
     ]
   },
   "rent": {
-    "is_dummy": true,
-    "source_hint": "不動産情報ライブラリAPI等は要APIキー／エリア別賃料データが公開されていないため未使用",
+    "is_dummy": false,
+    "rent_is_dummy": true,
+    "land_is_dummy": false,
+    "source_hint": "賃料は公開オープンデータなし（ダミー）。地価は国土数値情報 地価公示。",
     "floor1_tsubo_yen": [
       10000,
       15000
@@ -23068,7 +23070,24 @@ window.DASHBOARD_DATA = {
       9000
     ],
     "this_building_tsubo_yen": 12000,
-    "land_price_yen_sqm": 155000
+    "land_price_yen_sqm": 185000,
+    "land_price": {
+      "price_yen_sqm": 185000,
+      "survey_year": 2026,
+      "use_code": "005",
+      "use_label": "商業地",
+      "address": "愛知県　岡崎市本町通１丁目１２番外",
+      "location_name": "岡崎",
+      "change_pct": 2.2,
+      "lat": 34.958973,
+      "lon": 137.163628,
+      "dist_m": 104,
+      "source": "国土交通省 国土数値情報 地価公示",
+      "source_url": "https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-L01-2026.html",
+      "data_year_tag": "L01-26",
+      "note": "地価公示の標準地価格（物件敷地そのものではありません）"
+    },
+    "land_price_error": null
   },
   "scores": {
     "items": [
