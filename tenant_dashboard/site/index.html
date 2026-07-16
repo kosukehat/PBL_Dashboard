@@ -17,8 +17,8 @@
         <div class="brand-sub">テナント出店ポテンシャル</div>
       </div>
       <nav class="nav">
-        <a class="nav-item active" data-target="summary">🏢 物件サマリー</a>
-        <a class="nav-item" data-target="assistant">💬 AIデータアシスタント</a>
+        <a class="nav-item active" data-target="assistant">💬 AIデータアシスタント</a>
+        <a class="nav-item" data-target="summary">🏢 物件情報</a>
         <a class="nav-item" data-target="people">🚶 人流分析</a>
         <a class="nav-item" data-target="stores">🍽 周辺店舗・競合</a>
         <a class="nav-item" data-target="consumer">🛒 消費者傾向</a>
@@ -34,38 +34,8 @@
 
     <!-- メイン -->
     <main class="main">
-      <!-- 画面1: 物件サマリー -->
-      <section id="summary" class="screen active">
-        <header class="screen-head">
-          <h1>康生百貨店 <span>テナント出店ポテンシャル</span></h1>
-          <p class="lead">康生百貨店は、QURUWAの回遊動線上にあり、人流・周辺店舗・商圏データから出店ポテンシャルを具体的に把握できる物件です。</p>
-        </header>
-
-        <div class="kpi-grid" id="kpiGrid"></div>
-
-        <div class="card-row">
-          <div class="card grow2">
-            <div class="card-title">立地とQURUWA内の位置</div>
-            <div id="summaryMap" class="map"></div>
-            <div class="map-legend" id="summaryLegend"></div>
-          </div>
-          <div class="card">
-            <div class="card-title">主要施設との距離（回遊動線）</div>
-            <div id="landmarkList" class="landmark-list"></div>
-          </div>
-        </div>
-
-        <div class="ai-cta-card">
-          <div class="ai-cta-body">
-            <div class="ai-cta-title">AIデータアシスタント <span class="ai-badge">デモ</span></div>
-            <p class="ai-cta-lead">知りたいことを入力すると、関連するグラフと客観的なデータの見方を案内します。主観的な評価や業種推奨は行いません。</p>
-          </div>
-          <button type="button" class="ai-cta-btn" id="goToAiAssistant">AIで相談する →</button>
-        </div>
-      </section>
-
-      <!-- 画面2: AIデータアシスタント -->
-      <section id="assistant" class="screen">
+      <!-- 画面1: AIデータアシスタント -->
+      <section id="assistant" class="screen active">
         <header class="screen-head">
           <h1>AIデータアシスタント <span>データの見方を客観的に案内（デモ）</span></h1>
           <p class="lead">知りたいことを入力すると、関連するグラフを下に表示し、客観的なデータの見方をお伝えします。主観的な評価や業種推奨は行いません。</p>
@@ -80,6 +50,36 @@
           </div>
         </div>
         <div id="aiChartArea" class="ai-chart-area hidden"></div>
+      </section>
+
+      <!-- 画面2: 物件情報 -->
+      <section id="summary" class="screen">
+        <header class="screen-head">
+          <h1>物件情報 <span>康生百貨店</span></h1>
+          <p class="lead">康生百貨店は、QURUWAの回遊動線上にあり、人流・周辺店舗・商圏データから出店ポテンシャルを具体的に把握できる物件です。</p>
+        </header>
+
+        <div class="card-row">
+          <div class="card grow2">
+            <div class="card-title">立地とQURUWA内の位置</div>
+            <div id="summaryMap" class="map"></div>
+            <div class="map-legend" id="summaryLegend"></div>
+          </div>
+          <div class="card">
+            <div class="card-title">主要施設との距離（回遊動線）</div>
+            <div id="landmarkList" class="landmark-list"></div>
+          </div>
+        </div>
+
+        <div class="card building-profile" id="buildingProfile"></div>
+
+        <div class="ai-cta-card">
+          <div class="ai-cta-body">
+            <div class="ai-cta-title">AIデータアシスタント <span class="ai-badge">デモ</span></div>
+            <p class="ai-cta-lead">知りたいことを入力すると、関連するグラフと客観的なデータの見方を案内します。主観的な評価や業種推奨は行いません。</p>
+          </div>
+          <button type="button" class="ai-cta-btn" id="goToAiAssistant">AIで相談する →</button>
+        </div>
       </section>
 
       <!-- 画面3: 人流分析（時系列・イベント統合） -->

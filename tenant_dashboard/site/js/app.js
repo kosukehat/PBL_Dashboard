@@ -74,26 +74,25 @@ document.getElementById("metaAddress").textContent = "住所: " + D.meta.buildin
 document.getElementById("metaGenerated").textContent = "生成: " + D.meta.generated_at;
 
 /* =========================================================
-   画面1: 物件サマリー
+   画面: 物件情報
    ========================================================= */
 function renderSummary() {
-  const pf = D.peopleflow, st = D.stores;
-  const topPct = pf.by_age.slice().sort((a, b) => b.pct - a.pct)[0];
+  const st = D.stores;
+  const b = D.meta.building;
 
-  const kpis = [
-    { cls: "", label: "康生通り 1日平均通行量", value: fmt(pf.total_per_day), unit: "人/日", sub: `カメラ${D.meta.cameras.length}台の合計` },
-    { cls: "sky", label: `半径${st.radius_m}m 周辺店舗`, value: fmt(st.points.length), unit: "件", sub: "食品営業許可ベース" },
-    { cls: "good", label: "徒歩5分圏 人口", value: fmt(D.demographics.walk5_population), unit: "人", sub: D.demographics.is_dummy ? "※ダミー" : (D.demographics.population_date || "実データ") },
-  ];
-  document.getElementById("kpiGrid").innerHTML = kpis.map(k => `
-    <div class="kpi ${k.cls}">
-      <div class="k-label">${k.label}</div>
-      <div class="k-value">${k.value}<span class="k-unit">${k.unit}</span></div>
-      <div class="k-sub">${k.sub}</div>
-    </div>`).join("");
+  document.getElementById("buildingProfile").innerHTML = `
+    <div class="building-profile-media">
+      <img src="${b.photo || ""}" alt="${BUILDING_NAME}" loading="lazy" />
+    </div>
+    <div class="building-profile-body">
+      <div class="building-profile-name">${BUILDING_NAME}</div>
+      <p class="building-profile-address muted">${b.address || ""}</p>
+      ${b.url
+        ? `<a class="building-profile-url" href="${b.url}" target="_blank" rel="noopener">${b.url}</a>`
+        : ""}
+    </div>`;
 
   // 地図
-  const b = D.meta.building;
   const map = L.map("summaryMap").setView([b.lat, b.lon], 16);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "&copy; OpenStreetMap", maxZoom: 19,
@@ -1541,7 +1540,10 @@ renderDemographics();
 
 // URLハッシュ（#people / #people:daily 等）で画面を直接開けるように
 function applyHash() {
-  if (!location.hash) return;
+  if (!location.hash) {
+    activateScreen("assistant");
+    return;
+  }
   const [target, mode] = location.hash.slice(1).split(":");
   activateScreen(target);
   if (target === "people" && mode) {

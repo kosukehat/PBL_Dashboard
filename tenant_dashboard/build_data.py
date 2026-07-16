@@ -39,6 +39,8 @@ JS_DIR = BASE / "site" / "js"
 BUILDING = {
     "name": "康生百貨店",
     "address": "愛知県岡崎市康生通東一丁目16番地",
+    "url": "https://pokelocal.jp/shop.php?uid=764",
+    "photo": "images/kosei-hyakkaten.jpg",
     "lat": 34.958324,
     "lon": 137.164444,
 }
