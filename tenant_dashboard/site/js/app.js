@@ -64,6 +64,7 @@ function activateScreen(target) {
   el.classList.add("active");
   document.getElementById(target).classList.add("active");
   setTimeout(() => { if (maps[target]) maps[target].invalidateSize(); }, 60);
+  window.scrollTo(0, 0);
 }
 
 /* ---------- メタ情報 ---------- */
@@ -127,6 +128,555 @@ function renderSummary() {
   document.getElementById("landmarkList").innerHTML = ll.map(l => `
     <div class="landmark"><span>${l.name}</span>
     <span class="dist">${l.d < 1000 ? Math.round(l.d) + " m" : (l.d / 1000).toFixed(1) + " km"}</span></div>`).join("");
+}
+
+/* =========================================================
+   AIデータアシスタント（デモ：5パターンの定型応答）
+   ========================================================= */
+const AI_SCENARIOS = [
+  {
+    id: "peopleflow",
+    label: "通行量の時間帯・曜日・年代を知りたい",
+    triggers: ["人流", "通行量", "時間帯", "曜日", "ピーク", "年代"],
+    exact: "康生通りの通行量の時間帯分布を教えて",
+    render: renderAiPeopleflow,
+    respond: respondAiPeopleflow,
+  },
+  {
+    id: "stores",
+    label: "周辺の飲食店・競合状況を知りたい",
+    triggers: ["店舗", "競合", "飲食", "カフェ", "周辺店", "業種"],
+    exact: "周辺の飲食店の業種別件数を教えて",
+    render: renderAiStores,
+    respond: respondAiStores,
+  },
+  {
+    id: "demographics",
+    label: "商圏の人口・所得を知りたい",
+    triggers: ["人口", "商圏", "住民", "所得", "消費者", "世帯"],
+    exact: "徒歩圏の人口構成と市民の所得水準を教えて",
+    render: renderAiDemographics,
+    respond: respondAiDemographics,
+  },
+  {
+    id: "visitors",
+    label: "人がどれくらい来る？",
+    triggers: ["来る", "来街", "来客", "来店", "どれくらい来", "何人"],
+    exact: "人がどれくらい来る？",
+    render: renderAiVisitors,
+    respond: respondAiVisitors,
+  },
+  {
+    id: "cost",
+    label: "出店や維持のコストはどれくらいかかる？",
+    triggers: ["コスト", "費用", "出店", "維持", "賃料", "家賃", "地価", "開業"],
+    exact: "出店や維持のコストはどれくらいかかる？",
+    render: renderAiCost,
+    respond: respondAiCost,
+  },
+];
+
+let aiCharts = {};
+
+function aiChartAt(id, config) {
+  if (aiCharts[id]) aiCharts[id].destroy();
+  const el = document.getElementById(id);
+  if (!el) return;
+  config.options = config.options || {};
+  config.options.responsive = true;
+  config.options.maintainAspectRatio = false;
+  aiCharts[id] = new Chart(el, config);
+}
+
+function destroyAiCharts() {
+  Object.values(aiCharts).forEach(c => c.destroy());
+  aiCharts = {};
+}
+
+function matchAiScenario(text) {
+  const t = text.trim();
+  if (!t) return null;
+  const exact = AI_SCENARIOS.find(s => s.exact === t);
+  if (exact) return exact;
+  const lower = t.toLowerCase();
+  let best = null, bestScore = 0;
+  AI_SCENARIOS.forEach(s => {
+    const score = s.triggers.reduce((n, kw) => n + (lower.includes(kw) ? 1 : 0), 0);
+    if (score > bestScore) { bestScore = score; best = s; }
+  });
+  return bestScore > 0 ? best : null;
+}
+
+function getPeopleflowSnapshot() {
+  const mb = D.peopleflow.monthly_breakdown;
+  const months = Object.keys(mb).sort();
+  const hour = Array(24).fill(0), age = Array(8).fill(0);
+  let total = 0, days = 0;
+  months.forEach(ym => {
+    const b = mb[ym];
+    if (!b) return;
+    days += b.days || 0;
+    total += b.total || 0;
+    for (let i = 0; i < 24; i++) hour[i] += b.hour[i] || 0;
+    for (let i = 0; i < 8; i++) age[i] += b.age[i] || 0;
+  });
+  days = Math.max(days, 1);
+  const byHour = hour.map(v => Math.round(v / days * 10) / 10);
+  const peakHour = byHour.indexOf(Math.max(...byHour));
+
+  const daily = D.peopleflow.timeseries.daily;
+  const dowSum = Array(7).fill(0), dowDays = Array(7).fill(0);
+  daily.forEach(d => { dowSum[d.dow] += d.count; dowDays[d.dow]++; });
+  const byDow = dowSum.map((s, i) => dowDays[i] ? Math.round(s / dowDays[i]) : 0);
+
+  const ageTotal = age.reduce((a, b) => a + b, 0) || 1;
+  const agePct = age.map(v => Math.round(1000 * v / ageTotal) / 10);
+  const topAgeIdx = agePct.indexOf(Math.max(...agePct));
+
+  return {
+    days, totalPerDay: Math.round(total / days), byHour, peakHour,
+    byDow, agePct, ageLabels: D.peopleflow.age_labels, topAgeIdx,
+    period: `${months[0]}〜${months[months.length - 1]}`,
+  };
+}
+
+function renderAiPeopleflow(area) {
+  const snap = getPeopleflowSnapshot();
+  const grid = "#e2e8f0";
+  area.innerHTML = `
+    <div class="card">
+      <div class="card-title">人流データ（全期間集計）</div>
+      <div class="ai-chart-kpi">
+        <div class="kpi"><div class="k-label">1日平均通行量</div>
+          <div class="k-value">${fmt(snap.totalPerDay)}<span class="k-unit">人/日</span></div>
+          <div class="k-sub">${snap.period}</div></div>
+        <div class="kpi accent"><div class="k-label">ピーク時間帯</div>
+          <div class="k-value" style="font-size:22px">${snap.peakHour}時台</div>
+          <div class="k-sub">約${fmt(snap.byHour[snap.peakHour])}人/日</div></div>
+        <div class="kpi good"><div class="k-label">最多年代</div>
+          <div class="k-value" style="font-size:20px">${snap.ageLabels[snap.topAgeIdx]}</div>
+          <div class="k-sub">${snap.agePct[snap.topAgeIdx]}%</div></div>
+      </div>
+      <div class="card-row card-row--2">
+        <div class="card" style="margin:0;box-shadow:none;padding:0">
+          <div class="card-title">時間帯別 通行量（1日平均）</div>
+          <div class="chart-wrap"><canvas id="aiHourChart"></canvas></div>
+        </div>
+        <div class="card" style="margin:0;box-shadow:none;padding:0">
+          <div class="card-title">曜日別 通行量（1日平均）</div>
+          <div class="chart-wrap"><canvas id="aiDowChart"></canvas></div>
+        </div>
+      </div>
+      <div class="card" style="margin:0;box-shadow:none;padding:0;margin-top:12px">
+        <div class="card-title">年代別 構成</div>
+        <div class="chart-wrap chart-wrap--sm"><canvas id="aiAgeChart"></canvas></div>
+      </div>
+      <div class="note">出典: 岡崎市「QURUWA地区の人流データ」(BODIK)。性別「不明」が多いのはAIカメラの判定特性によるものです。</div>
+    </div>`;
+
+  aiChartAt("aiHourChart", {
+    type: "bar",
+    data: { labels: snap.byHour.map((_, h) => h + "時"), datasets: [{ data: snap.byHour, backgroundColor: "#2563eb", borderRadius: 4 }] },
+    options: { plugins: { legend: { display: false } }, scales: { y: { grid: { color: grid }, title: { display: true, text: "人/日" } }, x: { grid: { display: false } } } },
+  });
+  aiChartAt("aiDowChart", {
+    type: "bar",
+    data: { labels: PF_DOW, datasets: [{ data: snap.byDow, backgroundColor: PF_DOW.map((_, i) => i >= 5 ? "#f59e0b" : "#2563eb"), borderRadius: 4 }] },
+    options: { plugins: { legend: { display: false } }, scales: { y: { grid: { color: grid }, title: { display: true, text: "人/日" } } } },
+  });
+  aiChartAt("aiAgeChart", {
+    type: "doughnut",
+    data: { labels: snap.ageLabels, datasets: [{ data: snap.agePct, backgroundColor: paletteShades(CONS_PALETTE, snap.ageLabels.length) }] },
+    options: { plugins: { legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 10 } } } } },
+  });
+}
+
+function respondAiPeopleflow() {
+  const s = getPeopleflowSnapshot();
+  const weekendAvg = Math.round((s.byDow[5] + s.byDow[6]) / 2);
+  const weekdayAvg = Math.round(s.byDow.slice(0, 5).reduce((a, b) => a + b, 0) / 5);
+  const weekendDiff = weekdayAvg ? Math.round(100 * (weekendAvg / weekdayAvg - 1) * 10) / 10 : 0;
+  return (
+    `康生通り（カメラ${D.meta.cameras.length}台合計）の全期間（<b>${s.period}</b>）集計です。<br><br>` +
+    `<b>時間帯別グラフ</b>は24時間の1日平均通行量です。棒が高い時間帯ほどその時間に通過する人数が多いことを示します。` +
+    `ピークは<b>${s.peakHour}時台</b>（約<b>${fmt(s.byHour[s.peakHour])}人/日</b>）です。` +
+    `営業時間の設定や人員配置の参考に、数値の大小を比較して確認してください。<br><br>` +
+    `<b>曜日別グラフ</b>は各曜日の1日平均です。青は平日、オレンジは土日です。` +
+    `平日平均は約<b>${fmt(weekdayAvg)}人/日</b>、土日平均は約<b>${fmt(weekendAvg)}人/日</b>` +
+    `（平日比 ${weekendDiff >= 0 ? "+" : ""}${weekendDiff}%）です。曜日ごとの差を見ることで、曜日別の来客変動を把握できます。<br><br>` +
+    `<b>年代別グラフ</b>は通行者の年齢構成比（%）です。最多は<b>${s.ageLabels[s.topAgeIdx]}</b>（<b>${s.agePct[s.topAgeIdx]}%</b>）です。` +
+    `各年代の割合を比較し、来街者の年齢分布を客観的に確認できます。` +
+    `<span class="ai-msg-note">※数値のみを提示しています。業種の適合性などの主観的判断は含みません。詳細は「人流分析」画面でも期間を変更して確認できます。</span>`
+  );
+}
+
+function renderAiStores(area) {
+  const st = D.stores;
+  const cats = st.category_counts;
+  area.innerHTML = `
+    <div class="card">
+      <div class="card-title">周辺店舗データ（半径${st.radius_m}m）</div>
+      <div class="ai-chart-kpi">
+        <div class="kpi"><div class="k-label">店舗総数</div>
+          <div class="k-value">${fmt(st.points.length)}<span class="k-unit">件</span></div>
+          <div class="k-sub">食品営業許可ベース</div></div>
+        ${cats.slice(0, 2).map((c, i) => `
+        <div class="kpi ${i === 0 ? "accent" : "sky"}"><div class="k-label">${c.category}</div>
+          <div class="k-value">${fmt(c.count)}<span class="k-unit">件</span></div>
+          <div class="k-sub">業種別件数</div></div>`).join("")}
+      </div>
+      <div class="card-title">業種別 店舗数</div>
+      <div class="chart-wrap"><canvas id="aiCatChart"></canvas></div>
+      <div class="note">出典: 岡崎市「食品等営業許可・届出一覧」(BODIK)。物販・サービス業は含みません。</div>
+    </div>`;
+
+  aiChartAt("aiCatChart", {
+    type: "bar",
+    data: {
+      labels: cats.map(c => c.category),
+      datasets: [{ data: cats.map(c => c.count), backgroundColor: cats.map(c => CAT_COLORS[c.category] || "#94a3b8"), borderRadius: 4 }],
+    },
+    options: { indexAxis: "y", plugins: { legend: { display: false } }, scales: { x: { grid: { color: "#e2e8f0" }, title: { display: true, text: "件数" } } } },
+  });
+}
+
+function respondAiStores() {
+  const st = D.stores;
+  const cats = st.category_counts;
+  const top = cats[0];
+  const bottom = cats[cats.length - 1];
+  const catLines = cats.map(c => `${c.category}: <b>${c.count}件</b>`).join("、");
+  return (
+    `対象物件から半径<b>${st.radius_m}m</b>以内の飲食・食品店舗は<b>${st.points.length}件</b>です（食品営業許可・届出ベース）。<br><br>` +
+    `<b>業種別グラフ</b>は横棒で各業種の店舗数を示します。棒が長い業種ほど件数が多いことを意味します。` +
+    `最多は<b>${top.category}</b>（<b>${top.count}件</b>）、最少は<b>${bottom.category}</b>（<b>${bottom.count}件</b>）です。<br><br>` +
+    `内訳: ${catLines}。<br><br>` +
+    `グラフでは業種ごとの件数差を比較できます。店舗名・距離の一覧は「周辺店舗・競合」画面の店舗一覧で確認できます。` +
+    `<span class="ai-msg-note">※「店が少ない＝チャンス」などの解釈は行いません。件数の事実のみを示しています。</span>`
+  );
+}
+
+function renderAiDemographics(area) {
+  const dm = D.demographics;
+  const inc = (D.consumer && D.consumer.income_trend && D.consumer.income_trend.latest) || {};
+  const hhIncome = inc.household_income_k;
+  area.innerHTML = `
+    <div class="card">
+      <div class="card-title">商圏人口・所得データ</div>
+      <div class="ai-chart-kpi">
+        <div class="kpi"><div class="k-label">徒歩5分圏 人口</div>
+          <div class="k-value">${fmt(dm.walk5_population)}<span class="k-unit">人</span></div>
+          <div class="k-sub">${dm.is_dummy ? "※ダミー" : (dm.population_date || "実データ")}</div></div>
+        <div class="kpi sky"><div class="k-label">徒歩10分圏 人口</div>
+          <div class="k-value">${fmt(dm.walk10_population)}<span class="k-unit">人</span></div>
+          <div class="k-sub">${dm.is_dummy ? "※ダミー" : "町字合算"}</div></div>
+        <div class="kpi good"><div class="k-label">家計所得（1人あたり）</div>
+          <div class="k-value">${hhIncome ? fmt(hhIncome) : "—"}<span class="k-unit">${hhIncome ? "千円/年" : ""}</span></div>
+          <div class="k-sub">${inc.year_label ? fmtYearLabel(inc.year_label) : "岡崎市統計"}</div></div>
+      </div>
+      <div class="card-row card-row--2">
+        <div class="card" style="margin:0;box-shadow:none;padding:0">
+          <div class="card-title">徒歩圏 年齢構成</div>
+          <div class="chart-wrap chart-wrap--sm"><canvas id="aiDemoAgeChart"></canvas></div>
+        </div>
+        <div class="card" style="margin:0;box-shadow:none;padding:0">
+          <div class="card-title">世帯構成</div>
+          <div class="chart-wrap chart-wrap--sm"><canvas id="aiDemoHouseChart"></canvas></div>
+        </div>
+      </div>
+      <div class="note">人口出典: ${dm.source || "地域・年齢別人口"}。所得出典: 岡崎市統計。賃料は公開オープンデータがないため別画面でダミー値を表示しています。</div>
+    </div>`;
+
+  const ageColors = ["#93c5fd", "#3b82f6", "#1e3a8a"];
+  aiChartAt("aiDemoAgeChart", {
+    type: "doughnut",
+    data: {
+      labels: dm.age_structure.map(a => a.label),
+      datasets: [{ data: dm.age_structure.map(a => a.pct), backgroundColor: ageColors }],
+    },
+    options: { plugins: { legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 11 } } } } },
+  });
+  if (dm.household && dm.household.length) {
+    aiChartAt("aiDemoHouseChart", {
+      type: "doughnut",
+      data: {
+        labels: dm.household.map(h => h.label),
+        datasets: [{ data: dm.household.map(h => h.pct), backgroundColor: paletteShades(CONS_PALETTE, dm.household.length) }],
+      },
+      options: { plugins: { legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 10 } } } } },
+    });
+  }
+}
+
+function respondAiDemographics() {
+  const dm = D.demographics;
+  const inc = (D.consumer && D.consumer.income_trend && D.consumer.income_trend.latest) || {};
+  const topAge = dm.age_structure.slice().sort((a, b) => b.pct - a.pct)[0];
+  const ageLines = dm.age_structure.map(a => `${a.label}: <b>${a.pct}%</b>`).join("、");
+  const houseLines = (dm.household || []).map(h => `${h.label}: <b>${h.pct}%</b>`).join("、");
+  return (
+    `徒歩5分圏の人口は<b>${fmt(dm.walk5_population)}人</b>、徒歩10分圏は<b>${fmt(dm.walk10_population)}人</b>です` +
+    `${dm.population_date ? `（基準日: ${dm.population_date}）` : ""}。<br><br>` +
+    `<b>年齢構成グラフ</b>は商圏内の年齢別人口比率（%）です。最多は<b>${topAge.label}</b>（<b>${topAge.pct}%</b>）です。` +
+    `内訳: ${ageLines}。各年代の割合を比較して居住者の年齢分布を確認できます。<br><br>` +
+    (houseLines
+      ? `<b>世帯構成グラフ</b>は市民意識調査に基づく世帯タイプの構成比です。内訳: ${houseLines}。<br><br>`
+      : "") +
+    `家計所得（1人あたり）は<b>${inc.household_income_k ? fmt(inc.household_income_k) + "千円/年" : "—"}</b>` +
+    `${inc.year_label ? `（${fmtYearLabel(inc.year_label)}）` : ""}です。` +
+    `賃料・地価の数値は「商圏人口」画面で確認できます（賃料はダミー値）。` +
+    `<span class="ai-msg-note">※「単身が多ければ惣菜需要」などの需要推測は行いません。人口・所得の事実データのみを提示しています。</span>`
+  );
+}
+
+function getMonthlyTrend() {
+  return (D.peopleflow.timeseries.monthly || []).map(m => ({ ym: m.ym, avg: m.avg }));
+}
+
+function renderAiVisitors(area) {
+  const snap = getPeopleflowSnapshot();
+  const monthly = getMonthlyTrend();
+  const grid = "#e2e8f0";
+  const hi = monthly.slice().sort((a, b) => b.avg - a.avg)[0] || { ym: "-", avg: 0 };
+  const lo = monthly.slice().sort((a, b) => a.avg - b.avg)[0] || { ym: "-", avg: 0 };
+
+  area.innerHTML = `
+    <div class="card">
+      <div class="card-title">来街者数（康生通り 通行量ベース）</div>
+      <div class="ai-chart-kpi">
+        <div class="kpi"><div class="k-label">1日平均通行量</div>
+          <div class="k-value">${fmt(snap.totalPerDay)}<span class="k-unit">人/日</span></div>
+          <div class="k-sub">カメラ${D.meta.cameras.length}台合計・全期間</div></div>
+        <div class="kpi accent"><div class="k-label">最多月（1日平均）</div>
+          <div class="k-value" style="font-size:20px">${hi.ym}</div>
+          <div class="k-sub">${fmt(Math.round(hi.avg))} 人/日</div></div>
+        <div class="kpi sky"><div class="k-label">最少月（1日平均）</div>
+          <div class="k-value" style="font-size:20px">${lo.ym}</div>
+          <div class="k-sub">${fmt(Math.round(lo.avg))} 人/日</div></div>
+      </div>
+      <div class="card-title">月別 通行量の推移（1日平均）</div>
+      <div class="chart-wrap chart-wrap--lg"><canvas id="aiVisitorTsChart"></canvas></div>
+      <div class="card-row card-row--2" style="margin-top:12px">
+        <div class="card" style="margin:0;box-shadow:none;padding:0">
+          <div class="card-title">曜日別 通行量（1日平均）</div>
+          <div class="chart-wrap"><canvas id="aiVisitorDowChart"></canvas></div>
+        </div>
+        <div class="card" style="margin:0;box-shadow:none;padding:0">
+          <div class="card-title">年代別 構成</div>
+          <div class="chart-wrap"><canvas id="aiVisitorAgeChart"></canvas></div>
+        </div>
+      </div>
+      <div class="note">※通行量は康生通りカメラ地点を通過した人数であり、特定店舗への来店者数ではありません。出典: BODIK 人流データ。</div>
+    </div>`;
+
+  aiChartAt("aiVisitorTsChart", {
+    type: "line",
+    data: {
+      labels: monthly.map(m => m.ym),
+      datasets: [{
+        label: "人/日", data: monthly.map(m => m.avg),
+        borderColor: "#2563eb", backgroundColor: "rgba(37,99,235,.12)",
+        borderWidth: 2, fill: true, tension: .25, pointRadius: 2,
+      }],
+    },
+    options: {
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { grid: { color: grid }, title: { display: true, text: "人/日" } },
+        x: { grid: { display: false }, ticks: { maxTicksLimit: 18, font: { size: 10 } } },
+      },
+    },
+  });
+  aiChartAt("aiVisitorDowChart", {
+    type: "bar",
+    data: { labels: PF_DOW, datasets: [{ data: snap.byDow, backgroundColor: PF_DOW.map((_, i) => i >= 5 ? "#f59e0b" : "#2563eb"), borderRadius: 4 }] },
+    options: { plugins: { legend: { display: false } }, scales: { y: { grid: { color: grid }, title: { display: true, text: "人/日" } } } },
+  });
+  aiChartAt("aiVisitorAgeChart", {
+    type: "doughnut",
+    data: { labels: snap.ageLabels, datasets: [{ data: snap.agePct, backgroundColor: paletteShades(CONS_PALETTE, snap.ageLabels.length) }] },
+    options: { plugins: { legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 10 } } } } },
+  });
+}
+
+function respondAiVisitors() {
+  const snap = getPeopleflowSnapshot();
+  const monthly = getMonthlyTrend();
+  const hi = monthly.slice().sort((a, b) => b.avg - a.avg)[0];
+  const lo = monthly.slice().sort((a, b) => a.avg - b.avg)[0];
+  const diffPct = lo.avg ? Math.round(100 * (hi.avg / lo.avg - 1) * 10) / 10 : 0;
+  return (
+    `康生通り（カメラ${D.meta.cameras.length}台）の全期間（<b>${snap.period}</b>）では、1日平均<b>${fmt(snap.totalPerDay)}人</b>が通過しています。` +
+    `これは「通りを歩いた人数」であり、特定店舗の来店者数ではありません。<br><br>` +
+    `<b>月別推移グラフ</b>は各月の1日平均通行量です。最多は<b>${hi.ym}</b>（<b>${fmt(Math.round(hi.avg))}人/日</b>）、` +
+    `最少は<b>${lo.ym}</b>（<b>${fmt(Math.round(lo.avg))}人/日</b>）で、差は約<b>${diffPct}%</b>です。` +
+    `折れ線の上下で季節ごとの変動を確認できます。<br><br>` +
+    `<b>曜日別グラフ</b>で平日と土日の差、<b>年代別グラフ</b>で通行者の年齢構成を確認できます。` +
+    `数値の大小を比較し、どの時期・曜日に通過者が多いかを把握してください。` +
+    `<span class="ai-msg-note">※来店者数・売上の推定は行いません。人流カメラの通行量データのみを提示しています。</span>`
+  );
+}
+
+function renderAiCost(area) {
+  const rent = D.rent;
+  const lp = rent.land_price || {};
+  const f1mid = Math.round((rent.floor1_tsubo_yen[0] + rent.floor1_tsubo_yen[1]) / 2);
+  const f2mid = Math.round((rent.floor2_tsubo_yen[0] + rent.floor2_tsubo_yen[1]) / 2);
+  const dummyNote = rent.rent_is_dummy ? '<span class="dummy-badge">ダミー</span>' : "";
+
+  area.innerHTML = `
+    <div class="card">
+      <div class="card-title">出店・維持コスト（賃料・地価） ${dummyNote}</div>
+      <div class="ai-chart-kpi">
+        <div class="kpi"><div class="k-label">1階路面 賃料相場</div>
+          <div class="k-value" style="font-size:20px">${fmt(rent.floor1_tsubo_yen[0])}〜${fmt(rent.floor1_tsubo_yen[1])}</div>
+          <div class="k-sub">円/坪${rent.rent_is_dummy ? " ※ダミー" : ""}</div></div>
+        <div class="kpi sky"><div class="k-label">2階以上 賃料相場</div>
+          <div class="k-value" style="font-size:20px">${fmt(rent.floor2_tsubo_yen[0])}〜${fmt(rent.floor2_tsubo_yen[1])}</div>
+          <div class="k-sub">円/坪${rent.rent_is_dummy ? " ※ダミー" : ""}</div></div>
+        <div class="kpi accent"><div class="k-label">本物件（想定）</div>
+          <div class="k-value">${fmt(rent.this_building_tsubo_yen)}<span class="k-unit">円/坪</span></div>
+          <div class="k-sub">${rent.rent_is_dummy ? "※ダミー" : "参考値"}</div></div>
+        <div class="kpi good"><div class="k-label">地価（最寄り標準地）</div>
+          <div class="k-value">${fmt(rent.land_price_yen_sqm)}<span class="k-unit">円/㎡</span></div>
+          <div class="k-sub">${lp.survey_year || "—"}年・物件から${fmt(lp.dist_m || 0)}m</div></div>
+      </div>
+      <div class="card-title">賃料相場の比較（円/坪）</div>
+      <div class="chart-wrap"><canvas id="aiCostRentChart"></canvas></div>
+      <div class="note">${rent.source_hint || ""} 初期投資・運営費の内訳（人件費・光熱費等）は本ダッシュボードに含まれません。</div>
+    </div>`;
+
+  aiChartAt("aiCostRentChart", {
+    type: "bar",
+    data: {
+      labels: ["1階路面（下限）", "1階路面（上限）", "2階以上（下限）", "2階以上（上限）", "本物件（想定）"],
+      datasets: [{
+        data: [
+          rent.floor1_tsubo_yen[0], rent.floor1_tsubo_yen[1],
+          rent.floor2_tsubo_yen[0], rent.floor2_tsubo_yen[1],
+          rent.this_building_tsubo_yen,
+        ],
+        backgroundColor: ["#93c5fd", "#2563eb", "#93c5fd", "#2563eb", "#f59e0b"],
+        borderRadius: 4,
+      }],
+    },
+    options: {
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { grid: { color: "#e2e8f0" }, title: { display: true, text: "円/坪" } },
+        x: { grid: { display: false }, ticks: { font: { size: 10 } } },
+      },
+    },
+  });
+}
+
+function respondAiCost() {
+  const rent = D.rent;
+  const lp = rent.land_price || {};
+  const f1mid = Math.round((rent.floor1_tsubo_yen[0] + rent.floor1_tsubo_yen[1]) / 2);
+  const f2mid = Math.round((rent.floor2_tsubo_yen[0] + rent.floor2_tsubo_yen[1]) / 2);
+  return (
+    `出店・維持に関わるコストのうち、本ダッシュボードで確認できるのは<b>賃料相場</b>と<b>地価</b>です。<br><br>` +
+    `<b>賃料相場グラフ</b>（円/坪）: 1階路面は<b>${fmt(rent.floor1_tsubo_yen[0])}〜${fmt(rent.floor1_tsubo_yen[1])}円/坪</b>（中央値約${fmt(f1mid)}円）、` +
+    `2階以上は<b>${fmt(rent.floor2_tsubo_yen[0])}〜${fmt(rent.floor2_tsubo_yen[1])}円/坪</b>（中央値約${fmt(f2mid)}円）、` +
+    `本物件の想定は<b>${fmt(rent.this_building_tsubo_yen)}円/坪</b>です。` +
+    `${rent.rent_is_dummy ? "賃料は公開オープンデータがないため<b>ダミー値</b>です。" : ""}<br><br>` +
+    `<b>地価</b>は最寄りの地価公示標準地（${lp.use_label || "商業地"}・${lp.address || ""}）で、<b>${fmt(rent.land_price_yen_sqm)}円/㎡</b>` +
+    `（物件から<b>${fmt(lp.dist_m || 0)}m</b>、${lp.survey_year || "—"}年調査、前年比${lp.change_pct != null ? lp.change_pct + "%" : "—"}）です。` +
+    `物件敷地そのものの価格ではありません。<br><br>` +
+    `棒グラフで各水準の大小を比較できます。人件費・光熱費・設備投資などの運営コストは別途確認が必要です。` +
+    `<span class="ai-msg-note">※「安い／高い」などの評価は行いません。掲載されている数値の事実のみを提示しています。</span>`
+  );
+}
+
+function appendAiMessage(role, html) {
+  const log = document.getElementById("aiChatLog");
+  const div = document.createElement("div");
+  div.className = `ai-msg ${role}`;
+  div.innerHTML = html;
+  log.appendChild(div);
+  log.scrollTop = log.scrollHeight;
+}
+
+function showAiTyping() {
+  const log = document.getElementById("aiChatLog");
+  const div = document.createElement("div");
+  div.className = "ai-msg bot";
+  div.id = "aiTyping";
+  div.textContent = "データを確認しています…";
+  log.appendChild(div);
+  log.scrollTop = log.scrollHeight;
+}
+
+function removeAiTyping() {
+  const el = document.getElementById("aiTyping");
+  if (el) el.remove();
+}
+
+function handleAiChat(text) {
+  const input = text.trim();
+  if (!input) return;
+
+  appendAiMessage("user", input);
+  document.getElementById("aiChatInput").value = "";
+  document.getElementById("aiChatSend").disabled = true;
+  showAiTyping();
+
+  const scenario = matchAiScenario(input);
+  setTimeout(() => {
+    removeAiTyping();
+    const chartArea = document.getElementById("aiChartArea");
+    destroyAiCharts();
+
+    if (!scenario) {
+      appendAiMessage("bot",
+        "該当するデータセットが見つかりませんでした。下の例文を参考に、知りたい内容を入力してください。<br><br>" +
+        AI_SCENARIOS.map((s, i) => `${i + 1}. 「${s.exact}」`).join("<br>") +
+        `<span class="ai-msg-note">デモ版では上記${AI_SCENARIOS.length}種類の質問に対応しています。主観的な評価は行いません。</span>`
+      );
+      chartArea.classList.add("hidden");
+      chartArea.innerHTML = "";
+    } else {
+      appendAiMessage("bot", scenario.respond());
+      chartArea.classList.remove("hidden");
+      chartArea.innerHTML = "";
+      scenario.render(chartArea);
+      setTimeout(() => chartArea.scrollIntoView({ behavior: "smooth", block: "nearest" }), 100);
+    }
+    document.getElementById("aiChatSend").disabled = false;
+  }, 600);
+}
+
+function setupAiChat() {
+  const suggestions = document.getElementById("aiSuggestions");
+  suggestions.innerHTML = AI_SCENARIOS.map(s =>
+    `<button type="button" class="ai-suggestion" data-text="${s.exact}">${s.label}</button>`
+  ).join("");
+
+  suggestions.querySelectorAll(".ai-suggestion").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.getElementById("aiChatInput").value = btn.dataset.text;
+      handleAiChat(btn.dataset.text);
+    });
+  });
+
+  document.getElementById("aiChatSend").addEventListener("click", () => {
+    handleAiChat(document.getElementById("aiChatInput").value);
+  });
+  document.getElementById("aiChatInput").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") handleAiChat(e.target.value);
+  });
+
+  document.getElementById("goToAiAssistant").addEventListener("click", () => {
+    activateScreen("assistant");
+    location.hash = "assistant";
+  });
+
+  appendAiMessage("bot",
+    "データに関する質問を入力してください。関連グラフを表示し、数値の見方を客観的に説明します。<br>" +
+    "下の例文をクリックするか、そのまま入力して送信できます。" +
+    `<span class="ai-msg-note">※デモ版。主観的な業種推奨や評価は行いません。</span>`
+  );
 }
 
 /* =========================================================
@@ -981,6 +1531,7 @@ function renderDemographics() {
 
 /* ---------- 実行 ---------- */
 renderSummary();
+setupAiChat();
 setupPeoplePeriod();
 updatePeople();
 renderStores();

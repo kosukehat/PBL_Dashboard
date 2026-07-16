@@ -18,6 +18,7 @@
       </div>
       <nav class="nav">
         <a class="nav-item active" data-target="summary">🏢 物件サマリー</a>
+        <a class="nav-item" data-target="assistant">💬 AIデータアシスタント</a>
         <a class="nav-item" data-target="people">🚶 人流分析</a>
         <a class="nav-item" data-target="stores">🍽 周辺店舗・競合</a>
         <a class="nav-item" data-target="consumer">🛒 消費者傾向</a>
@@ -52,9 +53,35 @@
             <div id="landmarkList" class="landmark-list"></div>
           </div>
         </div>
+
+        <div class="ai-cta-card">
+          <div class="ai-cta-body">
+            <div class="ai-cta-title">AIデータアシスタント <span class="ai-badge">デモ</span></div>
+            <p class="ai-cta-lead">知りたいことを入力すると、関連するグラフと客観的なデータの見方を案内します。主観的な評価や業種推奨は行いません。</p>
+          </div>
+          <button type="button" class="ai-cta-btn" id="goToAiAssistant">AIで相談する →</button>
+        </div>
       </section>
 
-      <!-- 画面2: 人流分析（時系列・イベント統合） -->
+      <!-- 画面2: AIデータアシスタント -->
+      <section id="assistant" class="screen">
+        <header class="screen-head">
+          <h1>AIデータアシスタント <span>データの見方を客観的に案内（デモ）</span></h1>
+          <p class="lead">知りたいことを入力すると、関連するグラフを下に表示し、客観的なデータの見方をお伝えします。主観的な評価や業種推奨は行いません。</p>
+        </header>
+
+        <div class="card ai-chat-card">
+          <div class="ai-suggestions" id="aiSuggestions"></div>
+          <div class="ai-chat-log" id="aiChatLog"></div>
+          <div class="ai-chat-input-row">
+            <input type="text" id="aiChatInput" placeholder="例：人がどれくらい来る？" autocomplete="off" />
+            <button type="button" id="aiChatSend">送信</button>
+          </div>
+        </div>
+        <div id="aiChartArea" class="ai-chart-area hidden"></div>
+      </section>
+
+      <!-- 画面3: 人流分析（時系列・イベント統合） -->
       <section id="people" class="screen">
         <header class="screen-head">
           <h1>人流分析 <span>いつ・誰が・どちら向きに通るのか</span></h1>
