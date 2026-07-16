@@ -4040,6 +4040,7 @@ window.DASHBOARD_DATA = {
   },
   "meta": {
     "building": {
+      "name": "康生百貨店",
       "address": "愛知県岡崎市康生通東一丁目16番地",
       "lat": 34.958324,
       "lon": 137.164444

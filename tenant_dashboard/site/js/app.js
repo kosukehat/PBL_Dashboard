@@ -2,6 +2,7 @@
    データは data.js の window.DASHBOARD_DATA から読み込む。 */
 
 const D = window.DASHBOARD_DATA;
+const BUILDING_NAME = D.meta.building.name || "康生百貨店";
 
 // 業種カテゴリの色
 const CAT_COLORS = {
@@ -68,7 +69,8 @@ function activateScreen(target) {
 }
 
 /* ---------- メタ情報 ---------- */
-document.getElementById("metaBuilding").textContent = "対象: " + D.meta.building.address;
+document.getElementById("metaBuilding").textContent = "対象: " + BUILDING_NAME;
+document.getElementById("metaAddress").textContent = "住所: " + D.meta.building.address;
 document.getElementById("metaGenerated").textContent = "生成: " + D.meta.generated_at;
 
 /* =========================================================
@@ -99,7 +101,7 @@ function renderSummary() {
   maps.summary = map;
 
   // 物件
-  L.marker([b.lat, b.lon]).addTo(map).bindPopup("<b>対象物件</b><br>" + b.address).openPopup();
+  L.marker([b.lat, b.lon]).addTo(map).bindPopup("<b>" + BUILDING_NAME + "</b><br>" + b.address).openPopup();
   L.circle([b.lat, b.lon], { radius: st.radius_m, color: "#2563eb", weight: 1, fillOpacity: 0.05 }).addTo(map);
 
   // カメラ
@@ -117,7 +119,7 @@ function renderSummary() {
   });
 
   document.getElementById("summaryLegend").innerHTML = `
-    <span><span class="dot" style="background:#2563eb"></span>対象物件・商圏円</span>
+    <span><span class="dot" style="background:#2563eb"></span>${BUILDING_NAME}・商圏円</span>
     <span><span class="dot" style="background:#0ea5e9"></span>人流カメラ</span>
     <span><span class="dot" style="background:#ef4444"></span>周辺店舗</span>
     <span>📍 主要施設</span>`;
@@ -347,7 +349,7 @@ function respondAiStores() {
   const bottom = cats[cats.length - 1];
   const catLines = cats.map(c => `${c.category}: <b>${c.count}件</b>`).join("、");
   return (
-    `対象物件から半径<b>${st.radius_m}m</b>以内の飲食・食品店舗は<b>${st.points.length}件</b>です（食品営業許可・届出ベース）。<br><br>` +
+    `${BUILDING_NAME}から半径<b>${st.radius_m}m</b>以内の飲食・食品店舗は<b>${st.points.length}件</b>です（食品営業許可・届出ベース）。<br><br>` +
     `<b>業種別グラフ</b>は横棒で各業種の店舗数を示します。棒が長い業種ほど件数が多いことを意味します。` +
     `最多は<b>${top.category}</b>（<b>${top.count}件</b>）、最少は<b>${bottom.category}</b>（<b>${bottom.count}件</b>）です。<br><br>` +
     `内訳: ${catLines}。<br><br>` +
@@ -534,12 +536,12 @@ function renderAiCost(area) {
         <div class="kpi sky"><div class="k-label">2階以上 賃料相場</div>
           <div class="k-value" style="font-size:20px">${fmt(rent.floor2_tsubo_yen[0])}〜${fmt(rent.floor2_tsubo_yen[1])}</div>
           <div class="k-sub">円/坪${rent.rent_is_dummy ? " ※ダミー" : ""}</div></div>
-        <div class="kpi accent"><div class="k-label">本物件（想定）</div>
+        <div class="kpi accent"><div class="k-label">${BUILDING_NAME}（想定）</div>
           <div class="k-value">${fmt(rent.this_building_tsubo_yen)}<span class="k-unit">円/坪</span></div>
           <div class="k-sub">${rent.rent_is_dummy ? "※ダミー" : "参考値"}</div></div>
         <div class="kpi good"><div class="k-label">地価（最寄り標準地）</div>
           <div class="k-value">${fmt(rent.land_price_yen_sqm)}<span class="k-unit">円/㎡</span></div>
-          <div class="k-sub">${lp.survey_year || "—"}年・物件から${fmt(lp.dist_m || 0)}m</div></div>
+          <div class="k-sub">${lp.survey_year || "—"}年・${BUILDING_NAME}から${fmt(lp.dist_m || 0)}m</div></div>
       </div>
       <div class="card-title">賃料相場の比較（円/坪）</div>
       <div class="chart-wrap"><canvas id="aiCostRentChart"></canvas></div>
@@ -549,7 +551,7 @@ function renderAiCost(area) {
   aiChartAt("aiCostRentChart", {
     type: "bar",
     data: {
-      labels: ["1階路面（下限）", "1階路面（上限）", "2階以上（下限）", "2階以上（上限）", "本物件（想定）"],
+      labels: ["1階路面（下限）", "1階路面（上限）", "2階以上（下限）", "2階以上（上限）", BUILDING_NAME + "（想定）"],
       datasets: [{
         data: [
           rent.floor1_tsubo_yen[0], rent.floor1_tsubo_yen[1],
@@ -579,10 +581,10 @@ function respondAiCost() {
     `出店・維持に関わるコストのうち、本ダッシュボードで確認できるのは<b>賃料相場</b>と<b>地価</b>です。<br><br>` +
     `<b>賃料相場グラフ</b>（円/坪）: 1階路面は<b>${fmt(rent.floor1_tsubo_yen[0])}〜${fmt(rent.floor1_tsubo_yen[1])}円/坪</b>（中央値約${fmt(f1mid)}円）、` +
     `2階以上は<b>${fmt(rent.floor2_tsubo_yen[0])}〜${fmt(rent.floor2_tsubo_yen[1])}円/坪</b>（中央値約${fmt(f2mid)}円）、` +
-    `本物件の想定は<b>${fmt(rent.this_building_tsubo_yen)}円/坪</b>です。` +
+    `${BUILDING_NAME}の想定は<b>${fmt(rent.this_building_tsubo_yen)}円/坪</b>です。` +
     `${rent.rent_is_dummy ? "賃料は公開オープンデータがないため<b>ダミー値</b>です。" : ""}<br><br>` +
     `<b>地価</b>は最寄りの地価公示標準地（${lp.use_label || "商業地"}・${lp.address || ""}）で、<b>${fmt(rent.land_price_yen_sqm)}円/㎡</b>` +
-    `（物件から<b>${fmt(lp.dist_m || 0)}m</b>、${lp.survey_year || "—"}年調査、前年比${lp.change_pct != null ? lp.change_pct + "%" : "—"}）です。` +
+    `（${BUILDING_NAME}から<b>${fmt(lp.dist_m || 0)}m</b>、${lp.survey_year || "—"}年調査、前年比${lp.change_pct != null ? lp.change_pct + "%" : "—"}）です。` +
     `物件敷地そのものの価格ではありません。<br><br>` +
     `棒グラフで各水準の大小を比較できます。人件費・光熱費・設備投資などの運営コストは別途確認が必要です。` +
     `<span class="ai-msg-note">※「安い／高い」などの評価は行いません。掲載されている数値の事実のみを提示しています。</span>`
@@ -1095,7 +1097,7 @@ function renderEventTable() {
 
   document.getElementById("eventLead").innerHTML =
     ev.length
-      ? `物件から半径${(D.events.radius_m / 1000).toFixed(1)}km内・選択期間のイベント${ev.length}件。開催日の通行量が同曜日の中央値からどれだけ増減したか（押し上げ効果）で並べています。`
+      ? `${BUILDING_NAME}から半径${(D.events.radius_m / 1000).toFixed(1)}km内・選択期間のイベント${ev.length}件。開催日の通行量が同曜日の中央値からどれだけ増減したか（押し上げ効果）で並べています。`
       : "選択期間にはこのエリアのイベントが見つかりませんでした。";
 
   const withUp = ev.filter(e => e.uplift_pct !== null && e.uplift_pct !== undefined);
@@ -1124,7 +1126,7 @@ function renderStores() {
   const map = L.map("storeMap").setView([b.lat, b.lon], 16);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { attribution: "&copy; OpenStreetMap", maxZoom: 19 }).addTo(map);
   maps.stores = map;
-  L.marker([b.lat, b.lon]).addTo(map).bindPopup("<b>対象物件</b>");
+  L.marker([b.lat, b.lon]).addTo(map).bindPopup("<b>" + BUILDING_NAME + "</b>");
   L.circle([b.lat, b.lon], { radius: st.radius_m, color: "#2563eb", weight: 1, fillOpacity: 0.04 }).addTo(map);
   st.points.forEach(p => {
     L.circleMarker([p.lat, p.lon], { radius: 6, color: "#fff", weight: 1, fillColor: CAT_COLORS[p.category] || "#94a3b8", fillOpacity: .9 })
@@ -1493,14 +1495,14 @@ function renderDemographics() {
     ? `<div class="rent-line"><span>地価</span>${rentValue(`${fmt(rent.land_price_yen_sqm)} 円/㎡`)}</div>`
     : `<div class="rent-line"><span>地価（最寄り${lp.use_label || "標準地"}）</span>
        <span class="rent-value"><b>${fmt(rent.land_price_yen_sqm)} 円/㎡</b></span></div>
-       <div class="rent-sub muted">${lp.address || ""}（物件から ${fmt(lp.dist_m || 0)} m）</div>
+       <div class="rent-sub muted">${lp.address || ""}（${BUILDING_NAME}から ${fmt(lp.dist_m || 0)} m）</div>
        <div class="rent-sub muted">調査時点: ${lp.survey_year || "—"}年1月1日
          ${lp.change_pct != null ? `／ 前年比 ${lp.change_pct}%` : ""}</div>`;
 
   document.getElementById("rentBox").innerHTML = `
     <div class="rent-line"><span>1階路面</span>${rentValue(`${fmt(rent.floor1_tsubo_yen[0])}〜${fmt(rent.floor1_tsubo_yen[1])} 円/坪`)}</div>
     <div class="rent-line"><span>2階以上</span>${rentValue(`${fmt(rent.floor2_tsubo_yen[0])}〜${fmt(rent.floor2_tsubo_yen[1])} 円/坪`)}</div>
-    <div class="rent-line"><span>本物件（想定）</span>${rentValue(`${fmt(rent.this_building_tsubo_yen)} 円/坪`)}</div>
+    <div class="rent-line"><span>${BUILDING_NAME}（想定）</span>${rentValue(`${fmt(rent.this_building_tsubo_yen)} 円/坪`)}</div>
     ${landLine}
     <div class="note" style="margin-top:10px">
       ${rent.rent_is_dummy ? "賃料は公開オープンデータがないためダミー値です。" : ""}
