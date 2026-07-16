@@ -630,7 +630,7 @@ function handleAiChat(text) {
 
     if (!scenario) {
       appendAiMessage("bot",
-        "該当するデータセットが見つかりませんでした。下の例文を参考に、知りたい内容を入力してください。<br><br>" +
+        "該当するデータセットが見つかりませんでした。上の例文を参考に、知りたい内容を入力してください。<br><br>" +
         AI_SCENARIOS.map((s, i) => `${i + 1}. 「${s.exact}」`).join("<br>") +
         `<span class="ai-msg-note">デモ版では上記${AI_SCENARIOS.length}種類の質問に対応しています。主観的な評価は行いません。</span>`
       );
@@ -641,7 +641,6 @@ function handleAiChat(text) {
       chartArea.classList.remove("hidden");
       chartArea.innerHTML = "";
       scenario.render(chartArea);
-      setTimeout(() => chartArea.scrollIntoView({ behavior: "smooth", block: "nearest" }), 100);
     }
     document.getElementById("aiChatSend").disabled = false;
   }, 600);
@@ -674,7 +673,7 @@ function setupAiChat() {
 
   appendAiMessage("bot",
     "データに関する質問を入力してください。関連グラフを表示し、数値の見方を客観的に説明します。<br>" +
-    "下の例文をクリックするか、そのまま入力して送信できます。" +
+    "上の例文をクリックするか、そのまま入力して送信できます。" +
     `<span class="ai-msg-note">※デモ版。主観的な業種推奨や評価は行いません。</span>`
   );
 }
