@@ -4041,8 +4041,7 @@ window.DASHBOARD_DATA = {
   "meta": {
     "building": {
       "name": "康生百貨店",
-      "address": "愛知県岡崎市康生通東一丁目16番地",
-      "address_alt": "岡崎市康生通東1-17（ぽけろーかる表記）",
+      "address": "愛知県岡崎市康生通東一丁目17番地",
       "url": "https://pokelocal.jp/shop.php?uid=764",
       "photo": "images/kosei-hyakkaten.jpg",
       "facebook": "https://www.facebook.com/profile.php?id=61578261522511",
@@ -4056,8 +4055,8 @@ window.DASHBOARD_DATA = {
       ],
       "info_source": "ぽけろーかる（まちづくり岡崎）",
       "info_source_url": "https://pokelocal.jp/shop.php?uid=764",
-      "lat": 34.958324,
-      "lon": 137.164444
+      "lat": 34.958817,
+      "lon": 137.164459
     },
     "generated_at": "2026-07-15 15:06",
     "source": "岡崎市オープンデータ（BODIK） / 国土地理院ジオコーダ / 岡崎市統計",
@@ -23097,7 +23096,7 @@ window.DASHBOARD_DATA = {
       "change_pct": 2.2,
       "lat": 34.958973,
       "lon": 137.163628,
-      "dist_m": 104,
+      "dist_m": 78,
       "source": "国土交通省 国土数値情報 地価公示",
       "source_url": "https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-L01-2026.html",
       "data_year_tag": "L01-26",

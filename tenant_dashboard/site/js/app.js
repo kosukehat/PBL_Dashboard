@@ -68,6 +68,15 @@ function activateScreen(target) {
   window.scrollTo(0, 0);
 }
 
+function setupTopNav() {
+  document.querySelectorAll("#aiTopNav [data-target]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      activateScreen(btn.dataset.target);
+      location.hash = btn.dataset.target;
+    });
+  });
+}
+
 /* ---------- メタ情報 ---------- */
 document.getElementById("metaBuilding").textContent = "対象: " + BUILDING_NAME;
 document.getElementById("metaAddress").textContent = "住所: " + D.meta.building.address;
@@ -108,7 +117,6 @@ function renderSummary() {
     <div class="overview-lines">
       ${b.aka ? `<div class="overview-line"><span class="ol-label">施設</span><span>${b.aka}</span></div>` : ""}
       <div class="overview-line"><span class="ol-label">住所</span><span>${b.address || "—"}</span></div>
-      ${b.address_alt ? `<div class="overview-line"><span class="ol-label">住所（参考）</span><span class="muted">${b.address_alt}</span></div>` : ""}
       ${b.access ? `<div class="overview-line"><span class="ol-label">アクセス</span><span>${b.access}</span></div>` : ""}
       ${b.area_note ? `<div class="overview-line"><span class="ol-label">立地</span><span>${b.area_note}</span></div>` : ""}
       ${b.facebook ? `<div class="overview-line"><span class="ol-label">SNS</span><span><a href="${b.facebook}" target="_blank" rel="noopener">Facebook</a></span></div>` : ""}
@@ -1566,6 +1574,7 @@ function renderDemographics() {
 /* ---------- 実行 ---------- */
 renderSummary();
 setupAiChat();
+setupTopNav();
 setupPeoplePeriod();
 updatePeople();
 renderStores();

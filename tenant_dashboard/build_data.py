@@ -35,11 +35,10 @@ BASE = Path(__file__).parent
 DATA_DIR = BASE / "data"
 JS_DIR = BASE / "site" / "js"
 
-# 対象物件: 康生百貨店（岡崎市康生通東一丁目16・国土地理院ジオコーダで確定した座標）
+# 対象物件: 康生百貨店（岡崎市康生通東一丁目17・国土地理院ジオコーダで確定した座標）
 BUILDING = {
     "name": "康生百貨店",
-    "address": "愛知県岡崎市康生通東一丁目16番地",
-    "address_alt": "岡崎市康生通東1-17（ぽけろーかる表記）",
+    "address": "愛知県岡崎市康生通東一丁目17番地",
     "url": "https://pokelocal.jp/shop.php?uid=764",
     "photo": "images/kosei-hyakkaten.jpg",
     "facebook": "https://www.facebook.com/profile.php?id=61578261522511",
@@ -53,8 +52,8 @@ BUILDING = {
     ],
     "info_source": "ぽけろーかる（まちづくり岡崎）",
     "info_source_url": "https://pokelocal.jp/shop.php?uid=764",
-    "lat": 34.958324,
-    "lon": 137.164444,
+    "lat": 34.958817,
+    "lon": 137.164459,
 }
 
 # 「物件が面する通り」= 康生通り。カメラグループ「康生通り」（カメラID 0-3）を使う。

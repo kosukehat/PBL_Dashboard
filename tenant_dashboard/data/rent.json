@@ -23,7 +23,7 @@
     "change_pct": 2.2,
     "lat": 34.958973,
     "lon": 137.163628,
-    "dist_m": 104,
+    "dist_m": 78,
     "source": "国土交通省 国土数値情報 地価公示",
     "source_url": "https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-L01-2026.html",
     "data_year_tag": "L01-26",
