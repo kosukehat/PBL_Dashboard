@@ -52,6 +52,9 @@ document.querySelectorAll(".nav-item").forEach(el => {
     // 地図はタブ表示後にサイズ再計算が必要
     setTimeout(() => { if (maps[el.dataset.target]) maps[el.dataset.target].invalidateSize(); }, 60);
     window.scrollTo(0, 0);
+    if (typeof prefersCollapsedSidebar === "function" && prefersCollapsedSidebar()) {
+      setSidebarCollapsed(true);
+    }
   });
 });
 
@@ -66,6 +69,47 @@ function activateScreen(target) {
   document.getElementById(target).classList.add("active");
   setTimeout(() => { if (maps[target]) maps[target].invalidateSize(); }, 60);
   window.scrollTo(0, 0);
+  // 縦画面では画面遷移後にメニューを閉じる
+  if (prefersCollapsedSidebar()) setSidebarCollapsed(true);
+}
+
+function prefersCollapsedSidebar() {
+  return window.matchMedia("(orientation: portrait) and (max-width: 1024px)").matches
+    || window.matchMedia("(max-width: 760px)").matches;
+}
+
+function setSidebarCollapsed(collapsed) {
+  const app = document.querySelector(".app");
+  const btn = document.getElementById("sidebarToggle");
+  if (!app) return;
+  app.classList.toggle("sidebar-collapsed", collapsed);
+  if (btn) {
+    btn.setAttribute("aria-expanded", collapsed ? "false" : "true");
+    btn.setAttribute("aria-label", collapsed ? "メニューを開く" : "メニューを閉じる");
+  }
+}
+
+function setupSidebarToggle() {
+  const btn = document.getElementById("sidebarToggle");
+  if (!btn) return;
+
+  setSidebarCollapsed(prefersCollapsedSidebar());
+
+  btn.addEventListener("click", () => {
+    const collapsed = !document.querySelector(".app").classList.contains("sidebar-collapsed");
+    setSidebarCollapsed(collapsed);
+  });
+
+  const mqPortrait = window.matchMedia("(orientation: portrait) and (max-width: 1024px)");
+  const mqNarrow = window.matchMedia("(max-width: 760px)");
+  const onViewportChange = () => setSidebarCollapsed(prefersCollapsedSidebar());
+  if (mqPortrait.addEventListener) {
+    mqPortrait.addEventListener("change", onViewportChange);
+    mqNarrow.addEventListener("change", onViewportChange);
+  } else {
+    mqPortrait.addListener(onViewportChange);
+    mqNarrow.addListener(onViewportChange);
+  }
 }
 
 function setupTopNav() {
@@ -1575,6 +1619,7 @@ function renderDemographics() {
 renderSummary();
 setupAiChat();
 setupTopNav();
+setupSidebarToggle();
 setupPeoplePeriod();
 updatePeople();
 renderStores();
