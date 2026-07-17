@@ -239,15 +239,52 @@ th { position: sticky; top: 0; background: #f8fafc; color: var(--muted); font-we
 }
 .ts-day-close:hover { background: #e2e8f0; color: var(--ink); }
 
-/* AIデータアシスタント */
+/* AIデータアシスタント（トップページ） */
+.ai-top-hero {
+  background: transparent;
+  color: var(--ink);
+  border: none;
+  border-radius: 0;
+  padding: 4px 0 22px;
+  margin-bottom: 8px;
+  box-shadow: none;
+}
+.ai-top-eyebrow {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.ai-top-title {
+  margin: 0 0 8px;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
+.ai-top-sub {
+  margin: 0 0 12px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--brand);
+}
+.ai-top-lead {
+  margin: 0;
+  max-width: 820px;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--muted);
+}
+
 .ai-cta-card {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
   flex-wrap: wrap;
-  background: linear-gradient(135deg, #eff6ff 0%, #f8fafc 100%);
-  border: 1px solid #bfdbfe;
+  background: var(--panel);
+  border: 1px solid var(--line);
   border-radius: 14px;
   padding: 20px 22px;
   margin-bottom: 16px;
@@ -449,6 +486,8 @@ th { position: sticky; top: 0; background: #f8fafc; color: var(--muted); font-we
   .app { flex-direction: column; }
   .sidebar { width: 100%; height: auto; position: static; flex-direction: row; flex-wrap: wrap; }
   .nav { display: flex; flex-wrap: wrap; }
+  .ai-top-title { font-size: 26px; }
+  .ai-top-hero { padding: 0 0 18px; }
   .card-row--2-1,
   .card-row--2,
   .card-row--3 { grid-template-columns: 1fr; }
