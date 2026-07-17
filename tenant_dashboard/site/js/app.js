@@ -92,6 +92,36 @@ function renderSummary() {
         : ""}
     </div>`;
 
+  const tenants = b.tenants || [];
+  const tenantRows = tenants.length
+    ? `<div class="table-wrap"><table>
+        <tr><th>店舗名</th><th>営業時間</th><th>定休日</th></tr>
+        ${tenants.map(t => `<tr>
+          <td>${t.name || ""}</td>
+          <td>${t.hours || "—"}</td>
+          <td>${t.closed || "—"}</td>
+        </tr>`).join("")}
+      </table></div>`
+    : "";
+
+  document.getElementById("buildingOverview").innerHTML = `
+    <div class="overview-lines">
+      ${b.aka ? `<div class="overview-line"><span class="ol-label">施設</span><span>${b.aka}</span></div>` : ""}
+      <div class="overview-line"><span class="ol-label">住所</span><span>${b.address || "—"}</span></div>
+      ${b.address_alt ? `<div class="overview-line"><span class="ol-label">住所（参考）</span><span class="muted">${b.address_alt}</span></div>` : ""}
+      ${b.access ? `<div class="overview-line"><span class="ol-label">アクセス</span><span>${b.access}</span></div>` : ""}
+      ${b.area_note ? `<div class="overview-line"><span class="ol-label">立地</span><span>${b.area_note}</span></div>` : ""}
+      ${b.facebook ? `<div class="overview-line"><span class="ol-label">SNS</span><span><a href="${b.facebook}" target="_blank" rel="noopener">Facebook</a></span></div>` : ""}
+    </div>
+    ${tenants.length ? `<div class="card-title" style="margin-top:14px">公開されている入居店の例</div>${tenantRows}` : ""}
+    <div class="note" style="margin-top:10px">
+      出典: ${b.info_source_url
+        ? `<a href="${b.info_source_url}" target="_blank" rel="noopener">${b.info_source || "ぽけろーかる"}</a>`
+        : (b.info_source || "公開情報")}。営業時間は店舗により異なります。
+    </div>`;
+
+  renderRentBox();
+
   // 地図
   const map = L.map("summaryMap").setView([b.lat, b.lon], 16);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -129,6 +159,34 @@ function renderSummary() {
   document.getElementById("landmarkList").innerHTML = ll.map(l => `
     <div class="landmark"><span>${l.name}</span>
     <span class="dist">${l.d < 1000 ? Math.round(l.d) + " m" : (l.d / 1000).toFixed(1) + " km"}</span></div>`).join("");
+}
+
+function renderRentBox() {
+  const rent = D.rent;
+  const lp = rent.land_price || {};
+  const dummyBadge = rent.rent_is_dummy
+    ? '<span class="dummy-badge rent-dummy">ダミー</span>' : "";
+  const rentValue = (html) => `<span class="rent-value"><b>${html}</b>${dummyBadge}</span>`;
+
+  const landLine = rent.land_is_dummy
+    ? `<div class="rent-line"><span>地価</span>${rentValue(`${fmt(rent.land_price_yen_sqm)} 円/㎡`)}</div>`
+    : `<div class="rent-line"><span>地価（最寄り${lp.use_label || "標準地"}）</span>
+       <span class="rent-value"><b>${fmt(rent.land_price_yen_sqm)} 円/㎡</b></span></div>
+       <div class="rent-sub muted">${lp.address || ""}（${BUILDING_NAME}から ${fmt(lp.dist_m || 0)} m）</div>
+       <div class="rent-sub muted">調査時点: ${lp.survey_year || "—"}年1月1日
+         ${lp.change_pct != null ? `／ 前年比 ${lp.change_pct}%` : ""}</div>`;
+
+  document.getElementById("rentBox").innerHTML = `
+    <div class="rent-line"><span>1階路面</span>${rentValue(`${fmt(rent.floor1_tsubo_yen[0])}〜${fmt(rent.floor1_tsubo_yen[1])} 円/坪`)}</div>
+    <div class="rent-line"><span>2階以上</span>${rentValue(`${fmt(rent.floor2_tsubo_yen[0])}〜${fmt(rent.floor2_tsubo_yen[1])} 円/坪`)}</div>
+    <div class="rent-line"><span>${BUILDING_NAME}（想定）</span>${rentValue(`${fmt(rent.this_building_tsubo_yen)} 円/坪`)}</div>
+    ${landLine}
+    <div class="note" style="margin-top:10px">
+      ${rent.rent_is_dummy ? "賃料の公開オープンデータは見つかりませんでした。表示はダミー値です。" : ""}
+      ${rent.land_is_dummy
+        ? "地価の取得に失敗したため参考値を表示しています。"
+        : `地価は<a href="${lp.source_url || '#'}" target="_blank" rel="noopener">${lp.source || "国土数値情報 地価公示"}</a>の標準地価格です（${lp.note || "物件敷地そのものではありません"}）。`}
+    </div>`;
 }
 
 /* =========================================================
@@ -385,7 +443,7 @@ function renderAiDemographics(area) {
           <div class="chart-wrap chart-wrap--sm"><canvas id="aiDemoHouseChart"></canvas></div>
         </div>
       </div>
-      <div class="note">人口出典: ${dm.source || "地域・年齢別人口"}。所得出典: 岡崎市統計。賃料は公開オープンデータがないため別画面でダミー値を表示しています。</div>
+      <div class="note">人口出典: ${dm.source || "地域・年齢別人口"}。所得出典: 岡崎市統計。賃料・地価は「物件情報」画面で確認できます。</div>
     </div>`;
 
   const ageColors = ["#93c5fd", "#3b82f6", "#1e3a8a"];
@@ -425,7 +483,7 @@ function respondAiDemographics() {
       : "") +
     `家計所得（1人あたり）は<b>${inc.household_income_k ? fmt(inc.household_income_k) + "千円/年" : "—"}</b>` +
     `${inc.year_label ? `（${fmtYearLabel(inc.year_label)}）` : ""}です。` +
-    `賃料・地価の数値は「商圏人口」画面で確認できます（賃料はダミー値）。` +
+    `賃料・地価の数値は「物件情報」画面で確認できます（賃料はダミー値）。` +
     `<span class="ai-msg-note">※「単身が多ければ惣菜需要」などの需要推測は行いません。人口・所得の事実データのみを提示しています。</span>`
   );
 }
@@ -585,8 +643,9 @@ function respondAiCost() {
     `<b>地価</b>は最寄りの地価公示標準地（${lp.use_label || "商業地"}・${lp.address || ""}）で、<b>${fmt(rent.land_price_yen_sqm)}円/㎡</b>` +
     `（${BUILDING_NAME}から<b>${fmt(lp.dist_m || 0)}m</b>、${lp.survey_year || "—"}年調査、前年比${lp.change_pct != null ? lp.change_pct + "%" : "—"}）です。` +
     `物件敷地そのものの価格ではありません。<br><br>` +
-    `棒グラフで各水準の大小を比較できます。人件費・光熱費・設備投資などの運営コストは別途確認が必要です。` +
-    `<span class="ai-msg-note">※「安い／高い」などの評価は行いません。掲載されている数値の事実のみを提示しています。</span>`
+    `棒グラフで各水準の大小を比較できます。詳細は「物件情報」画面の賃料相場・地価でも確認できます。` +
+    `人件費・光熱費・設備投資などの運営コストは別途確認が必要です。` +
+    `<span class="ai-msg-note">※「安い／高い」などの評価は行いません。掲載されている数値の事実のみを提示しています。${BUILDING_NAME}本体の公開募集賃料は見つかりませんでした。</span>`
   );
 }
 
@@ -1433,7 +1492,7 @@ function renderConsumer() {
    画面5: 商圏人口
    ========================================================= */
 function renderDemographics() {
-  const dm = D.demographics, rent = D.rent, fut = D.future;
+  const dm = D.demographics, fut = D.future;
   const badge = dm.is_dummy
     ? '<span class="dummy-badge">ダミーデータ</span>'
     : (dm.is_partial ? '<span class="dummy-badge" style="background:#dbeafe;color:#1e40af">概算（実データ）</span>' : "");
@@ -1484,31 +1543,6 @@ function renderDemographics() {
       options: { plugins: { legend: { position: "right", labels: { boxWidth: 10, font: { size: 10 } } } } },
     });
   }
-
-  const lp = rent.land_price || {};
-  const dummyBadge = rent.rent_is_dummy
-    ? '<span class="dummy-badge rent-dummy">ダミー</span>' : "";
-  const rentValue = (html) => `<span class="rent-value"><b>${html}</b>${dummyBadge}</span>`;
-
-  const landLine = rent.land_is_dummy
-    ? `<div class="rent-line"><span>地価</span>${rentValue(`${fmt(rent.land_price_yen_sqm)} 円/㎡`)}</div>`
-    : `<div class="rent-line"><span>地価（最寄り${lp.use_label || "標準地"}）</span>
-       <span class="rent-value"><b>${fmt(rent.land_price_yen_sqm)} 円/㎡</b></span></div>
-       <div class="rent-sub muted">${lp.address || ""}（${BUILDING_NAME}から ${fmt(lp.dist_m || 0)} m）</div>
-       <div class="rent-sub muted">調査時点: ${lp.survey_year || "—"}年1月1日
-         ${lp.change_pct != null ? `／ 前年比 ${lp.change_pct}%` : ""}</div>`;
-
-  document.getElementById("rentBox").innerHTML = `
-    <div class="rent-line"><span>1階路面</span>${rentValue(`${fmt(rent.floor1_tsubo_yen[0])}〜${fmt(rent.floor1_tsubo_yen[1])} 円/坪`)}</div>
-    <div class="rent-line"><span>2階以上</span>${rentValue(`${fmt(rent.floor2_tsubo_yen[0])}〜${fmt(rent.floor2_tsubo_yen[1])} 円/坪`)}</div>
-    <div class="rent-line"><span>${BUILDING_NAME}（想定）</span>${rentValue(`${fmt(rent.this_building_tsubo_yen)} 円/坪`)}</div>
-    ${landLine}
-    <div class="note" style="margin-top:10px">
-      ${rent.rent_is_dummy ? "賃料は公開オープンデータがないためダミー値です。" : ""}
-      ${rent.land_is_dummy
-        ? "地価の取得に失敗したため参考値を表示しています。"
-        : `地価は<a href="${lp.source_url || '#'}" target="_blank" rel="noopener">${lp.source || "国土数値情報 地価公示"}</a>の標準地価格です（${lp.note || "物件敷地そのものではありません"}）。`}
-    </div>`;
 
   document.getElementById("futureBox").innerHTML = fut.items.map(i => `
     <div class="future-item"><div class="fi-label">${i.label}</div>

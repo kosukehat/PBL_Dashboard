@@ -362,6 +362,25 @@ th { position: sticky; top: 0; background: #f8fafc; color: var(--muted); font-we
 }
 .building-profile-url:hover { text-decoration: underline; }
 
+.overview-lines { display: flex; flex-direction: column; gap: 8px; }
+.overview-line {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.55;
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--line);
+}
+.overview-line:last-child { border-bottom: none; }
+.overview-line .ol-label {
+  font-weight: 700;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+.overview-line a { color: var(--brand); text-decoration: none; }
+.overview-line a:hover { text-decoration: underline; }
+
 .ai-badge {
   display: inline-block;
   background: #ede9fe;

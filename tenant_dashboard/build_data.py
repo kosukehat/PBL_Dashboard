@@ -39,8 +39,20 @@ JS_DIR = BASE / "site" / "js"
 BUILDING = {
     "name": "康生百貨店",
     "address": "愛知県岡崎市康生通東一丁目16番地",
+    "address_alt": "岡崎市康生通東1-17（ぽけろーかる表記）",
     "url": "https://pokelocal.jp/shop.php?uid=764",
     "photo": "images/kosei-hyakkaten.jpg",
+    "facebook": "https://www.facebook.com/profile.php?id=61578261522511",
+    "aka": "旧名鉄センタービルを活用した商業施設",
+    "access": "名鉄バス「康生町」すぐ／康生交番隣",
+    "area_note": "QURUWA回遊動線上の康生通り商業集積地に立地",
+    "tenants": [
+        {"name": "Kyphy（キフィー）", "hours": "10:00〜18:00", "closed": "水曜日"},
+        {"name": "Beauty Studio Color", "hours": "不定期開催", "closed": ""},
+        {"name": "みどりやのTシャツ屋", "hours": "10:00〜18:00", "closed": "水曜日"},
+    ],
+    "info_source": "ぽけろーかる（まちづくり岡崎）",
+    "info_source_url": "https://pokelocal.jp/shop.php?uid=764",
     "lat": 34.958324,
     "lon": 137.164444,
 }
