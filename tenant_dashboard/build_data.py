@@ -716,31 +716,37 @@ def _population_for_areas(packages, area_names, note=""):
     pop = int(pd.to_numeric(sub["総人口"], errors="coerce").sum())
     households = int(pd.to_numeric(sub["世帯数"], errors="coerce").sum())
 
-    age_band_cols = [
-        ("0-14歳", [
-            "0-4歳の男性", "0-4歳の女性", "5-9歳の男性", "5-9歳の女性",
-            "10-14歳の男性", "10-14歳の女性",
-        ]),
-        ("15-64歳", [
-            c for c in df.columns
-            if any(a in c for a in [
-                "15-19", "20-24", "25-29", "30-34", "35-39", "40-44",
-                "45-49", "50-54", "55-59", "60-64",
-            ]) and ("男性" in c or "女性" in c)
-        ]),
-        ("65歳以上", [
-            c for c in df.columns
-            if any(a in c for a in ["65-69", "70-74", "75-79", "80-84", "85歳以上"])
-            and ("男性" in c or "女性" in c)
-        ]),
+    # 5歳刻みの男女別列を、円グラフ向けに10歳刻みへ合算（列名は前方一致で誤検知を防ぐ）
+    age_band_prefixes = [
+        ("0-9歳", ["0-4歳", "5-9歳"]),
+        ("10-19歳", ["10-14歳", "15-19歳"]),
+        ("20-29歳", ["20-24歳", "25-29歳"]),
+        ("30-39歳", ["30-34歳", "35-39歳"]),
+        ("40-49歳", ["40-44歳", "45-49歳"]),
+        ("50-59歳", ["50-54歳", "55-59歳"]),
+        ("60-69歳", ["60-64歳", "65-69歳"]),
+        ("70歳以上", ["70-74歳", "75-79歳", "80-84歳", "85歳以上"]),
     ]
     age_structure = []
-    for label, cols in age_band_cols:
+    for label, prefixes in age_band_prefixes:
+        cols = [
+            c for c in df.columns
+            if any(c.startswith(p) for p in prefixes) and ("男性" in c or "女性" in c)
+        ]
         n = int(sum(pd.to_numeric(sub[c], errors="coerce").fillna(0).sum() for c in cols))
         age_structure.append({
             "label": label, "count": n,
             "pct": round(100 * n / max(pop, 1), 1),
         })
+
+    elderly_prefixes = ["65-69歳", "70-74歳", "75-79歳", "80-84歳", "85歳以上"]
+    elderly_cols = [
+        c for c in df.columns
+        if any(c.startswith(p) for p in elderly_prefixes) and ("男性" in c or "女性" in c)
+    ]
+    elderly_n = int(sum(
+        pd.to_numeric(sub[c], errors="coerce").fillna(0).sum() for c in elderly_cols
+    ))
 
     return {
         "date": latest_date,
@@ -750,6 +756,7 @@ def _population_for_areas(packages, area_names, note=""):
         "households": households,
         "avg_household_size": round(pop / max(households, 1), 2),
         "age_structure": age_structure,
+        "elderly_ratio": round(100 * elderly_n / max(pop, 1), 1),
         "source": "岡崎市オープンデータ（地域・年齢別人口）",
         "note": note,
         "is_dummy": False,
@@ -836,9 +843,14 @@ def build_demographics(packages):
             "walk5_population": 4200,
             "walk10_population": 15800,
             "age_structure": [
-                {"label": "0-14歳", "pct": 10.5},
-                {"label": "15-64歳", "pct": 58.2},
-                {"label": "65歳以上", "pct": 31.3},
+                {"label": "0-9歳", "pct": 7.0},
+                {"label": "10-19歳", "pct": 8.0},
+                {"label": "20-29歳", "pct": 10.0},
+                {"label": "30-39歳", "pct": 11.0},
+                {"label": "40-49歳", "pct": 13.0},
+                {"label": "50-59歳", "pct": 12.0},
+                {"label": "60-69歳", "pct": 14.0},
+                {"label": "70歳以上", "pct": 25.0},
             ],
             "household": [
                 {"label": "単身世帯", "pct": 46.0},
@@ -852,8 +864,6 @@ def build_demographics(packages):
 
     hh = _parse_survey_household(packages)
     city_age = _parse_city_age_ratios(packages)
-    elderly = next((a["pct"] for a in walk10["age_structure"] if "65" in a["label"]), None)
-
     return {
         "is_dummy": False,
         "is_partial": True,
@@ -868,11 +878,12 @@ def build_demographics(packages):
         "age_structure": walk10["age_structure"],
         "household": hh["household"] if hh else [],
         "single_ratio": hh["single_ratio"] if hh else None,
-        "elderly_ratio": elderly,
+        "elderly_ratio": walk10.get("elderly_ratio"),
         "avg_household_size": walk10["avg_household_size"],
         "city_reference": city_age,
         "notes": {
             "population": walk10["note"],
+            "age_structure": "年齢構成は10歳刻み（地域・年齢別人口の5歳区分を合算）。",
             "household": hh["note"] if hh else "世帯構成データなし",
         },
     }

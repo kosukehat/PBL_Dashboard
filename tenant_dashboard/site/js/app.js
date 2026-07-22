@@ -15,10 +15,22 @@ const CAT_COLORS = {
   "その他": "#94a3b8",
 };
 
-// 多項目の円グラフ用（家計所得内訳・年代別・世帯構成など）
+// 多項目の円グラフ用（家計所得内訳・世帯構成など）— 明るめ・隣接差あり
 const CONS_PALETTE = [
-  "#2563eb", "#0ea5e9", "#10b981", "#f59e0b", "#ef4444",
-  "#8b5cf6", "#ec4899", "#14b8a6", "#64748b",
+  "#60a5fa", "#fb923c", "#4ade80", "#f472b6", "#facc15",
+  "#a78bfa", "#2dd4bf", "#fbbf24", "#94a3b8",
+];
+
+// 年齢構成専用（明るめの色で、隣同士が似ないよう交互に暖色・寒色）
+const AGE_PALETTE = [
+  "#60a5fa", // 0-9 スカイブルー
+  "#fb923c", // 10-19 オレンジ
+  "#4ade80", // 20-29 ライトグリーン
+  "#f472b6", // 30-39 ピンク
+  "#facc15", // 40-49 イエロー
+  "#a78bfa", // 50-59 ラベンダー
+  "#22d3ee", // 60-69 シアン
+  "#f87171", // 70+ コーラルレッド
 ];
 
 function paletteShades(palette, n) {
@@ -417,7 +429,7 @@ function renderAiPeopleflow(area) {
   });
   aiChartAt("aiAgeChart", {
     type: "doughnut",
-    data: { labels: snap.ageLabels, datasets: [{ data: snap.agePct, backgroundColor: paletteShades(CONS_PALETTE, snap.ageLabels.length) }] },
+    data: { labels: snap.ageLabels, datasets: [{ data: snap.agePct, backgroundColor: paletteShades(AGE_PALETTE, snap.ageLabels.length) }] },
     options: { plugins: { legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 10 } } } } },
   });
 }
@@ -518,14 +530,16 @@ function renderAiDemographics(area) {
       <div class="note">人口出典: ${dm.source || "地域・年齢別人口"}。所得出典: 岡崎市統計。賃料・地価は「物件情報」画面で確認できます。</div>
     </div>`;
 
-  const ageColors = ["#93c5fd", "#3b82f6", "#1e3a8a"];
   aiChartAt("aiDemoAgeChart", {
     type: "doughnut",
     data: {
       labels: dm.age_structure.map(a => a.label),
-      datasets: [{ data: dm.age_structure.map(a => a.pct), backgroundColor: ageColors }],
+      datasets: [{
+        data: dm.age_structure.map(a => a.pct),
+        backgroundColor: paletteShades(AGE_PALETTE, dm.age_structure.length),
+      }],
     },
-    options: { plugins: { legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 11 } } } } },
+    options: { plugins: { legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 10 } } } } },
   });
   if (dm.household && dm.household.length) {
     aiChartAt("aiDemoHouseChart", {
@@ -625,7 +639,7 @@ function renderAiVisitors(area) {
   });
   aiChartAt("aiVisitorAgeChart", {
     type: "doughnut",
-    data: { labels: snap.ageLabels, datasets: [{ data: snap.agePct, backgroundColor: paletteShades(CONS_PALETTE, snap.ageLabels.length) }] },
+    data: { labels: snap.ageLabels, datasets: [{ data: snap.agePct, backgroundColor: paletteShades(AGE_PALETTE, snap.ageLabels.length) }] },
     options: { plugins: { legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 10 } } } } },
   });
 }
@@ -1024,7 +1038,7 @@ function updatePeople() {
   // 年代別
   chartAt("ageChart", {
     type: "doughnut",
-    data: { labels: ageLabels, datasets: [{ data: agePct, backgroundColor: paletteShades(CONS_PALETTE, ageLabels.length) }] },
+    data: { labels: ageLabels, datasets: [{ data: agePct, backgroundColor: paletteShades(AGE_PALETTE, ageLabels.length) }] },
     options: { plugins: { legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 10 }, padding: 6 } } } },
   });
   // 性別
@@ -1544,9 +1558,9 @@ function renderConsumer() {
     data: {
       labels: nearAge.map(x => x.label),
       datasets: [{ data: nearAge.map(x => x.pct),
-        backgroundColor: consShades(CONS_DOUGHNUT_3, nearAge.length) }],
+        backgroundColor: paletteShades(AGE_PALETTE, nearAge.length) }],
     },
-    options: { plugins: { legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 11 } } } } },
+    options: { plugins: { legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 10 } } } } },
   });
   document.getElementById("consNearPopNote").innerHTML =
     `最多町字: ${(np.areas && np.areas[0]) ? np.areas[0].name + "（" + fmt(np.areas[0].population) + "人）" : "—"}`;
@@ -1679,14 +1693,16 @@ function renderDemographics() {
     areaEl.innerHTML = "";
   }
 
-  const ageColors = ["#93c5fd", "#3b82f6", "#1e3a8a"];
   new Chart(document.getElementById("demoAgeChart"), {
     type: "doughnut",
     data: {
       labels: dm.age_structure.map(a => a.label),
-      datasets: [{ data: dm.age_structure.map(a => a.pct), backgroundColor: ageColors }],
+      datasets: [{
+        data: dm.age_structure.map(a => a.pct),
+        backgroundColor: paletteShades(AGE_PALETTE, dm.age_structure.length),
+      }],
     },
-    options: { plugins: { legend: { position: "right", labels: { boxWidth: 10, font: { size: 11 } } } } },
+    options: { plugins: { legend: { position: "right", labels: { boxWidth: 10, font: { size: 10 } } } } },
   });
 
   if (dm.household && dm.household.length) {
@@ -1715,6 +1731,7 @@ function renderDemographics() {
       (dm.population_date ? `（人口基準日: ${dm.population_date}）` : "")
     );
     if (dm.notes && dm.notes.population) demoItems.push(dm.notes.population);
+    if (dm.notes && dm.notes.age_structure) demoItems.push(dm.notes.age_structure);
     if (dm.notes && dm.notes.household) demoItems.push(dm.notes.household);
     if (dm.avg_household_size) {
       demoItems.push(`徒歩10分圏の1世帯当たり人口: ${dm.avg_household_size}人`);

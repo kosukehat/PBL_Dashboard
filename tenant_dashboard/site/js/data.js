@@ -336,19 +336,44 @@ window.DASHBOARD_DATA = {
       "households": 5501,
       "age_structure": [
         {
-          "label": "0-14歳",
-          "count": 1321,
-          "pct": 11.8
+          "label": "0-9歳",
+          "count": 847,
+          "pct": 7.6
         },
         {
-          "label": "15-64歳",
-          "count": 6435,
-          "pct": 57.7
+          "label": "10-19歳",
+          "count": 908,
+          "pct": 8.1
         },
         {
-          "label": "65歳以上",
-          "count": 3393,
-          "pct": 30.4
+          "label": "20-29歳",
+          "count": 1187,
+          "pct": 10.6
+        },
+        {
+          "label": "30-39歳",
+          "count": 1164,
+          "pct": 10.4
+        },
+        {
+          "label": "40-49歳",
+          "count": 1425,
+          "pct": 12.8
+        },
+        {
+          "label": "50-59歳",
+          "count": 1573,
+          "pct": 14.1
+        },
+        {
+          "label": "60-69歳",
+          "count": 1323,
+          "pct": 11.9
+        },
+        {
+          "label": "70歳以上",
+          "count": 2722,
+          "pct": 24.4
         }
       ],
       "source": "岡崎市オープンデータ（地域・年齢別人口）",
@@ -671,19 +696,44 @@ window.DASHBOARD_DATA = {
     "population_date": "2025-04-01",
     "age_structure": [
       {
-        "label": "0-14歳",
-        "count": 2441,
-        "pct": 12.9
+        "label": "0-9歳",
+        "count": 1528,
+        "pct": 8.1
       },
       {
-        "label": "15-64歳",
-        "count": 11188,
-        "pct": 59.2
+        "label": "10-19歳",
+        "count": 1770,
+        "pct": 9.4
       },
       {
-        "label": "65歳以上",
-        "count": 5257,
-        "pct": 27.8
+        "label": "20-29歳",
+        "count": 1954,
+        "pct": 10.3
+      },
+      {
+        "label": "30-39歳",
+        "count": 2036,
+        "pct": 10.8
+      },
+      {
+        "label": "40-49歳",
+        "count": 2541,
+        "pct": 13.5
+      },
+      {
+        "label": "50-59歳",
+        "count": 2699,
+        "pct": 14.3
+      },
+      {
+        "label": "60-69歳",
+        "count": 2186,
+        "pct": 11.6
+      },
+      {
+        "label": "70歳以上",
+        "count": 4172,
+        "pct": 22.1
       }
     ],
     "household": [
@@ -737,6 +787,7 @@ window.DASHBOARD_DATA = {
     },
     "notes": {
       "population": "徒歩10分圏（約800m）に相当する町字の合算。厳密な徒歩圏ではなく概算です。",
+      "age_structure": "年齢構成は10歳刻み（地域・年齢別人口の5歳区分を合算）。",
       "household": "岡崎市全体の調査サンプル。商圏限定の世帯構成ではありません。"
     }
   },
@@ -4049,9 +4100,21 @@ window.DASHBOARD_DATA = {
       "access": "名鉄バス「康生町」すぐ／康生交番隣",
       "area_note": "QURUWA回遊動線上の康生通り商業集積地に立地",
       "tenants": [
-        {"name": "Kyphy（キフィー）", "hours": "10:00〜18:00", "closed": "水曜日"},
-        {"name": "Beauty Studio Color", "hours": "不定期開催", "closed": ""},
-        {"name": "みどりやのTシャツ屋", "hours": "10:00〜18:00", "closed": "水曜日"}
+        {
+          "name": "Kyphy（キフィー）",
+          "hours": "10:00〜18:00",
+          "closed": "水曜日"
+        },
+        {
+          "name": "Beauty Studio Color",
+          "hours": "不定期開催",
+          "closed": ""
+        },
+        {
+          "name": "みどりやのTシャツ屋",
+          "hours": "10:00〜18:00",
+          "closed": "水曜日"
+        }
       ],
       "info_source": "ぽけろーかる（まちづくり岡崎）",
       "info_source_url": "https://pokelocal.jp/shop.php?uid=764",
