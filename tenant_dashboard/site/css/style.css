@@ -607,12 +607,6 @@ th { position: sticky; top: 0; background: #f8fafc; color: var(--muted); font-we
   border-bottom-left-radius: 4px;
 }
 .ai-msg.bot b { color: var(--brand); }
-.ai-msg .ai-msg-note {
-  display: block;
-  margin-top: 8px;
-  font-size: 11px;
-  color: var(--muted);
-}
 .ai-chat-input-row {
   display: flex;
   gap: 10px;

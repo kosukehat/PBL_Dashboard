@@ -449,7 +449,7 @@ function respondAiPeopleflow() {
     `（平日比 ${weekendDiff >= 0 ? "+" : ""}${weekendDiff}%）です。曜日ごとの差を見ることで、曜日別の来客変動を把握できます。<br><br>` +
     `<b>年代別グラフ</b>は通行者の年齢構成比（%）です。最多は<b>${s.ageLabels[s.topAgeIdx]}</b>（<b>${s.agePct[s.topAgeIdx]}%</b>）です。` +
     `各年代の割合を比較し、来街者の年齢分布を客観的に確認できます。` +
-    `<span class="ai-msg-note">※数値のみを提示しています。業種の適合性などの主観的判断は含みません。詳細は「人流分析」画面でも期間を変更して確認できます。</span>`
+    `詳細は「人流分析」画面でも期間を変更して確認できます。`
   );
 }
 
@@ -494,8 +494,7 @@ function respondAiStores() {
     `<b>業種別グラフ</b>は横棒で各業種の店舗数を示します。棒が長い業種ほど件数が多いことを意味します。` +
     `最多は<b>${top.category}</b>（<b>${top.count}件</b>）、最少は<b>${bottom.category}</b>（<b>${bottom.count}件</b>）です。<br><br>` +
     `内訳: ${catLines}。<br><br>` +
-    `グラフでは業種ごとの件数差を比較できます。店舗名・距離の一覧は「周辺店舗・競合」画面の店舗一覧で確認できます。` +
-    `<span class="ai-msg-note">※「店が少ない＝チャンス」などの解釈は行いません。件数の事実のみを示しています。</span>`
+    `グラフでは業種ごとの件数差を比較できます。店舗名・距離の一覧は「周辺店舗・競合」画面の店舗一覧で確認できます。`
   );
 }
 
@@ -569,8 +568,7 @@ function respondAiDemographics() {
       : "") +
     `家計所得（1人あたり）は<b>${inc.household_income_k ? fmt(inc.household_income_k) + "千円/年" : "—"}</b>` +
     `${inc.year_label ? `（${fmtYearLabel(inc.year_label)}）` : ""}です。` +
-    `賃料・地価の数値は「物件情報」画面で確認できます（賃料はダミー値）。` +
-    `<span class="ai-msg-note">※「単身が多ければ惣菜需要」などの需要推測は行いません。人口・所得の事実データのみを提示しています。</span>`
+    `賃料・地価の数値は「物件情報」画面で確認できます（賃料はダミー値）。`
   );
 }
 
@@ -657,8 +655,7 @@ function respondAiVisitors() {
     `最少は<b>${lo.ym}</b>（<b>${fmt(Math.round(lo.avg))}人/日</b>）で、差は約<b>${diffPct}%</b>です。` +
     `折れ線の上下で季節ごとの変動を確認できます。<br><br>` +
     `<b>曜日別グラフ</b>で平日と土日の差、<b>年代別グラフ</b>で通行者の年齢構成を確認できます。` +
-    `数値の大小を比較し、どの時期・曜日に通過者が多いかを把握してください。` +
-    `<span class="ai-msg-note">※来店者数・売上の推定は行いません。人流カメラの通行量データのみを提示しています。</span>`
+    `数値の大小を比較し、どの時期・曜日に通過者が多いかを把握してください。`
   );
 }
 
@@ -731,7 +728,7 @@ function respondAiCost() {
     `物件敷地そのものの価格ではありません。<br><br>` +
     `棒グラフで各水準の大小を比較できます。詳細は「物件情報」画面の賃料相場・地価でも確認できます。` +
     `人件費・光熱費・設備投資などの運営コストは別途確認が必要です。` +
-    `<span class="ai-msg-note">※「安い／高い」などの評価は行いません。掲載されている数値の事実のみを提示しています。${BUILDING_NAME}本体の公開募集賃料は見つかりませんでした。</span>`
+    `${BUILDING_NAME}本体の公開募集賃料は見つかりませんでした。`
   );
 }
 
@@ -778,7 +775,7 @@ function handleAiChat(text) {
       appendAiMessage("bot",
         "該当するデータセットが見つかりませんでした。上の例文を参考に、知りたい内容を入力してください。<br><br>" +
         AI_SCENARIOS.map((s, i) => `${i + 1}. 「${s.exact}」`).join("<br>") +
-        `<span class="ai-msg-note">デモ版では上記${AI_SCENARIOS.length}種類の質問に対応しています。主観的な評価は行いません。</span>`
+        `<br><br>デモ版では上記${AI_SCENARIOS.length}種類の質問に対応しています。`
       );
       chartArea.classList.add("hidden");
       chartArea.innerHTML = "";
@@ -819,8 +816,7 @@ function setupAiChat() {
 
   appendAiMessage("bot",
     "データに関する質問を入力してください。関連グラフを表示し、数値の見方を客観的に説明します。<br>" +
-    "上の例文をクリックするか、そのまま入力して送信できます。" +
-    `<span class="ai-msg-note">※デモ版。主観的な業種推奨や評価は行いません。</span>`
+    "上の例文をクリックするか、そのまま入力して送信できます。"
   );
 }
 
