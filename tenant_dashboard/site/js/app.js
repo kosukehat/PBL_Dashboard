@@ -42,6 +42,17 @@ function haversine(a, b, c, d) {
 }
 function fmt(n) { return Number(n).toLocaleString("ja-JP"); }
 
+function fillSourcesList(listId, items) {
+  const el = document.getElementById(listId);
+  if (!el) return;
+  el.innerHTML = items.filter(Boolean).map((html) => `<li>${html}</li>`).join("");
+}
+
+function sourceLink(label, url) {
+  if (!url) return label;
+  return `<a href="${url}" target="_blank" rel="noopener">${label}</a>`;
+}
+
 /* ---------- ナビゲーション ---------- */
 document.querySelectorAll(".nav-item").forEach(el => {
   el.addEventListener("click", () => {
@@ -165,14 +176,10 @@ function renderSummary() {
       ${b.area_note ? `<div class="overview-line"><span class="ol-label">立地</span><span>${b.area_note}</span></div>` : ""}
       ${b.facebook ? `<div class="overview-line"><span class="ol-label">SNS</span><span><a href="${b.facebook}" target="_blank" rel="noopener">Facebook</a></span></div>` : ""}
     </div>
-    ${tenants.length ? `<div class="card-title" style="margin-top:14px">公開されている入居店の例</div>${tenantRows}` : ""}
-    <div class="note" style="margin-top:10px">
-      出典: ${b.info_source_url
-        ? `<a href="${b.info_source_url}" target="_blank" rel="noopener">${b.info_source || "ぽけろーかる"}</a>`
-        : (b.info_source || "公開情報")}。営業時間は店舗により異なります。
-    </div>`;
+    ${tenants.length ? `<div class="card-title" style="margin-top:14px">公開されている入居店の例</div>${tenantRows}` : ""}`;
 
   renderRentBox();
+  renderSummarySources();
 
   // 地図
   const map = L.map("summaryMap").setView([b.lat, b.lon], 16);
@@ -232,13 +239,26 @@ function renderRentBox() {
     <div class="rent-line"><span>1階路面</span>${rentValue(`${fmt(rent.floor1_tsubo_yen[0])}〜${fmt(rent.floor1_tsubo_yen[1])} 円/坪`)}</div>
     <div class="rent-line"><span>2階以上</span>${rentValue(`${fmt(rent.floor2_tsubo_yen[0])}〜${fmt(rent.floor2_tsubo_yen[1])} 円/坪`)}</div>
     <div class="rent-line"><span>${BUILDING_NAME}（想定）</span>${rentValue(`${fmt(rent.this_building_tsubo_yen)} 円/坪`)}</div>
-    ${landLine}
-    <div class="note" style="margin-top:10px">
-      ${rent.rent_is_dummy ? "賃料の公開オープンデータは見つかりませんでした。表示はダミー値です。" : ""}
-      ${rent.land_is_dummy
-        ? "地価の取得に失敗したため参考値を表示しています。"
-        : `地価は<a href="${lp.source_url || '#'}" target="_blank" rel="noopener">${lp.source || "国土数値情報 地価公示"}</a>の標準地価格です（${lp.note || "物件敷地そのものではありません"}）。`}
-    </div>`;
+    ${landLine}`;
+}
+
+function renderSummarySources() {
+  const b = D.meta.building;
+  const rent = D.rent;
+  const lp = rent.land_price || {};
+  const buildingSrc = sourceLink(b.info_source || "公開情報", b.info_source_url);
+  const landSrc = rent.land_is_dummy
+    ? "地価: 取得に失敗したため参考値を表示"
+    : `地価: ${sourceLink(lp.source || "国土数値情報 地価公示", lp.source_url)}（最寄り標準地。物件敷地そのものではありません）`;
+
+  fillSourcesList("summarySourcesList", [
+    `施設概要・入居店例: ${buildingSrc}（営業時間は店舗により異なります）`,
+    rent.rent_is_dummy
+      ? "賃料相場: 公開オープンデータがないためダミー値"
+      : "賃料相場: 公開データに基づく参考値",
+    landSrc,
+    "地図: OpenStreetMap",
+  ]);
 }
 
 /* =========================================================
@@ -948,7 +968,7 @@ function updatePeople() {
   document.getElementById("peopleLead").innerHTML =
     `選択期間（<b>${periodFrom}〜${periodTo}</b>）の康生通りは、ピークが<b>${peakHour}時台</b>（約${fmt(byHour[peakHour])}人/日）。` +
     `年代は<b>${ageLabels[topAgeIdx]}</b>が最多（${agePct[topAgeIdx]}%）。` +
-    `<br><span class="muted">※上の期間ボタン／プルダウンで表示期間を変更できます。性別「不明」が多いのはAIカメラの判定特性によるものです。</span>`;
+    `<br><span class="muted">※上の期間ボタン／プルダウンで表示期間を変更できます。</span>`;
 
   // 通行量の推移
   drawTimeline(tsMode, daily, agg.sel);
@@ -1229,8 +1249,7 @@ function renderStores() {
   const restaurant = (cats.find(c => c.category === "レストラン・食堂") || {}).count || 0;
   document.getElementById("storesLead").innerHTML =
     `半径${st.radius_m}m以内の飲食・食品店は<b>${st.points.length}件</b>です。業種別ではレストラン・食堂が<b>${restaurant}件</b>、` +
-    `カフェ・喫茶が<b>${cafe}件</b>です。<br>` +
-    `<span class="muted">※食品営業許可・届出ベースのため、物販・サービス業（美容/学習塾/フィットネス等）は含みません。</span>`;
+    `カフェ・喫茶が<b>${cafe}件</b>です。`;
 
   const b = D.meta.building;
   const map = L.map("storeMap").setView([b.lat, b.lon], 16);
@@ -1331,8 +1350,7 @@ function renderConsumer() {
   document.getElementById("consumerLead").innerHTML =
     `令和6年度市民意識調査（<b>${fmt(sv.respondents || 0)}人</b>）と、岡崎市の人口・所得・食品営業データを表示します。` +
     `康生周辺（${np.area_count || 0}町字）の居住人口は<b>${fmt(np.population || 0)}人</b>、` +
-    `世帯数は<b>${fmt(np.households || 0)}世帯</b>（${np.date || "—"}時点）です。` +
-    `<br><span class="muted">${c.summary_note || ""}</span>`;
+    `世帯数は<b>${fmt(np.households || 0)}世帯</b>（${np.date || "—"}時点）です。`;
 
   document.getElementById("consumerKpi").innerHTML = [
     {
@@ -1425,8 +1443,7 @@ function renderConsumer() {
     options: { indexAxis: "y", plugins: { legend: { display: false } },
       scales: { x: { grid: { color: grid }, title: { display: true, text: "件数" } } } },
   });
-  document.getElementById("consFoodNote").textContent =
-    "岡崎市内の現存する食品等営業許可・届出件数（種別別）。飲食・菓子等の「消費ジャンル」の市全体像。";
+  document.getElementById("consFoodNote").textContent = "";
 
   // 交通手段
   consChart("consTransportChart", {
@@ -1451,7 +1468,7 @@ function renderConsumer() {
     options: { plugins: { legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 11 } } } } },
   });
   document.getElementById("consNearPopNote").innerHTML =
-    `${np.note || ""} 最多町字: ${(np.areas && np.areas[0]) ? np.areas[0].name + "（" + fmt(np.areas[0].population) + "人）" : "—"}`;
+    `最多町字: ${(np.areas && np.areas[0]) ? np.areas[0].name + "（" + fmt(np.areas[0].population) + "人）" : "—"}`;
 
   // 人口推移
   const popItems = (c.city_population_trend && c.city_population_trend.items) || [];
@@ -1501,8 +1518,7 @@ function renderConsumer() {
         },
       },
     });
-    document.getElementById("consIncomeNote").textContent =
-      (c.income_trend.source || "") + "。" + (c.income_note || "");
+    document.getElementById("consIncomeNote").textContent = c.income_note || "";
   } else {
     document.getElementById("consIncomeNote").textContent = c.income_note || "所得データを取得できませんでした。";
   }
@@ -1537,6 +1553,15 @@ function renderConsumer() {
     `中心市街地への出没は「あまり／全く多くない」が約${sv.center_city_visit ? (sv.center_city_visit.filter(x => x.code >= 4).reduce((s, x) => s + x.pct, 0)).toFixed(1) : "—"}%と、` +
     `日常の来店獲得・回遊促進の余地を示唆します。` +
     (sv.commerce_sat_avg != null ? ` 商業・観光満足度の平均は<b>${sv.commerce_sat_avg}</b>点（10点満点）。` : "");
+
+  fillSourcesList("consumerSourcesList", [
+    `市民意識調査: ${(sv.source || "岡崎市オープンデータ（令和6年度市民意識調査）")}`,
+    `康生周辺人口: ${(np.source || "岡崎市オープンデータ（地域・年齢別人口）")}${np.note ? `（${np.note}）` : ""}`,
+    "市内食品営業: 岡崎市「食品等営業許可・届出一覧」（BODIK）",
+    `人口・世帯数の推移: ${((c.city_population_trend && c.city_population_trend.source) || "岡崎市オープンデータ（人口・世帯数等）")}`,
+    `所得・産業構成: ${((c.income_trend && c.income_trend.source) || "岡崎市統計")}`,
+    c.summary_note || "",
+  ]);
 }
 
 /* =========================================================
@@ -1597,21 +1622,34 @@ function renderDemographics() {
 
   document.getElementById("futureBox").innerHTML = fut.items.map(i => `
     <div class="future-item"><div class="fi-label">${i.label}</div>
-    <div class="fi-value">${i.value}</div><div class="fi-note">${i.note}${i.url ? ` <a href="${i.url}" target="_blank" rel="noopener">出典</a>` : ""}</div></div>`).join("")
-    + (fut.is_dummy
-      ? '<div class="note" style="grid-column:1/-1">※将来性・都市計画はダミー。</div>'
-      : "");
+    <div class="fi-value">${i.value}</div><div class="fi-note">${i.note || ""}</div></div>`).join("");
 
-  if (!dm.is_dummy && dm.notes) {
-    const extra = document.createElement("div");
-    extra.className = "note";
-    extra.style.marginTop = "12px";
-    extra.innerHTML = `<b>データ出典:</b> ${dm.source || ""} ` +
-      (dm.population_date ? `（人口基準日: ${dm.population_date}）` : "") +
-      `<br>${dm.notes.population || ""} ${dm.notes.household ? "<br>" + dm.notes.household : ""}` +
-      (dm.avg_household_size ? `<br>徒歩10分圏の1世帯当たり人口: ${dm.avg_household_size}人` : "");
-    document.getElementById("demographics").querySelector(".card-row").after(extra);
+  const demoItems = [];
+  if (dm.is_dummy) {
+    demoItems.push("人口・世帯: ダミーデータ");
+  } else {
+    demoItems.push(
+      `人口・世帯: ${dm.source || "岡崎市オープンデータ（地域・年齢別人口・市民意識調査）"}` +
+      (dm.population_date ? `（人口基準日: ${dm.population_date}）` : "")
+    );
+    if (dm.notes && dm.notes.population) demoItems.push(dm.notes.population);
+    if (dm.notes && dm.notes.household) demoItems.push(dm.notes.household);
+    if (dm.avg_household_size) {
+      demoItems.push(`徒歩10分圏の1世帯当たり人口: ${dm.avg_household_size}人`);
+    }
   }
+  if (fut.is_dummy) {
+    demoItems.push("将来性・都市計画: ダミー");
+  } else {
+    demoItems.push(`将来性・都市計画（総括）: ${fut.source || "公開資料"}`);
+    (fut.items || []).forEach((i) => {
+      if (!i.url && !i.note) return;
+      demoItems.push(
+        `${i.label}: ${i.note || ""}${i.url ? ` ${sourceLink("資料", i.url)}` : ""}`.trim()
+      );
+    });
+  }
+  fillSourcesList("demoSourcesList", demoItems);
 }
 
 /* ---------- 実行 ---------- */

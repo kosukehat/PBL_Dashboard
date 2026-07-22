@@ -72,6 +72,14 @@
           </div>
         </div>
         <div id="aiChartArea" class="ai-chart-area hidden"></div>
+
+        <footer class="screen-sources" aria-label="データ出典">
+          <div class="screen-sources-title">データ出典</div>
+          <ul>
+            <li>本ダッシュボード全体: 岡崎市オープンデータ（BODIK）／国土地理院／岡崎市統計 等</li>
+            <li>各分析画面の末尾にも、その画面で使っているデータの出典をまとめています</li>
+          </ul>
+        </footer>
       </section>
 
       <!-- 画面2: 物件情報 -->
@@ -113,6 +121,11 @@
           </div>
           <button type="button" class="ai-cta-btn" id="goToAiAssistant">AIで相談する →</button>
         </div>
+
+        <footer class="screen-sources" id="summarySources" aria-label="データ出典">
+          <div class="screen-sources-title">データ出典</div>
+          <ul id="summarySourcesList"></ul>
+        </footer>
       </section>
 
       <!-- 画面3: 人流分析（時系列・イベント統合） -->
@@ -205,6 +218,15 @@
           <p class="note" id="eventLead"></p>
           <div class="table-wrap"><table id="eventTable"></table></div>
         </div>
+
+        <footer class="screen-sources" aria-label="データ出典">
+          <div class="screen-sources-title">データ出典</div>
+          <ul>
+            <li>人流: 岡崎市「QURUWA地区の人流データ」（BODIK）。通行量は康生通りカメラ地点の通過人数であり、特定店舗への来店者数ではありません</li>
+            <li>性別「不明」が多いのは、AIカメラの判定特性によるものです</li>
+            <li>周辺イベント: 岡崎市「イベント一覧」（BODIK）</li>
+          </ul>
+        </footer>
       </section>
 
       <!-- 画面3: 周辺店舗 -->
@@ -231,6 +253,15 @@
           <div class="card-title">店舗一覧</div>
           <div class="table-wrap"><table id="storeTable"></table></div>
         </div>
+
+        <footer class="screen-sources" aria-label="データ出典">
+          <div class="screen-sources-title">データ出典</div>
+          <ul>
+            <li>周辺店舗: 岡崎市「食品等営業許可・届出一覧」（BODIK）。物販・サービス業（美容／学習塾／フィットネス等）は含みません</li>
+            <li>住所の座標化: 国土地理院ジオコーダ</li>
+            <li>地図: OpenStreetMap</li>
+          </ul>
+        </footer>
       </section>
 
       <!-- 画面4: 消費者傾向 -->
@@ -309,13 +340,18 @@
           <div class="table-wrap"><table id="consIndustryTable"></table></div>
           <div class="note" id="consSummaryNote"></div>
         </div>
+
+        <footer class="screen-sources" id="consumerSources" aria-label="データ出典">
+          <div class="screen-sources-title">データ出典</div>
+          <ul id="consumerSourcesList"></ul>
+        </footer>
       </section>
 
       <!-- 画面5: 商圏人口 -->
       <section id="demographics" class="screen">
         <header class="screen-head">
           <h1>商圏人口分析 <span id="demoDummyBadge"></span></h1>
-          <p class="lead">徒歩5分／10分圏の人口を、地域・年齢別人口から概算して表示します。年齢構成・世帯構成・賃料相場（※ダミー）・将来性もあわせて確認できます。</p>
+          <p class="lead">徒歩5分／10分圏の人口を、地域・年齢別人口から概算して表示します。年齢構成・世帯構成・将来性もあわせて確認できます。</p>
         </header>
 
         <div class="kpi-grid" id="demoKpi"></div>
@@ -336,6 +372,11 @@
           <div class="card-title">将来性・都市計画</div>
           <div id="futureBox" class="future-box"></div>
         </div>
+
+        <footer class="screen-sources" id="demoSources" aria-label="データ出典">
+          <div class="screen-sources-title">データ出典</div>
+          <ul id="demoSourcesList"></ul>
+        </footer>
       </section>
     </main>
   </div>

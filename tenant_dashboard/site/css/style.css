@@ -252,6 +252,34 @@ th { position: sticky; top: 0; background: #f8fafc; color: var(--muted); font-we
 
 /* 注記・ダミー */
 .note { font-size: 12px; color: var(--muted); margin-top: 10px; line-height: 1.6; }
+.note:empty { display: none; }
+
+/* 画面末尾のデータ出典（カード外） */
+.screen-sources {
+  margin-top: 28px;
+  padding: 16px 0 4px;
+  border-top: 1px solid var(--line);
+}
+.screen-sources-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+  margin: 0 0 8px;
+  letter-spacing: 0.02em;
+}
+.screen-sources ul {
+  margin: 0;
+  padding: 0 0 0 1.15em;
+  list-style: disc;
+}
+.screen-sources li {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin: 2px 0;
+}
+.screen-sources a { color: var(--brand); }
+
 .dummy-badge {
   display: inline-block; background: #fef3c7; color: #92400e; font-size: 11px;
   padding: 2px 10px; border-radius: 20px; font-weight: 700; margin-left: 6px;
