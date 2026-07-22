@@ -1228,8 +1228,8 @@ function renderStores() {
   const sweets = (cats.find(c => c.category === "スイーツ・ベーカリー") || {}).count || 0;
   const restaurant = (cats.find(c => c.category === "レストラン・食堂") || {}).count || 0;
   document.getElementById("storesLead").innerHTML =
-    `半径${st.radius_m}m以内に飲食・食品の店が<b>${st.points.length}件</b>。うち<b>レストラン・食堂</b>が<b>${restaurant}件</b>と多い一方、` +
-    `カフェ・喫茶は<b>${cafe}件</b>と手薄で余地があります。<br>` +
+    `半径${st.radius_m}m以内の飲食・食品店は<b>${st.points.length}件</b>です。業種別ではレストラン・食堂が<b>${restaurant}件</b>、` +
+    `カフェ・喫茶が<b>${cafe}件</b>です。<br>` +
     `<span class="muted">※食品営業許可・届出ベースのため、物販・サービス業（美容/学習塾/フィットネス等）は含みません。</span>`;
 
   const b = D.meta.building;
@@ -1329,10 +1329,9 @@ function renderConsumer() {
   const topJob = (sv.occupations || []).slice().sort((a, b) => b.pct - a.pct)[0];
 
   document.getElementById("consumerLead").innerHTML =
-    `令和6年度市民意識調査（<b>${fmt(sv.respondents || 0)}人</b>）と岡崎市の人口・所得・食品営業データから、` +
-    `「市民が何に・どこで・どう消費しているか」の傾向を把握できます。` +
+    `令和6年度市民意識調査（<b>${fmt(sv.respondents || 0)}人</b>）と、岡崎市の人口・所得・食品営業データを表示します。` +
     `康生周辺（${np.area_count || 0}町字）の居住人口は<b>${fmt(np.population || 0)}人</b>、` +
-    `世帯数<b>${fmt(np.households || 0)}世帯</b>（${np.date || "—"}時点）。` +
+    `世帯数は<b>${fmt(np.households || 0)}世帯</b>（${np.date || "—"}時点）です。` +
     `<br><span class="muted">${c.summary_note || ""}</span>`;
 
   document.getElementById("consumerKpi").innerHTML = [
