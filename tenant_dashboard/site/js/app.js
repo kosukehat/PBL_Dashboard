@@ -1050,6 +1050,39 @@ function updatePeople() {
   renderEventTable();
 }
 
+function addDaysISO(dateStr, n) {
+  const d = new Date(dateStr + "T00:00:00");
+  d.setDate(d.getDate() + n);
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
+
+/** 日付を週ラベル（week_start）へ写像。labels は昇順の week_start 配列。 */
+function weekKeyForDate(dateStr, weekLabels) {
+  let best = null;
+  for (const ws of weekLabels) {
+    if (ws <= dateStr) best = ws;
+    else break;
+  }
+  return best;
+}
+
+function periodKeyForEvent(mode, dateStr, labels) {
+  if (!dateStr) return null;
+  if (mode === "daily") return dateStr;
+  if (mode === "monthly") return dateStr.slice(0, 7);
+  return weekKeyForDate(dateStr, labels);
+}
+
+function weekEndFor(weekStart) {
+  const all = D.peopleflow.timeseries.weekly.map(w => w.week_start);
+  const i = all.indexOf(weekStart);
+  if (i >= 0 && i < all.length - 1) return addDaysISO(all[i + 1], -1);
+  return addDaysISO(weekStart, 6);
+}
+
 function drawTimeline(mode, daily, selMonths) {
   const ts = D.peopleflow.timeseries;
   const ev = (D.events && D.events.items) || [];
@@ -1061,13 +1094,13 @@ function drawTimeline(mode, daily, selMonths) {
     const rows = ts.monthly.filter(m => selMonths.includes(m.ym));
     labels = rows.map(m => m.ym);
     data = rows.map(m => m.avg);
-    note = "月ごとの1日平均通行量。季節性・出店時期の判断に。";
+    note = "月ごとの1日平均通行量。オレンジ▲は周辺イベントがある月。点をクリックすると、その月のイベント一覧を下に表示します。";
     pointRadius = 3;
   } else if (mode === "weekly") {
     const rows = ts.weekly.filter(w => w.week_start >= start && w.week_start <= end);
     labels = rows.map(w => w.week_start);
     data = rows.map(w => w.avg);
-    note = "週ごと（週の1日平均）。短期の増減・施策効果の確認に。";
+    note = "週ごと（週の1日平均）。オレンジ▲は周辺イベントがある週。点をクリックすると、その週のイベント一覧を下に表示します。";
   } else { // daily
     labels = daily.map(d => d.date);
     data = daily.map(d => d.count);
@@ -1076,9 +1109,9 @@ function drawTimeline(mode, daily, selMonths) {
   }
 
   const pointBg = data.map((_, i) =>
-    (mode === "daily" && labels[i] === selectedTsDate) ? "#f59e0b" : "#2563eb");
+    (labels[i] === selectedTsDate) ? "#f59e0b" : "#2563eb");
   const pointRad = data.map((_, i) =>
-    (mode === "daily" && labels[i] === selectedTsDate) ? 8 : pointRadius);
+    (labels[i] === selectedTsDate) ? 8 : pointRadius);
 
   const datasets = [{
     label: "人/日", data,
@@ -1087,22 +1120,21 @@ function drawTimeline(mode, daily, selMonths) {
     pointRadius: pointRad, pointBackgroundColor: pointBg, pointBorderColor: pointBg,
   }];
 
-  if (mode === "daily") {
-    const idx = {};
-    daily.forEach((d) => (idx[d.date] = d.count));
-    const pts = [];
-    ev.forEach(e => {
-      if (e.rep_date && idx[e.rep_date] !== undefined) {
-        pts.push({ x: e.rep_date, y: idx[e.rep_date], name: e.name });
-      }
-    });
-    if (pts.length) {
-      datasets.push({
-        label: "イベント", type: "scatter", data: pts,
-        pointRadius: 6, pointHoverRadius: 8, showLine: false,
-        pointStyle: "triangle", backgroundColor: "#f59e0b", borderColor: "#b45309",
-      });
+  const idx = {};
+  labels.forEach((lab, i) => { idx[lab] = data[i]; });
+  const pts = [];
+  ev.forEach(e => {
+    const key = periodKeyForEvent(mode, e.rep_date, labels);
+    if (key && idx[key] !== undefined) {
+      pts.push({ x: key, y: idx[key], name: e.name });
     }
+  });
+  if (pts.length) {
+    datasets.push({
+      label: "イベント", type: "scatter", data: pts,
+      pointRadius: 6, pointHoverRadius: 8, showLine: false,
+      pointStyle: "triangle", backgroundColor: "#f59e0b", borderColor: "#b45309",
+    });
   }
 
   if (tsChart) tsChart.destroy();
@@ -1114,14 +1146,14 @@ function drawTimeline(mode, daily, selMonths) {
       responsive: true,
       interaction: { mode: "nearest", intersect: false },
       onClick: (_evt, elements, chart) => {
-        if (mode !== "daily" || !elements.length) return;
+        if (!elements.length) return;
         const el = elements[0];
         const raw = chart.data.datasets[el.datasetIndex].data[el.index];
-        const date = (raw && typeof raw === "object" && raw.x) ? raw.x : labels[el.index];
-        if (date) showTsDayEvents(date);
+        const key = (raw && typeof raw === "object" && raw.x) ? raw.x : labels[el.index];
+        if (key) showTsDayEvents(key);
       },
       plugins: {
-        legend: { display: mode === "daily", labels: { boxWidth: 12, font: { size: 11 } } },
+        legend: { display: pts.length > 0, labels: { boxWidth: 12, font: { size: 11 } } },
         tooltip: {
           callbacks: {
             label: (c) => c.dataset.type === "scatter"
@@ -1138,7 +1170,7 @@ function drawTimeline(mode, daily, selMonths) {
   });
   document.getElementById("tsNote").textContent = note;
 
-  if (mode === "daily" && selectedTsDate && labels.includes(selectedTsDate)) {
+  if (selectedTsDate && labels.includes(selectedTsDate)) {
     showTsDayEvents(selectedTsDate, false);
   }
 }
@@ -1165,6 +1197,30 @@ function eventsOnDate(dateStr) {
   return all.filter(e => e.start <= dateStr && e.end >= dateStr);
 }
 
+function eventsInBucket(mode, key) {
+  if (mode === "daily") return eventsOnDate(key);
+  const all = (D.events && D.events.items) || [];
+  if (mode === "monthly") {
+    const start = key + "-01", end = key + "-31";
+    return all.filter(e => e.start <= end && e.end >= start);
+  }
+  const start = key, end = weekEndFor(key);
+  return all.filter(e => e.start <= end && e.end >= start);
+}
+
+function flowForBucket(mode, key) {
+  if (mode === "daily") {
+    const dayRow = tsDailyCache.find(d => d.date === key);
+    return dayRow ? dayRow.count : null;
+  }
+  if (mode === "monthly") {
+    const row = D.peopleflow.timeseries.monthly.find(m => m.ym === key);
+    return row ? row.avg : null;
+  }
+  const row = D.peopleflow.timeseries.weekly.find(w => w.week_start === key);
+  return row ? row.avg : null;
+}
+
 function buildEventRow(e, flowOverride, upliftOverride) {
   const flow = flowOverride != null ? flowOverride : e.rep_flow;
   const uplift = upliftOverride !== undefined ? upliftOverride : e.uplift_pct;
@@ -1185,35 +1241,60 @@ function hideTsDayEvents() {
   document.getElementById("tsDayEvents").classList.add("hidden");
 }
 
-function showTsDayEvents(dateStr, redrawChart = true) {
-  if (tsMode !== "daily") return;
-  selectedTsDate = dateStr;
-  const dayRow = tsDailyCache.find(d => d.date === dateStr);
-  const flow = dayRow ? dayRow.count : null;
-  const uplift = upliftPctForDay(dateStr, flow);
-  const events = eventsOnDate(dateStr);
-  const dowLabel = dayRow ? PF_DOW[dayRow.dow] : "";
+function showTsDayEvents(key, redrawChart = true) {
+  selectedTsDate = key;
+  const events = eventsInBucket(tsMode, key);
+  const flow = flowForBucket(tsMode, key);
 
-  document.getElementById("tsDayEventsTitle").textContent =
-    `${dateStr}（${dowLabel}）のイベント`;
-  document.getElementById("tsDayEventsLead").innerHTML =
-    flow != null
+  let title, lead, emptyMsg, rows;
+  if (tsMode === "daily") {
+    const dayRow = tsDailyCache.find(d => d.date === key);
+    const uplift = upliftPctForDay(key, flow);
+    const dowLabel = dayRow ? PF_DOW[dayRow.dow] : "";
+    title = `${key}（${dowLabel}）のイベント`;
+    lead = flow != null
       ? `この日の通行量は <b>${fmt(flow)} 人/日</b>（同曜日中央値比 ${formatUplift(uplift)}）。` +
         (events.length
           ? ` 周辺イベント <b>${events.length}件</b> が開催されていました。`
           : " この日に記録されている周辺イベントはありません。")
       : "この日の人流データがありません。";
+    emptyMsg = "この日に開催された周辺イベントはありません";
+    rows = events.length
+      ? events.map(e => buildEventRow(e, flow, uplift)).join("")
+      : null;
+  } else if (tsMode === "weekly") {
+    const end = weekEndFor(key);
+    title = `${key}〜${end}（週）のイベント`;
+    lead = flow != null
+      ? `この週の1日平均通行量は <b>${fmt(flow)} 人/日</b>。` +
+        (events.length
+          ? ` 周辺イベント <b>${events.length}件</b> が含まれます。`
+          : " この週に記録されている周辺イベントはありません。")
+      : "この週の人流データがありません。";
+    emptyMsg = "この週に開催された周辺イベントはありません";
+    rows = events.length ? events.map(e => buildEventRow(e)).join("") : null;
+  } else {
+    title = `${key}（月）のイベント`;
+    lead = flow != null
+      ? `この月の1日平均通行量は <b>${fmt(flow)} 人/日</b>。` +
+        (events.length
+          ? ` 周辺イベント <b>${events.length}件</b> が含まれます。`
+          : " この月に記録されている周辺イベントはありません。")
+      : "この月の人流データがありません。";
+    emptyMsg = "この月に開催された周辺イベントはありません";
+    rows = events.length ? events.map(e => buildEventRow(e)).join("") : null;
+  }
 
-  const rows = events.length
-    ? events.map(e => buildEventRow(e, flow, uplift)).join("")
-    : `<tr><td colspan="6" class="muted" style="text-align:center;padding:16px">この日に開催された周辺イベントはありません</td></tr>`;
-
-  document.getElementById("tsDayEventTable").innerHTML = EVENT_TABLE_HEAD + rows;
+  document.getElementById("tsDayEventsTitle").textContent = title;
+  document.getElementById("tsDayEventsLead").innerHTML = lead;
+  document.getElementById("tsDayEventTable").innerHTML = EVENT_TABLE_HEAD + (
+    rows || `<tr><td colspan="6" class="muted" style="text-align:center;padding:16px">${emptyMsg}</td></tr>`
+  );
   document.getElementById("tsDayEvents").classList.remove("hidden");
 
   if (redrawChart) {
     const agg = aggregatePeriod();
-    drawTimeline("daily", tsDailyCache, agg.sel);
+    drawTimeline(tsMode, tsDailyCache, agg.sel);
   }
 }
 
