@@ -1703,7 +1703,8 @@ function renderDemographics() {
 
   document.getElementById("futureBox").innerHTML = fut.items.map(i => `
     <div class="future-item"><div class="fi-label">${i.label}</div>
-    <div class="fi-value">${i.value}</div><div class="fi-note">${i.note || ""}</div></div>`).join("");
+    <div class="fi-value">${i.url ? sourceLink(i.value, i.url) : i.value}</div>
+    <div class="fi-note">${i.note || ""}</div></div>`).join("");
 
   const demoItems = [];
   if (dm.is_dummy) {

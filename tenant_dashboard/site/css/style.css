@@ -288,6 +288,15 @@ th { position: sticky; top: 0; background: #f8fafc; color: var(--muted); font-we
 .future-item { background: #f8fafc; border-radius: 10px; padding: 14px; }
 .future-item .fi-label { font-size: 12px; color: var(--muted); }
 .future-item .fi-value { font-size: 16px; font-weight: 700; margin: 4px 0; color: var(--good); }
+.future-item .fi-value a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease;
+}
+.future-item .fi-value a:hover {
+  border-bottom-color: currentColor;
+}
 .future-item .fi-note { font-size: 11px; color: var(--muted); }
 
 #rentBox .rent-line {
